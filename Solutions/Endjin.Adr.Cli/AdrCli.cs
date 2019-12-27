@@ -1,4 +1,4 @@
-﻿// <copyright file="Program.cs" company="Endjin Limited">
+﻿// <copyright file="AdrCli.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -13,7 +13,7 @@ namespace Endjin.Adr.Cli
     /// <summary>
     /// A CLI tool for creating and manading Architectural Decision Records.
     /// </summary>
-    public class Program
+    public class AdrCli
     {
         /// <summary>
         /// Main entry point into the application.
@@ -26,16 +26,15 @@ namespace Endjin.Adr.Cli
             {
                 Name = "adr",
                 FullName = "dotnet-adr",
-                LongVersionGetter = () => new Version(FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion).ToString(),
-                ShortVersionGetter = () => typeof(Program).Assembly.GetName().Version.ToString(),
+                LongVersionGetter = () => new Version(FileVersionInfo.GetVersionInfo(typeof(AdrCli).Assembly.Location).ProductVersion).ToString(),
+                ShortVersionGetter = () => typeof(AdrCli).Assembly.GetName().Version.ToString(),
                 Description = @"This tool is distributed under the APACHE 2.0 licence and the source code is available on GitHub https://github.com/endjin/dotnet-adr",
             };
 
             app.HelpOption();
 
             var optionInit = app.Option("-i|--init <DIRECTORY>", "Initialises the directory of architecture decision records", CommandOptionType.SingleValue)
-                                  .IsRequired()
-                                  .Accepts(v => v.ExistingDirectory());
+                                  .IsRequired();
 
             app.OnExecute(() =>
             {

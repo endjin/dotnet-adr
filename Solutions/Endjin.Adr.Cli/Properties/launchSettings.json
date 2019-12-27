@@ -2,7 +2,7 @@
   "profiles": {
     "Endjin.Adr.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "--init foo"
+      "commandLineArgs": "--init 'adr/repo'"
     }
   }
 }
