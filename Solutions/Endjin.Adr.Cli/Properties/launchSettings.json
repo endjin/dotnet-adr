@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Endjin.Adr.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "--init foo"
+    }
+  }
+}

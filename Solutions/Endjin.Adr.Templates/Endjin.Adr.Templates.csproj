@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\Common.GitHub.proj" />
+  <Import Project="..\Common.NuGet.proj" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageDescription>A collection of Architecture Decision Record Templates for the ADR .NET CLI tool.</PackageDescription>
+    <PackageTags>ADR endjin tools dotnetcli</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="alexandrian\template.md">
+      <PackagePath>content\alexandrian</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="business-case\template.md">
+      <PackagePath>content\business-case</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="madr\template.md">
+      <PackagePath>content\madr</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="nygard\template.md">
+      <PackagePath>content\nygard</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="planguage\template.md">
+      <PackagePath>content\planguage</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="tyree-ackerman\template.md">
+      <PackagePath>content\tyree-ackerman</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
+
+</Project>
