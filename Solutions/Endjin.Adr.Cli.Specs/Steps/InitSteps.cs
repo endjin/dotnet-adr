@@ -22,17 +22,17 @@
         {
             this.scenarioContext.Set(directory, "Directory");
         }
-        
+
         [When(@"I execute the adr cli")]
-        public void WhenIExecuteTheAdrCli()
+        public async Task WhenIExecuteTheAdrCli()
         {
-            var args = new string[] { "--init",  this.scenarioContext.Get<string>("Directory") };
-            
-            var result = AdrCli.Main(args);
+            var args = new string[] { "init",  this.scenarioContext.Get<string>("Directory") };
+
+            var result = await AdrCli.Main(args);
 
             this.scenarioContext.Set(result, "Result");
         }
-        
+
         [Then(@"a new ADR repository has been created with an initial readme\.md file")]
         public void ThenANewADRRepositoryHasBeenCreatedWithAnInitialReadme_MdFile()
         {
