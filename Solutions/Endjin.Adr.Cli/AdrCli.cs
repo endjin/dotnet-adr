@@ -31,8 +31,7 @@ namespace Endjin.Adr.Cli
 
             var appEnvironmentManager = serviceProvider.GetRequiredService<IAppEnvironmentManager>();
 
-            await appEnvironmentManager.SetDesiredStateAsync().ConfigureAwait(false);
-
+            // await appEnvironmentManager.SetDesiredStateAsync().ConfigureAwait(false);
             var cmd = new CommandLineBuilder()
                 .AddCommand(new InitialiseAdrRepositoryCommandHandler().Create())
                 .AddCommand(new TemplatesCommandHandler(serviceProvider.GetRequiredService<ITemplateSettingsMananger>()).Create())
