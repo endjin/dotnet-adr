@@ -14,7 +14,7 @@ namespace Endjin.Adr.Cli.Configuration
         /// <summary>
         /// Gets or sets the selected ADR template name.
         /// </summary>
-        public string SelectedTemplateName { get; set; }
+        public string DefaultTemplate { get; set; }
 
         public TemplatePackageMetaData MetaData { get; set; }
     }

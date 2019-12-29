@@ -30,10 +30,10 @@ namespace Endjin.Adr.Cli.Configuration
                 var templateSettings = new TemplateSettings
                 {
                     MetaData = templateMetaData,
-                    SelectedTemplateName = templateMetaData.Templates.FirstOrDefault(x => x.Contains("madr")),
+                    DefaultTemplate = templateMetaData.Details.FirstOrDefault(x => x.IsDefault).FullPath,
                 };
 
-                this.templateSettingsMananger.SaveSettings(templateSettings, $"{nameof(TemplateSettings)}.json");
+                this.templateSettingsMananger.SaveSettings(templateSettings, nameof(TemplateSettings));
             }
         }
     }

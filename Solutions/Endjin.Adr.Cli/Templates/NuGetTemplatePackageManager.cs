@@ -13,6 +13,8 @@ namespace Endjin.Adr.Cli.Templates
     using System.Threading;
     using System.Threading.Tasks;
     using Endjin.Adr.Cli.Contracts;
+    using Microsoft.Toolkit.Parsers.Markdown;
+    using Microsoft.Toolkit.Parsers.Markdown.Blocks;
     using NuGet.Common;
     using NuGet.Configuration;
     using NuGet.Frameworks;
@@ -35,12 +37,75 @@ namespace Endjin.Adr.Cli.Templates
 
         public async Task<TemplatePackageMetaData> InstallLatestAsync()
         {
-            return await this.GetLatestTemplatePackage("Endjin.Adr.Templates", "any", this.appEnvironment.TemplatesPath).ConfigureAwait(false);
+            var templateMetaData = await this.GetLatestTemplatePackage("Endjin.Adr.Templates", "any", this.appEnvironment.TemplatesPath).ConfigureAwait(false);
+
+            templateMetaData.Details = await this.GetTemplatePackageDetails(templateMetaData.TemplatePath, templateMetaData.Templates).ConfigureAwait(false);
+
+            return templateMetaData;
         }
 
-        private Task GetPackage(string v1, string v2)
+        private async Task<List<TemplatePackageDetail>> GetTemplatePackageDetails(string templatePackagePath, List<string> templates)
         {
-            throw new NotImplementedException();
+            var packageDetails = new List<TemplatePackageDetail>();
+
+            MarkdownDocument document = new MarkdownDocument();
+
+            foreach (var template in templates)
+            {
+                var details = new TemplatePackageDetail
+                {
+                    Id = template.Split('/')[1],
+                    FullPath = Path.GetFullPath(Path.Combine(templatePackagePath, template)),
+                };
+
+                document.Parse(await File.ReadAllTextAsync(details.FullPath).ConfigureAwait(false));
+
+                YamlHeaderBlock metadata = document.Blocks.FirstOrDefault(x => x.Type == MarkdownBlockType.YamlHeader) as YamlHeaderBlock;
+
+                if (metadata.Children.TryGetValue("Authors", out string authors))
+                {
+                    details.Authors = authors;
+                }
+
+                if (metadata.Children.TryGetValue("Description", out string description))
+                {
+                    details.Description = description;
+                }
+
+                if (metadata.Children.TryGetValue("Effort", out string effort))
+                {
+                    details.Effort = effort;
+                }
+
+                if (metadata.Children.TryGetValue("Default", out string @default))
+                {
+                    details.IsDefault = bool.Parse(@default);
+                }
+
+                if (metadata.Children.TryGetValue("Last Modified", out string lastModified))
+                {
+                    details.LastModified = DateTime.Parse(lastModified);
+                }
+
+                if (metadata.Children.TryGetValue("More Info", out string moreInfo))
+                {
+                    details.MoreInfo = moreInfo;
+                }
+
+                if (metadata.Children.TryGetValue("Title", out string title))
+                {
+                    details.Title = title;
+                }
+
+                if (metadata.Children.TryGetValue("Version", out string version))
+                {
+                    details.Version = Version.Parse(version);
+                }
+
+                packageDetails.Add(details);
+            }
+
+            return packageDetails;
         }
 
         private async Task<TemplatePackageMetaData> GetLatestTemplatePackage(string packageId, string frameworkVersion, string templateRepositoryPath)
@@ -87,7 +152,7 @@ namespace Endjin.Adr.Cli.Templates
 
                 var resolver = new PackageResolver();
 
-                var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None).Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
+                var packageToInstall = resolver.Resolve(resolverContext, CancellationToken.None).Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p))).FirstOrDefault();
                 var packagePathResolver = new PackagePathResolver(SettingsUtility.GetGlobalPackagesFolder(settings));
 
                 var packageExtractionContext = new PackageExtractionContext(
@@ -97,64 +162,59 @@ namespace Endjin.Adr.Cli.Templates
                     NullLogger.Instance);
 
                 var frameworkReducer = new FrameworkReducer();
+                var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
+                PackageReaderBase packageReader;
 
-                foreach (SourcePackageDependencyInfo packageToInstall in packagesToInstall)
+                if (installedPath == null)
                 {
-                    PackageReaderBase packageReader;
-                    var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
+                    var downloadResource = await packageToInstall.Source.GetResourceAsync<DownloadResource>(CancellationToken.None).ConfigureAwait(false);
 
-                    if (installedPath == null)
-                    {
-                        var downloadResource = await packageToInstall.Source.GetResourceAsync<DownloadResource>(CancellationToken.None).ConfigureAwait(false);
+                    var downloadResult = await downloadResource.GetDownloadResourceResultAsync(
+                        packageToInstall,
+                        new PackageDownloadContext(cacheContext),
+                        SettingsUtility.GetGlobalPackagesFolder(settings),
+                        NullLogger.Instance,
+                        CancellationToken.None).ConfigureAwait(false);
 
-                        var downloadResult = await downloadResource.GetDownloadResourceResultAsync(
-                            packageToInstall,
-                            new PackageDownloadContext(cacheContext),
-                            SettingsUtility.GetGlobalPackagesFolder(settings),
-                            NullLogger.Instance,
-                            CancellationToken.None).ConfigureAwait(false);
+                    await PackageExtractor.ExtractPackageAsync(
+                        downloadResult.PackageSource,
+                        downloadResult.PackageStream,
+                        packagePathResolver,
+                        packageExtractionContext,
+                        CancellationToken.None).ConfigureAwait(false);
 
-                        await PackageExtractor.ExtractPackageAsync(
-                            downloadResult.PackageSource,
-                            downloadResult.PackageStream,
-                            packagePathResolver,
-                            packageExtractionContext,
-                            CancellationToken.None).ConfigureAwait(false);
-
-                        packageReader = downloadResult.PackageReader;
-                    }
-                    else
-                    {
-                        packageReader = new PackageFolderReader(installedPath);
-                    }
-
-                    var templatePackageMetaData = new TemplatePackageMetaData();
-
-                    var identity = await packageReader.GetIdentityAsync(CancellationToken.None).ConfigureAwait(false);
-                    var contentItems = packageReader.GetContentItems().ToList();
-
-                    templatePackageMetaData.Name = identity.Id;
-                    templatePackageMetaData.Version = identity.Version.OriginalVersion;
-                    templatePackageMetaData.TemplateRepositoryPath = templateRepositoryPath;
-
-                    foreach (var contentItem in contentItems)
-                    {
-                        templatePackageMetaData.Templates.AddRange(contentItem.Items);
-                    }
-
-                    var packageFileExtractor = new PackageFileExtractor(
-                       templatePackageMetaData.Templates,
-                       XmlDocFileSaveMode.None);
-
-                    packageReader.CopyFiles(
-                       Path.Join(templatePackageMetaData.TemplateRepositoryPath, templatePackageMetaData.Version),
-                       templatePackageMetaData.Templates,
-                       packageFileExtractor.ExtractPackageFile,
-                       NullLogger.Instance,
-                       CancellationToken.None);
-
-                    templatePackageMetaDataList.Add(templatePackageMetaData);
+                    packageReader = downloadResult.PackageReader;
                 }
+                else
+                {
+                    packageReader = new PackageFolderReader(installedPath);
+                }
+
+                var identity = await packageReader.GetIdentityAsync(CancellationToken.None).ConfigureAwait(false);
+                var templatePackageMetaData = new TemplatePackageMetaData
+                {
+                    Name = identity.Id,
+                    Version = identity.Version.OriginalVersion,
+                    RepositoryPath = templateRepositoryPath,
+                };
+
+                foreach (var contentItem in packageReader.GetContentItems())
+                {
+                    templatePackageMetaData.Templates.AddRange(contentItem.Items);
+                }
+
+                var packageFileExtractor = new PackageFileExtractor(
+                    templatePackageMetaData.Templates,
+                    XmlDocFileSaveMode.None);
+
+                packageReader.CopyFiles(
+                    Path.Join(templatePackageMetaData.RepositoryPath, templatePackageMetaData.Version),
+                    templatePackageMetaData.Templates,
+                    packageFileExtractor.ExtractPackageFile,
+                    NullLogger.Instance,
+                    CancellationToken.None);
+
+                templatePackageMetaDataList.Add(templatePackageMetaData);
             }
 
             return templatePackageMetaDataList.FirstOrDefault();

@@ -18,7 +18,7 @@ namespace Endjin.Adr.Cli
     public static class AdrCli
     {
         /// <summary>
-        /// Main entry point into the application.
+        /// Architectural Decision Records .NET Global Tool.
         /// </summary>
         /// <param name="args">Command Line Switches.</param>
         /// <returns>Exit Code.</returns>
@@ -35,7 +35,7 @@ namespace Endjin.Adr.Cli
 
             var cmd = new CommandLineBuilder()
                 .AddCommand(new InitialiseAdrRepositoryCommandHandler().Create())
-                .AddCommand(new ListCommandHandler().Create())
+                .AddCommand(new TemplatesCommandHandler(serviceProvider.GetRequiredService<ITemplateSettingsMananger>()).Create())
                 .UseDefaults()
                 .Build();
 

@@ -1,7 +1,12 @@
-# ADR template for business case
-
-This ADR template emphasizes creating a business case for a decision, including critera, candidates, and costs.
-
+---
+Title: Business Case Pattern.
+Description: Emphasizes creating a business case for a decision, including critera, candidates, and costs.
+Authors: Joel Parker Henderson
+Effort: High
+More Info: https://github.com/joelparkerhenderson/architecture_decision_record#adr-example-templates
+Version: 1.0.0.0
+Last Modified: 2019-12-29 20:13
+---
 ## Top-level
 
 * Title
@@ -71,8 +76,6 @@ This ADR template emphasizes creating a business case for a decision, including 
 
     * Weaknesses
 
-
-
   * Internal opinions and feedback
 
     * Summary
@@ -129,4 +132,3 @@ This ADR template emphasizes creating a business case for a decision, including 
   * Summary
 
   * Specifics
-

@@ -4,7 +4,6 @@
 
 namespace Endjin.Adr.Cli.Configuration
 {
-    using System;
     using System.IO;
     using Endjin.Adr.Cli.Contracts;
     using Newtonsoft.Json;
@@ -21,7 +20,8 @@ namespace Endjin.Adr.Cli.Configuration
 
         public T LoadSettings(string fileName)
         {
-            string filePath = this.GetLocalFilePath(fileName);
+            string filePath = $"{this.GetLocalFilePath(fileName)}.json";
+
             return File.Exists(filePath) ? JsonConvert.DeserializeObject<T>(File.ReadAllText(filePath)) : null;
         }
 
@@ -30,13 +30,11 @@ namespace Endjin.Adr.Cli.Configuration
             string filePath = this.GetLocalFilePath(fileName);
             string json = JsonConvert.SerializeObject(settings);
 
-            File.WriteAllText(filePath, json);
+            File.WriteAllText($"{filePath}.json", json);
         }
 
         private string GetLocalFilePath(string fileName)
         {
-            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
             return Path.Combine(this.appEnvironment.ConfigurationPath, fileName);
         }
     }

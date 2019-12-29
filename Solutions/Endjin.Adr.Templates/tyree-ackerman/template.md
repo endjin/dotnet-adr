@@ -1,5 +1,12 @@
-# ADR template by Jeff Tyree and Art Akerman
-
+---
+Title: Tyree & Akerman Pattern.
+Description: ADR approach by Jeff Tyree and Art Akerman, Capital One Financial
+Authors: Jeff Tyree and Art Akerman
+Effort: High
+More Info: https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf
+Version: 1.0.0.0
+Last Modified: 2019-12-29 20:13
+---
 This is the Architecture decision description template published in ["Architecture Decisions: Demystifying Architecture" by Jeff Tyree and Art Akerman, Capital One Financial](https://www.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf).
 
 * **Issue**: Describe the architectural design issue you’re addressing, leaving no questions about why you’re addressing this issue now. Following a minimalist approach, address and document only the issues that need addressing at various points in the life cycle.

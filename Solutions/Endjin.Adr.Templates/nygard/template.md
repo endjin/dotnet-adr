@@ -1,5 +1,13 @@
-# ADR template by Michael Nygard, see http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
-
+---
+Title: Nygard Pattern.
+Description: A simple, low-friction "Agile" ADR approach.
+Authors: Michael Nygard
+Effort: Low
+More Info: http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
+Version: 1.0.0.0
+Last Modified: 2019-12-29 20:13
+Default: True
+---
 # Title
 
 ## Status

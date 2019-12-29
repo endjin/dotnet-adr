@@ -1,7 +1,12 @@
-# ADR template using Planguage
-
-See http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effective%20Non-func.pdf
-
+---
+Title: Planguage Pattern.
+Description: A Quality Assurance oriented approach.
+Authors: John Terzakis
+Effort: High
+More Info: http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effective%20Non-func.pdf
+Version: 1.0.0.0
+Last Modified: 2019-12-29 20:13
+---
 ## What is Planguage?
 
 Planguage is a planning language that uses these keywords:
@@ -20,4 +25,3 @@ Planguage is a planning language that uses these keywords:
 * Assumptions: Anything that could cause problems if untrue now or later
 * Risks: Anything that could cause malfunction, delay, or other negative impacts
 * Defined: The definition of a term (better to use a glossary)
-

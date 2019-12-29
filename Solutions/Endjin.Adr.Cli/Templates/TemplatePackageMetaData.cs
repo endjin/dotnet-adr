@@ -6,6 +6,7 @@ namespace Endjin.Adr.Cli.Templates
 {
     using System.Collections.Generic;
     using System.IO;
+    using Newtonsoft.Json;
 
     public class TemplatePackageMetaData
     {
@@ -13,8 +14,11 @@ namespace Endjin.Adr.Cli.Templates
 
         public string Version { get; set; }
 
-        public string TemplateRepositoryPath { get; set; }
+        public string RepositoryPath { get; set; }
 
+        public List<TemplatePackageDetail> Details { get; set; } = new List<TemplatePackageDetail>();
+
+        [JsonIgnore]
         public List<string> Templates { get; set; } = new List<string>();
 
         public string Id
@@ -29,7 +33,7 @@ namespace Endjin.Adr.Cli.Templates
         {
             get
             {
-                return Path.Combine(this.TemplateRepositoryPath, this.Version);
+                return Path.Combine(this.RepositoryPath, this.Version);
             }
         }
     }

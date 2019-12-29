@@ -3,6 +3,44 @@ Tools for adopting and using Architectural Decision Records
 
 See https://github.com/joelparkerhenderson/architecture_decision_record for a comprehensive overview of ADR.
 
+## dotnet global tools
+
+`adr` is a dotnet global tool. 
+
+To list all the global tools installed on your machine, open a command prompt and type:
+
+`dotnet tool list -g`
+
+To install the `adr` global tool use the following command:
+
+`dotnet tool install -g adr`
+
+To install a specific version, use:
+
+`dotnet tool install -g adr --version <version-number>`
+
+To update to the latest version of the tool, use:
+
+`dotnet tool update -g adr`
+
+To uninstall the tool, use:
+
+`dotnet tool uninstall -g adr`
+
+## ADR Commands
+
+`adr init <PATH>`
+
+`adr templates`
+
+`adr templates update`
+
+`adr templates install <VERSION>`
+
+`adr templates list`
+
+`adr templates default <TEMPLATE ID>`
+
 ## Licenses
 
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/endjin/Endjin.Adr/master/LICENSE)
@@ -22,6 +60,12 @@ We produce two free weekly newsletters; [Azure Weekly](https://azureweekly.info)
 Keep up with everything that's going on at endjin via our [blog](https://blogs.endjin.com/), follow us on [Twitter](https://twitter.com/endjin), or [LinkedIn](https://www.linkedin.com/company/1671851/).
 
 Our other Open Source projects can be found on [GitHub](https://endjin.com/open-source)
+
+## Acknowledgements
+
+- [Joel Parker Henderson](https://github.com/joelparkerhenderson) for [collating the various ADR templates](https://github.com/joelparkerhenderson/architecture_decision_record) we make use of.
+- [David Glick](https://daveaglick.com/) for his incredibly [useful blog series](https://daveaglick.com/posts/exploring-the-nuget-v3-libraries-part-1) on the NuGet v3 SDK API.
+- [Martin Björkström](https://twitter.com/mholo65) for his [excellent gist](https://gist.github.com/mholo65/ad5776c36559410f45d5dcd0181a5c64) that does the heavy lifting of downloading and extracting NuGet packages.
 
 ## Code of conduct
 
