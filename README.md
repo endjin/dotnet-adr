@@ -39,7 +39,9 @@ To uninstall the tool, use:
 
 `adr templates list`
 
-`adr templates default <TEMPLATE ID>`
+`adr templates default show`
+
+`adr templates default set <TEMPLATE ID>`
 
 ## Licenses
 

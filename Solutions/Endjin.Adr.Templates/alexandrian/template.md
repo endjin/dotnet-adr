@@ -1,5 +1,5 @@
 ---
-Title: Alexandrian Pattern.
+Title: Alexandrian Pattern
 Description: ADR using the Alexandrian Pattern Language Approach.
 Authors: Christopher Alexander et. al
 Effort: Medium
@@ -7,6 +7,8 @@ More Info: https://en.wikipedia.org/wiki/Pattern_language
 Version: 1.0.0.0
 Last Modified: 2019-12-29 20:13
 ---
+# Title
+
 ## Introduction
 
 * Prologue (Summary)

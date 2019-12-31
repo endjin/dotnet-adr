@@ -1,5 +1,5 @@
 ---
-Title: Planguage Pattern.
+Title: Planguage Pattern
 Description: A Quality Assurance oriented approach.
 Authors: John Terzakis
 Effort: High
@@ -7,6 +7,8 @@ More Info: http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifyi
 Version: 1.0.0.0
 Last Modified: 2019-12-29 20:13
 ---
+# Title
+
 ## What is Planguage?
 
 Planguage is a planning language that uses these keywords:

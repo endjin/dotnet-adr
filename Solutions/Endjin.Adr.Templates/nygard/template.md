@@ -1,5 +1,5 @@
 ---
-Title: Nygard Pattern.
+Title: Nygard Pattern
 Description: A simple, low-friction "Agile" ADR approach.
 Authors: Michael Nygard
 Effort: Low

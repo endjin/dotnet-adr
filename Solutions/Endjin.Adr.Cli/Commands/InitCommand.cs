@@ -1,4 +1,4 @@
-﻿// <copyright file="InitialiseAdrRepositoryCommandHandler.cs" company="Endjin Limited">
+﻿// <copyright file="InitCommand.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -8,11 +8,11 @@ namespace Endjin.Adr.Cli.Commands
     using System.CommandLine;
     using System.CommandLine.Invocation;
 
-    public class InitialiseAdrRepositoryCommandHandler
+    public class InitCommand
     {
         public Command Create()
         {
-            var cmd = new Command("init", "Initialises a new ADR repository")
+            var cmd = new Command("init", "Initialises a new ADR repository.")
             {
                 Handler = CommandHandler.Create((string path) =>
                 {

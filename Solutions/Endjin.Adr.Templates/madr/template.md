@@ -1,5 +1,5 @@
 ---
-Title: Markdown Architectural Decision Records (MADR).
+Title: Markdown Architectural Decision Records (MADR)
 Description: Architectural Decisions using Markdown and Architectural Decision Records
 Authors: Oliver Kopp
 Effort: High
@@ -7,6 +7,8 @@ More Info: https://adr.github.io/madr/
 Version: 1.0.0.0
 Last Modified: 2019-12-29 20:13
 ---
+# Title 
+
 # [short title of solved problem and solution]
 
 * Status: [proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)] <!-- optional -->
