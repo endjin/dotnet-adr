@@ -7,7 +7,6 @@ namespace Endjin.Adr.Cli.Commands
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
-    using System.Linq;
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Contracts;
 
@@ -29,8 +28,10 @@ namespace Endjin.Adr.Cli.Commands
                     if (!string.IsNullOrEmpty(templateId))
                     {
                         var templateSettings = this.templateSettingsMananger.LoadSettings(nameof(TemplateSettings));
-                        var template = templateSettings.MetaData.Details.FirstOrDefault(x => x.Id == templateId);
+                        var template = templateSettings.MetaData.Details.Find(x => x.Id == templateId);
+
                         templateSettings.DefaultTemplate = template.FullPath;
+
                         this.templateSettingsMananger.SaveSettings(templateSettings, nameof(TemplateSettings));
 
                         Console.WriteLine($"Setting \"{template.Title}\" as the default ADR template.");

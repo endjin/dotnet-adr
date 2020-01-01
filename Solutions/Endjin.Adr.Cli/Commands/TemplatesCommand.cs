@@ -9,10 +9,12 @@ namespace Endjin.Adr.Cli.Commands
 
     public class TemplatesCommand
     {
+        private readonly ITemplatePackageManager templatePackageMananger;
         private readonly ITemplateSettingsMananger templateSettingsMananger;
 
-        public TemplatesCommand(ITemplateSettingsMananger templateSettingsMananger)
+        public TemplatesCommand(ITemplatePackageManager templatePackageMananger, ITemplateSettingsMananger templateSettingsMananger)
         {
+            this.templatePackageMananger = templatePackageMananger;
             this.templateSettingsMananger = templateSettingsMananger;
         }
 
@@ -21,9 +23,9 @@ namespace Endjin.Adr.Cli.Commands
             var cmd = new Command("templates", "Perform operations on ADR templates.");
 
             cmd.AddCommand(new TemplatesDefaultCommand(this.templateSettingsMananger).Create());
-            cmd.AddCommand(new TemplatesInstallCommand().Create());
+            /*cmd.AddCommand(new TemplatesInstallCommand().Create());*/
             cmd.AddCommand(new TemplatesListCommand(this.templateSettingsMananger).Create());
-            cmd.AddCommand(new TemplatesUpdateCommand().Create());
+            cmd.AddCommand(new TemplatesUpdateCommand(this.templatePackageMananger, this.templateSettingsMananger).Create());
 
             return cmd;
         }

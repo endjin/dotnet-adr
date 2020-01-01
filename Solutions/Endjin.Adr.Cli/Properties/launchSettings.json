@@ -2,7 +2,7 @@
   "profiles": {
     "Endjin.Adr.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "templates default"
+      "commandLineArgs": "templates update"
     }
   }
 }

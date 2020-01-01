@@ -7,6 +7,7 @@ namespace Endjin.Adr.Cli.Commands
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
+    using System.IO;
 
     public class InitCommand
     {
@@ -16,11 +17,25 @@ namespace Endjin.Adr.Cli.Commands
             {
                 Handler = CommandHandler.Create((string path) =>
                 {
-                    Console.WriteLine($"Init Repository in {path}");
+                    if (string.IsNullOrEmpty(path))
+                    {
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "docs", "adr");
+                    }
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+
+                        Console.WriteLine($"Created ADR Repository in '{path}'");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"'{path}' already exists.");
+                    }
                 }),
             };
 
-            cmd.AddArgument(new Argument<string>("path"));
+            cmd.AddArgument(new Argument<string>("path") { Arity = ArgumentArity.ZeroOrOne });
 
             return cmd;
         }

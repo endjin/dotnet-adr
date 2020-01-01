@@ -7,7 +7,6 @@ namespace Endjin.Adr.Cli.Commands
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
-    using System.Linq;
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Contracts;
 
@@ -27,7 +26,7 @@ namespace Endjin.Adr.Cli.Commands
                 Handler = CommandHandler.Create(() =>
                 {
                     var templateSettings = this.templateSettingsMananger.LoadSettings(nameof(TemplateSettings));
-                    var template = templateSettings.MetaData.Details.FirstOrDefault(x => x.FullPath == templateSettings.DefaultTemplate);
+                    var template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
 
                     Console.WriteLine($"Title: {template.Title}");
                     Console.WriteLine($"Id: {template.Id}");
