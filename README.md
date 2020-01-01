@@ -1,11 +1,11 @@
 # Endjin.Adr
-Tools for adopting and using Architectural Decision Records
+A .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
 See https://github.com/joelparkerhenderson/architecture_decision_record for a comprehensive overview of ADR.
 
 ## dotnet global tools
 
-`adr` is a dotnet global tool. 
+`adr` is a .NET global tool. 
 
 To list all the global tools installed on your machine, open a command prompt and type:
 
@@ -27,21 +27,63 @@ To uninstall the tool, use:
 
 `dotnet tool uninstall -g adr`
 
+## dotnet suggest
+
+`adr` supports [dotnet suggest](https://github.com/dotnet/command-line-api/wiki/dotnet-suggest), for tab based auto completion.
+
+To install dotnet suggest:
+
+`dotnet tool install -g dotnet-suggest`
+
+Next check if you have a PowerShell profile configured, by opening a PowerShell prompt and typing the following:
+
+`echo $profile`
+
+You should see something like:
+
+`$ENV:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`
+
+If you don't see such a file run the following command:
+
+`Invoke-WebRequest -Uri https://raw.githubusercontent.com/dotnet/command-line-api/master/src/System.CommandLine.Suggest/dotnet-suggest-shim.ps1 -OutFile $profile`
+
+Otherwise, copy the contents of the file above and paste it into your pre-existing profile.
+
 ## ADR Commands
 
 `adr init <PATH>`
 
+`adr new <TITLE>`
+
+`adr new -s <RECORD NUMBER> <TITLE>`
+
 `adr templates`
 
-`adr templates update`
+`adr templates default show`
+
+`adr templates default set <TEMPLATE ID>`
 
 `adr templates install <VERSION>`
 
 `adr templates list`
 
-`adr templates default show`
+`adr templates update`
 
-`adr templates default set <TEMPLATE ID>`
+## System Details
+
+An application profile folder is created in:
+
+`%%UserProfile%%\AppData\Roaming\endjin\dotnet-adr`
+
+Templates are stored in:
+
+`templates\`
+
+Configuration in:
+
+`configuration\`
+
+The templates NuGet package is cached in `%%UserProfile%%\.nuget\packages`. 
 
 ## Licenses
 
@@ -53,7 +95,9 @@ For any licensing questions, please email [&#108;&#105;&#99;&#101;&#110;&#115;&#
 
 ## Project Sponsor
 
-This project is sponsored by [endjin](https://endjin.com), a UK based Microsoft Gold Partner for Cloud Platform, Data Platform, Data Analytics, DevOps, and a Power BI Partner.
+This project is sponsored by [endjin](https://endjin.com), a UK based Microsoft Gold Partner for Cloud Platform, Data Platform, Data Analytics, DevOps, a Power BI Partner, and .NET Foundation Corporate Sponsor.
+
+We help small teams achieve big things.
 
 For more information about our products and services, or for commercial support of this project, please [contact us](https://endjin.com/contact-us). 
 
