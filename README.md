@@ -1,4 +1,4 @@
-# Endjin.Adr
+# dotnet-adr
 A .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
 See https://github.com/joelparkerhenderson/architecture_decision_record for a comprehensive overview of ADR.
