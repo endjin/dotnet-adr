@@ -7,6 +7,7 @@ namespace Endjin.Adr.Cli.Commands
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
+    using System.Globalization;
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Contracts;
 
@@ -34,7 +35,7 @@ namespace Endjin.Adr.Cli.Commands
                     Console.WriteLine($"Authors: {template.Authors}");
                     Console.WriteLine($"Effort: {template.Effort}");
                     Console.WriteLine($"More Info: {template.MoreInfo}");
-                    Console.WriteLine($"Last Modified: {template.LastModified.ToString()}");
+                    Console.WriteLine($"Last Modified: {template.LastModified.ToString(CultureInfo.InvariantCulture)}");
                     Console.WriteLine($"Version: {template.Version}");
                 }),
             };

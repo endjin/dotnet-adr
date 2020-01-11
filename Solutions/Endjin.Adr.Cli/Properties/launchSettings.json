@@ -2,7 +2,7 @@
   "profiles": {
     "Endjin.Adr.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "new --s \"001\" \"Implement as Unix shell scripts\""
+      "commandLineArgs": "new --id \"1\"  \"Implement as Unix shell scripts\""
     }
   }
 }

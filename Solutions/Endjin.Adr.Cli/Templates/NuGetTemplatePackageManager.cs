@@ -8,6 +8,7 @@ namespace Endjin.Adr.Cli.Templates
 
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Threading;
@@ -39,7 +40,7 @@ namespace Endjin.Adr.Cli.Templates
         {
             var templateMetaData = await this.GetLatestTemplatePackage("Endjin.Adr.Templates", "any", this.appEnvironment.TemplatesPath).ConfigureAwait(false);
 
-            templateMetaData.Details = await this.GetTemplatePackageDetails(templateMetaData.TemplatePath, templateMetaData.Templates).ConfigureAwait(false);
+            templateMetaData.Details.AddRange(await this.GetTemplatePackageDetails(templateMetaData.TemplatePath, templateMetaData.Templates).ConfigureAwait(false));
 
             return templateMetaData;
         }
@@ -84,7 +85,7 @@ namespace Endjin.Adr.Cli.Templates
 
                 if (metadata.Children.TryGetValue("Last Modified", out string lastModified))
                 {
-                    details.LastModified = DateTime.Parse(lastModified);
+                    details.LastModified = DateTime.Parse(lastModified, CultureInfo.InvariantCulture);
                 }
 
                 if (metadata.Children.TryGetValue("More Info", out string moreInfo))
@@ -130,7 +131,7 @@ namespace Endjin.Adr.Cli.Templates
                         nuGetFramework,
                         cacheContext,
                         NullLogger.Instance,
-                        CancellationToken.None);
+                        CancellationToken.None).ConfigureAwait(false);
 
                     if (dependencyInfo == null)
                     {

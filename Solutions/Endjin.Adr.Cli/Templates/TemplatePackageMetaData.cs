@@ -16,10 +16,10 @@ namespace Endjin.Adr.Cli.Templates
 
         public string RepositoryPath { get; set; }
 
-        public List<TemplatePackageDetail> Details { get; set; } = new List<TemplatePackageDetail>();
+        public List<TemplatePackageDetail> Details { get; } = new List<TemplatePackageDetail>();
 
         [JsonIgnore]
-        public List<string> Templates { get; set; } = new List<string>();
+        public List<string> Templates { get; } = new List<string>();
 
         public string Id
         {

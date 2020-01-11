@@ -34,7 +34,7 @@ namespace Endjin.Adr.Cli
 
             var cmd = new CommandLineBuilder()
                 .AddCommand(new InitCommand().Create())
-                .AddCommand(new NewCommand().Create())
+                .AddCommand(new NewCommand(serviceProvider.GetRequiredService<ITemplateSettingsMananger>()).Create())
                 .AddCommand(new TemplatesCommand(serviceProvider.GetRequiredService<ITemplatePackageManager>(), serviceProvider.GetRequiredService<ITemplateSettingsMananger>()).Create())
                 .UseDefaults()
                 .Build();
