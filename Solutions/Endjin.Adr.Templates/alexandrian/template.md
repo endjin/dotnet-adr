@@ -9,6 +9,8 @@ Last Modified: 2019-12-29 20:13
 ---
 # Title
 
+## Status
+
 ## Introduction
 
 * Prologue (Summary)
@@ -16,20 +18,20 @@ Last Modified: 2019-12-29 20:13
 * Solution (Decision)
 * Consequences (Results)
 
-## Specifics ##
+## Prologue
 
-* Prologue (Summary)
-  * Statement to summarize:
-    * In the context of (use case)<br>
-      facing (concern)<br>
-      we decided for (option)<br>
-      to achieve (quality)<br>
-      accepting (downside).
-* Discussion (Context)
+In the context of (use case) facing (concern) we decided for (option) to achieve (quality) accepting (downside).
+
+## Discussion
+
   * Explains the forces at play (technical, political, social, project).
   * This is the story explaining the problem we are looking to resolve.
-* Solution
+
+## Solution
+
   * Explains how the decision will solve the problem.
-* Consequences
+
+## Consequences
+
   * Explains the results of the decision over the long term.
   * Did it work, not work, was changed, upgraded, etc.

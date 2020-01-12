@@ -39,6 +39,7 @@ namespace Endjin.Adr.Cli.Commands
                         {
                             Path = file,
                             RecordNumber = int.Parse(fileInfo.Name.Substring(0, 4)),
+                            Content = File.ReadAllText(file),
                         };
 
                         adrs.Add(existingAdr);
