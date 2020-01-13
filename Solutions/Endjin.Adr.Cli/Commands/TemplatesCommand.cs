@@ -26,6 +26,7 @@ namespace Endjin.Adr.Cli.Commands
             /*cmd.AddCommand(new TemplatesInstallCommand().Create());*/
             cmd.AddCommand(new TemplatesListCommand(this.templateSettingsMananger).Create());
             cmd.AddCommand(new TemplatesUpdateCommand(this.templatePackageMananger, this.templateSettingsMananger).Create());
+            cmd.AddCommand(new TemplatesPackageCommand(this.templateSettingsMananger).Create());
 
             return cmd;
         }

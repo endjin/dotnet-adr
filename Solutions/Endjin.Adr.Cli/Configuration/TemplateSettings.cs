@@ -16,6 +16,8 @@ namespace Endjin.Adr.Cli.Configuration
         /// </summary>
         public string DefaultTemplate { get; set; }
 
+        public string DefaultTemplatePackage { get; set; }
+
         public TemplatePackageMetaData MetaData { get; set; }
     }
 }

@@ -26,11 +26,14 @@ namespace Endjin.Adr.Cli.Configuration
             if (!this.appEnvironment.IsInitialized())
             {
                 this.appEnvironment.Initialize();
-                var templateMetaData = await this.templateManager.InstallLatestAsync().ConfigureAwait(false);
+
+                var defaultPackageId = "Endjin.Adr.Templates";
+                var templateMetaData = await this.templateManager.InstallLatestAsync(defaultPackageId).ConfigureAwait(false);
                 var templateSettings = new TemplateSettings
                 {
                     MetaData = templateMetaData,
                     DefaultTemplate = templateMetaData.Details.FirstOrDefault(x => x.IsDefault).FullPath,
+                    DefaultTemplatePackage = defaultPackageId,
                 };
 
                 this.templateSettingsMananger.SaveSettings(templateSettings, nameof(TemplateSettings));

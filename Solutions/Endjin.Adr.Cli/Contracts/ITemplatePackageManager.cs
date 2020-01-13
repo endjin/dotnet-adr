@@ -9,6 +9,6 @@ namespace Endjin.Adr.Cli.Contracts
 
     public interface ITemplatePackageManager
     {
-        Task<TemplatePackageMetaData> InstallLatestAsync();
+        Task<TemplatePackageMetaData> InstallLatestAsync(string packageId);
     }
 }

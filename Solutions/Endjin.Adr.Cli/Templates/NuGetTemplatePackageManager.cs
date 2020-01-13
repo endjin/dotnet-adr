@@ -36,9 +36,9 @@ namespace Endjin.Adr.Cli.Templates
             this.appEnvironment = appEnvironment;
         }
 
-        public async Task<TemplatePackageMetaData> InstallLatestAsync()
+        public async Task<TemplatePackageMetaData> InstallLatestAsync(string packageId)
         {
-            var templateMetaData = await this.GetLatestTemplatePackage("Endjin.Adr.Templates", "any", this.appEnvironment.TemplatesPath).ConfigureAwait(false);
+            var templateMetaData = await this.GetLatestTemplatePackage(packageId, "any", this.appEnvironment.TemplatesPath).ConfigureAwait(false);
 
             templateMetaData.Details.AddRange(await this.GetTemplatePackageDetails(templateMetaData.TemplatePath, templateMetaData.Templates).ConfigureAwait(false));
 

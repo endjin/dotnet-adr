@@ -18,7 +18,7 @@ namespace Endjin.Adr.Cli.Commands
 
         public Command Create()
         {
-            var cmd = new Command("default", "Sets the default ADR Template to use. Use the template Id");
+            var cmd = new Command("default", "Operations that can be performed against the default ADR templates.");
 
             cmd.AddCommand(new TemplatesDefaultSetCommand(this.templateSettingsMananger).Create());
             cmd.AddCommand(new TemplatesDefaultShowCommand(this.templateSettingsMananger).Create());
