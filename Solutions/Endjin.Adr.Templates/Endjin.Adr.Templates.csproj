@@ -13,7 +13,7 @@
   <PropertyGroup>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageDescription>A collection of Architecture Decision Record Templates for the ADR .NET CLI tool.</PackageDescription>
-    <PackageTags>ADR endjin tools dotnetcli</PackageTags>
+    <PackageTags>dotnet-adr dotnet-adr-template architecture tools endjin</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 

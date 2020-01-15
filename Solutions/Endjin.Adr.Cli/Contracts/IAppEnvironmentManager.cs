@@ -9,5 +9,9 @@ namespace Endjin.Adr.Cli.Contracts
     public interface IAppEnvironmentManager
     {
         Task SetDesiredStateAsync();
+
+        Task SetFirstRunDesiredStateAsync();
+
+        Task ResetDesiredStateAsync();
     }
 }

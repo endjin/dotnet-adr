@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\Common.GitHub.proj" />
+  <Import Project="..\Common.NuGet.proj" />
+
+  <PropertyGroup>
+    <AssemblyName>thirdparty.adr.templates</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageDescription>An example demonstrating how a 3rd Party could create a dotnet-adr template package.</PackageDescription>
+    <PackageTags>dotnet-adr dotnet-adr-template architecture tools endjin</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="my-custom-adr-template\template.md">
+      <PackagePath>content\my-custom-adr-template</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
+
+</Project>

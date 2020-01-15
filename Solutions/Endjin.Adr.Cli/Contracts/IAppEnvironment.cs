@@ -15,5 +15,7 @@ namespace Endjin.Adr.Cli.Contracts
         void Initialize();
 
         bool IsInitialized();
+
+        void Clean();
     }
 }

@@ -7,6 +7,7 @@ namespace Endjin.Adr.Cli.Commands
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
+    using System.Linq;
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Contracts;
 
@@ -32,15 +33,19 @@ namespace Endjin.Adr.Cli.Commands
                     Console.WriteLine($"Current ADR Templates version {currentSettings.MetaData.Version}");
 
                     var templateMetaData = await this.templateManager.InstallLatestAsync(currentSettings.DefaultTemplatePackage).ConfigureAwait(false);
-                    var templateSettings = new TemplateSettings
+                    var defaultTemplate = templateMetaData.Details.Find(x => x.IsDefault);
+
+                    if (defaultTemplate == null)
                     {
-                        MetaData = templateMetaData,
-                        DefaultTemplate = templateMetaData.Details.Find(x => x.IsDefault).FullPath,
-                    };
+                        defaultTemplate = templateMetaData.Details.First();
+                    }
+
+                    currentSettings.MetaData = templateMetaData;
+                    currentSettings.DefaultTemplate = defaultTemplate.FullPath;
 
                     Console.WriteLine($"Downloaded ADR Templates version {templateMetaData.Version}");
 
-                    this.templateSettingsMananger.SaveSettings(templateSettings, nameof(TemplateSettings));
+                    this.templateSettingsMananger.SaveSettings(currentSettings, nameof(TemplateSettings));
 
                     Console.WriteLine($"Updated ADR Templates to version {templateMetaData.Version}");
                 }),

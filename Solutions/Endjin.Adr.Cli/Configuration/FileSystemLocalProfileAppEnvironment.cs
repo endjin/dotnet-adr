@@ -54,6 +54,11 @@ namespace Endjin.Adr.Cli.Configuration
             }
         }
 
+        public void Clean()
+        {
+            Directory.Delete(this.AppPath, recursive: true);
+        }
+
         public bool IsInitialized()
         {
             // TODO: Better probing that a template actually exists.

@@ -23,21 +23,32 @@ namespace Endjin.Adr.Cli.Configuration
 
         public async Task SetDesiredStateAsync()
         {
+            this.appEnvironment.Initialize();
+
+            var defaultPackageId = "Endjin.Adr.Templates";
+            var templateMetaData = await this.templateManager.InstallLatestAsync(defaultPackageId).ConfigureAwait(false);
+            var templateSettings = new TemplateSettings
+            {
+                MetaData = templateMetaData,
+                DefaultTemplate = templateMetaData.Details.FirstOrDefault(x => x.IsDefault).FullPath,
+                DefaultTemplatePackage = defaultPackageId,
+            };
+
+            this.templateSettingsMananger.SaveSettings(templateSettings, nameof(TemplateSettings));
+        }
+
+        public async Task SetFirstRunDesiredStateAsync()
+        {
             if (!this.appEnvironment.IsInitialized())
             {
-                this.appEnvironment.Initialize();
-
-                var defaultPackageId = "Endjin.Adr.Templates";
-                var templateMetaData = await this.templateManager.InstallLatestAsync(defaultPackageId).ConfigureAwait(false);
-                var templateSettings = new TemplateSettings
-                {
-                    MetaData = templateMetaData,
-                    DefaultTemplate = templateMetaData.Details.FirstOrDefault(x => x.IsDefault).FullPath,
-                    DefaultTemplatePackage = defaultPackageId,
-                };
-
-                this.templateSettingsMananger.SaveSettings(templateSettings, nameof(TemplateSettings));
+                await this.SetDesiredStateAsync().ConfigureAwait(false);
             }
+        }
+
+        public async Task ResetDesiredStateAsync()
+        {
+            this.appEnvironment.Clean();
+            await this.SetDesiredStateAsync().ConfigureAwait(false);
         }
     }
 }

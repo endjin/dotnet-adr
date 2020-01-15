@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Endjin.Adr.Cli.Specs", "End
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Endjin.Adr.Templates", "Endjin.Adr.Templates\Endjin.Adr.Templates.csproj", "{24E6651F-E5C4-44C1-B0E5-12674560CC6A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThirdParty.Adr.Templates", "ThirdParty.Adr.Templates\ThirdParty.Adr.Templates.csproj", "{A4A73E04-3B59-4E1B-8E37-E6799FB586E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{24E6651F-E5C4-44C1-B0E5-12674560CC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24E6651F-E5C4-44C1-B0E5-12674560CC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24E6651F-E5C4-44C1-B0E5-12674560CC6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4A73E04-3B59-4E1B-8E37-E6799FB586E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4A73E04-3B59-4E1B-8E37-E6799FB586E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4A73E04-3B59-4E1B-8E37-E6799FB586E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4A73E04-3B59-4E1B-8E37-E6799FB586E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
