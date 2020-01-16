@@ -23,14 +23,15 @@ namespace Endjin.Adr.Cli.Configuration
 
         public async Task SetDesiredStateAsync()
         {
+            const string defaultPackageId = "Endjin.Adr.Templates";
+
             this.appEnvironment.Initialize();
 
-            var defaultPackageId = "Endjin.Adr.Templates";
             var templateMetaData = await this.templateManager.InstallLatestAsync(defaultPackageId).ConfigureAwait(false);
             var templateSettings = new TemplateSettings
             {
                 MetaData = templateMetaData,
-                DefaultTemplate = templateMetaData.Details.FirstOrDefault(x => x.IsDefault)?.FullPath,
+                DefaultTemplate = templateMetaData.Details.Find(x => x.IsDefault)?.FullPath,
                 DefaultTemplatePackage = defaultPackageId,
             };
 

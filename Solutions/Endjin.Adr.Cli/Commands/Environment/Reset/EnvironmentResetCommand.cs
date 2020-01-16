@@ -19,15 +19,10 @@ namespace Endjin.Adr.Cli.Commands.Environment.Reset
 
         public Command Create()
         {
-            var cmd = new Command("reset", "Resets the dotnet-adr environment back to its default settings.")
+            return new Command("reset", "Resets the dotnet-adr environment back to its default settings.")
             {
-                Handler = CommandHandler.Create(async () =>
-                {
-                    await this.appEnvironmentManager.ResetDesiredStateAsync().ConfigureAwait(false);
-                }),
+                Handler = CommandHandler.Create(async () => await this.appEnvironmentManager.ResetDesiredStateAsync().ConfigureAwait(false)),
             };
-
-            return cmd;
         }
     }
 }

@@ -8,27 +8,25 @@
     [Binding]
     public class InitSteps
     {
-        private readonly FeatureContext featureContext;
         private readonly ScenarioContext scenarioContext;
 
-        public InitSteps(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public InitSteps(ScenarioContext scenarioContext)
         {
-            this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
         }
 
-        [Given(@"I ask the adr cli to initialise a new repo in the '(.*)' directory")]
+        [Given("I ask the adr cli to initialise a new repo in the '(.*)' directory")]
         public void GivenIAskTheAdrCliToInitialiseANewRepoInTheDirectory(string directory)
         {
             this.scenarioContext.Set(directory, "Directory");
         }
 
-        [When(@"I execute the adr cli")]
+        [When("I execute the adr cli")]
         public async Task WhenIExecuteTheAdrCli()
         {
             var args = new string[] { "init",  this.scenarioContext.Get<string>("Directory") };
 
-            var result = await AdrCli.Main(args);
+            var result = await AdrCli.Main(args).ConfigureAwait(false);
 
             this.scenarioContext.Set(result, "Result");
         }
