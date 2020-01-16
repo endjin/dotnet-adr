@@ -33,7 +33,7 @@ namespace Endjin.Adr.Cli.Commands.Templates.Update
                     Console.WriteLine($"Current ADR Templates version {currentSettings.MetaData.Version}");
 
                     var templateMetaData = await this.templateManager.InstallLatestAsync(currentSettings.DefaultTemplatePackage).ConfigureAwait(false);
-                    var defaultTemplate = templateMetaData.Details.Find(x => x.IsDefault) ?? templateMetaData.Details.First();
+                    var defaultTemplate = templateMetaData.Details.Find(x => x.IsDefault) ?? templateMetaData.Details[0];
 
                     currentSettings.MetaData = templateMetaData;
                     currentSettings.DefaultTemplate = defaultTemplate.FullPath;
