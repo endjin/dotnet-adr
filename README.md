@@ -147,7 +147,7 @@ The project is [hosted on Azure DevOps](https://dev.azure.com/endjin-labs/dotnet
 
 The NuGet packages for the project, hosted on NuGet.org are:
 
-- [dotnet-adr](https://www.nuget.org/packages/dotnet-adr)
+- [adr](https://www.nuget.org/packages/adr)
 - [adr.templates](https://www.nuget.org/packages/adr.templates)
 - [thirdparty.adr.templates](https://www.nuget.org/packages/thirdparty.adr.templates)
 
