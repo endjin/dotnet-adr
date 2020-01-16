@@ -1,4 +1,4 @@
-﻿// <copyright file="EnvironmentCommand.cs" company="Endjin Limited">
+﻿// <copyright file="EnvironmentCommandFactory.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 

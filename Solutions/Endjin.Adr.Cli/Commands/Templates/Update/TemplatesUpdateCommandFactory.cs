@@ -1,4 +1,4 @@
-﻿// <copyright file="TemplatesUpdateCommand.cs" company="Endjin Limited">
+﻿// <copyright file="TemplatesUpdateCommandFactory.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,6 @@ namespace Endjin.Adr.Cli.Commands.Templates.Update
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
-    using System.Linq;
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Configuration.Contracts;
 

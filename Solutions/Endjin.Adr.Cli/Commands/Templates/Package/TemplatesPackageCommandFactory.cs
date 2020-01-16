@@ -1,4 +1,4 @@
-﻿// <copyright file="TemplatesPackageCommand.cs" company="Endjin Limited">
+﻿// <copyright file="TemplatesPackageCommandFactory.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
