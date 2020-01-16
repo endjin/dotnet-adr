@@ -2,13 +2,13 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+using Endjin.Adr.Cli.Configuration.Contracts;
+
 namespace Endjin.Adr.Cli.Configuration
 {
-    using Endjin.Adr.Cli.Contracts;
-
-    public class TemplateSettingsMananger : SettingsManager<TemplateSettings>, ITemplateSettingsMananger
+    public class TemplateSettingsManager : SettingsManager<TemplateSettings>, ITemplateSettingsManager
     {
-        public TemplateSettingsMananger(IAppEnvironment appEnvironment)
+        public TemplateSettingsManager(IAppEnvironment appEnvironment)
             : base(appEnvironment)
         {
         }
