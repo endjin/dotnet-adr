@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <Authors>Endjin Limited</Authors>
-    <Copyright>Copyright Endjin Limited 2019</Copyright>
+    <Copyright>Copyright Endjin Limited 2020</Copyright>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/$(GitHubOrg)/$(GitHubProject).git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
