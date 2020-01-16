@@ -18,7 +18,7 @@ namespace Endjin.Adr.Cli.Commands.Environment
 
         public Command Create()
         {
-            var cmd = new Command("environment", "Manipulate the dotnet-adr environment");
+            var cmd = new Command("environment", "Manipulate the dotnet-adr environment.");
 
             cmd.AddCommand(this.environmentResetCommand.Create());
 

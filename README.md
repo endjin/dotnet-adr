@@ -1,11 +1,13 @@
 # dotnet-adr
-A .NET Global Tool for adopting and using Architectural Decision Records (ADR).
+A .NET Global Tool for adopting and using Architectural Decision Records (ADR). 
+
+One of the reasons for "re-inventing the wheel" with `dotnet-adr` when there are so many ADR tools already in existance, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. With `dotnet-adr` I wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using nuget.org.
 
 See https://github.com/joelparkerhenderson/architecture_decision_record for a comprehensive overview of ADR.
 
 ## dotnet global tools
 
-`adr` is a .NET global tool. 
+`adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine. 
 
 To list all the global tools installed on your machine, open a command prompt and type:
 
@@ -27,7 +29,7 @@ To uninstall the tool, use:
 
 `dotnet tool uninstall -g adr`
 
-## dotnet suggest
+## dotnet-suggest
 
 `adr` supports [dotnet suggest](https://github.com/dotnet/command-line-api/wiki/dotnet-suggest), for tab based auto completion.
 
@@ -51,21 +53,69 @@ Otherwise, copy the contents of the file above and paste it into your pre-existi
 
 ## ADR Commands
 
-`adr init <PATH>`
+Once you have `dotnet-suggest` installed, you can use `adr` then TAB to explore the available commands. Here is a detailed list of the available commands:
 
-`adr new <TITLE>`
+`adr init <PATH>` - Initialises a new ADR repository. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
 
-`adr new -s <RECORD NUMBER> <TITLE>`
+`adr new <TITLE>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package.
 
-`adr templates`
+`adr new -s <RECORD NUMBER> <TITLE>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have it's status updated to reflect this change.
+
+`adr templates` - Manipulate ADR Templates & ADR Template Packages. Root command for template operations. Will list available sub-commands.
+
+`adr templates default show` - Displays the detailed metadata of the current default ADR Template.
+
+`adr templates default show --id-only` - Displays the id of the current default ADR Template.
+
+`adr templates default set <TEMPLATE ID>` - Sets the default ADR Template. The `<TEMPLATE ID>` can be obtained from `adr templates default show`
+
+`adr templates list` - Displays the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
+
+`adr templates list --ids-only` - Displays the ids of all ADR Templates contained in the current default ADR Template Package.
+
+`adr templates update` - Updates to the latest version of the currently set ADR Templates Package.
+
+`adr templates package set <PACKAGE ID>` - Sets the default NuGet ADR Template Package.
+
+`adr templates package show` - Displays the default NuGet ADR Template Package.
+
+`adr environment` - Manipulate the dotnet-adr environment. Root command for environment operations. Will list available sub-commands.
+
+`adr environment reset` - Resets the `dotnet-adr` environment back to its default settings.
+
+## ADR Templates & ADR Template Packages
+
+ADR Templates are simply markdown files which contain headings and guidance for the end users. The only hard requirement is that they contains `# Title` and `## Status` headings as `dotnet-adr` uses Regular Expressions to find and replace these values to power the `adr new <TITLE>` and `adr new -s <RECORD NUMBER> <TITLE>` commands.
+
+The default ADR Templates are contained in the `Endjin.Adr.Templates` project, which contains nuget configuration elements in `Endjin.Adr.Templates.csproj` to create a NuGet "content" package, which is available via NuGet.org as `adr.templates`.
+
+To test extensibility, this solution contains a second "Third Party" ADR template example in `ThirdParty.Adr.Templates`, this is also available via NuGet.org as `thirdparty.adr.templates`.
+
+To swap between the packages use the following `dotnet-adr` commands:
+
+`adr templates package set thirdparty.adr.templates`
+
+Next, to download the latest version of 'thirdparty.adr.templates` use the command:
+
+`adr templates update`
+
+To see the currently set default package, use: 
+
+`adr templates package show` 
+
+To see the id of the currently set default template, use:
 
 `adr templates default show`
 
-`adr templates default set <TEMPLATE ID>`
+To revent to to the "official" ADT Template Package you can either, reset the environment:
 
-`adr templates install <VERSION>`
+`adr environment reset`
 
-`adr templates list`
+or:
+
+`adr templates package set adr.templates`
+
+Then:
 
 `adr templates update`
 
@@ -105,7 +155,7 @@ We produce two free weekly newsletters; [Azure Weekly](https://azureweekly.info)
 
 Keep up with everything that's going on at endjin via our [blog](https://blogs.endjin.com/), follow us on [Twitter](https://twitter.com/endjin), or [LinkedIn](https://www.linkedin.com/company/1671851/).
 
-Our other Open Source projects can be found on [GitHub](https://endjin.com/open-source)
+Our other Open Source projects can be found on [our website](https://endjin.com/open-source)
 
 ## Acknowledgements
 
@@ -119,7 +169,11 @@ This project has adopted a code of conduct adapted from the [Contributor Covenan
 
 ## IP Maturity Matrix (IMM)
 
-The IMM is endjin's IP quality framework.
+The [IP Maturity Matrix](https://github.com/endjin/Endjin.Ip.Maturity.Matrix) is endjin's IP quality framework; it defines a [configurable set of rules](https://github.com/endjin/Endjin.Ip.Maturity.Matrix.RuleDefinitions), which are committed into the [root of a repo](imm.yaml), and a Azure Function backed endpoint which can evaluate the ruleset, and render an svg badge for display in repo's `readme.md`.
+
+This approach is based on our 10+ years experience of delivering complex, high performance, bleeding-edge projects, and due diligence assessments of 3rd party systems. For detailed information about the ruleset see the [IP Maturity Matrix repo](https://github.com/endjin/Endjin.Ip.Maturity.Matrix).
+
+## IMM for dotnet-adr
 
 [![Shared Engineering Standards](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/Endjin.Adr/rule/74e29f9b-6dca-4161-8fdd-b468a1eb185d?nocache=true)](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/Endjin.Adr/rule/74e29f9b-6dca-4161-8fdd-b468a1eb185d?cache=false)
 
