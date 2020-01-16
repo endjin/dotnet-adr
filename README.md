@@ -139,6 +139,18 @@ Configuration in:
 
 The templates NuGet package is cached in `%%UserProfile%%\.nuget\packages`. 
 
+## CI / CD
+
+The project is [hosted on Azure DevOps](https://dev.azure.com/endjin-labs/dotnet-adr) under the `endjin-labs` org.
+
+## Packages
+
+The NuGet packages for the project, hosted on NuGet.org are:
+
+- [dotnet-adr](https://www.nuget.org/packages/dotnet-adr)
+- [adr.templates](https://www.nuget.org/packages/adr.templates)
+- [thirdparty.adr.templates](https://www.nuget.org/packages/thirdparty.adr.templates)
+
 ## Licenses
 
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/endjin/Endjin.Adr/master/LICENSE)
