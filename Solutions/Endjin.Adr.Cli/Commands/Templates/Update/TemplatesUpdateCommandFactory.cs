@@ -15,7 +15,9 @@ namespace Endjin.Adr.Cli.Commands.Templates.Update
         private readonly ITemplatePackageManager templateManager;
         private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public TemplatesUpdateCommandFactory(ITemplatePackageManager templateManager, ITemplateSettingsManager templateSettingsManager)
+        public TemplatesUpdateCommandFactory(
+            ITemplatePackageManager templateManager,
+            ITemplateSettingsManager templateSettingsManager)
         {
             this.templateManager = templateManager;
             this.templateSettingsManager = templateSettingsManager;

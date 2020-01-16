@@ -12,31 +12,31 @@ namespace Endjin.Adr.Cli.Commands.Templates
 
     public class TemplatesCommandFactory : ICommandFactory<TemplatesCommandFactory>
     {
-        private readonly ICommandFactory<TemplatesDefaultCommandFactory> templatesDefaultCommand;
-        private readonly ICommandFactory<TemplatesListCommandFactory> templatesListCommand;
+        private readonly ICommandFactory<TemplatesDefaultCommandFactory> templatesDefaultCommandFactory;
+        private readonly ICommandFactory<TemplatesListCommandFactory> templatesListCommandFactory;
         private readonly ICommandFactory<TemplatesUpdateCommandFactory> templatesUpdateCommand;
-        private readonly ICommandFactory<TemplatesPackageCommandFactory> templatesPackageCommand;
+        private readonly ICommandFactory<TemplatesPackageCommandFactory> templatesPackageCommandFactory;
 
         public TemplatesCommandFactory(
-            ICommandFactory<TemplatesDefaultCommandFactory> templatesDefaultCommand,
-            ICommandFactory<TemplatesListCommandFactory> templatesListCommand,
-            ICommandFactory<TemplatesUpdateCommandFactory> templatesUpdateCommand,
-            ICommandFactory<TemplatesPackageCommandFactory> templatesPackageCommand)
+            ICommandFactory<TemplatesDefaultCommandFactory> templatesDefaultCommandFactory,
+            ICommandFactory<TemplatesListCommandFactory> templatesListCommandFactory,
+            ICommandFactory<TemplatesUpdateCommandFactory> templatesUpdateCommandFactory,
+            ICommandFactory<TemplatesPackageCommandFactory> templatesPackageCommandFactory)
         {
-            this.templatesDefaultCommand = templatesDefaultCommand;
-            this.templatesListCommand = templatesListCommand;
-            this.templatesUpdateCommand = templatesUpdateCommand;
-            this.templatesPackageCommand = templatesPackageCommand;
+            this.templatesDefaultCommandFactory = templatesDefaultCommandFactory;
+            this.templatesListCommandFactory = templatesListCommandFactory;
+            this.templatesUpdateCommand = templatesUpdateCommandFactory;
+            this.templatesPackageCommandFactory = templatesPackageCommandFactory;
         }
 
         public Command Create()
         {
             var cmd = new Command("templates", "Perform operations on ADR templates.");
 
-            cmd.AddCommand(this.templatesDefaultCommand.Create());
-            cmd.AddCommand(this.templatesListCommand.Create());
+            cmd.AddCommand(this.templatesDefaultCommandFactory.Create());
+            cmd.AddCommand(this.templatesListCommandFactory.Create());
             cmd.AddCommand(this.templatesUpdateCommand.Create());
-            cmd.AddCommand(this.templatesPackageCommand.Create());
+            cmd.AddCommand(this.templatesPackageCommandFactory.Create());
 
             return cmd;
         }

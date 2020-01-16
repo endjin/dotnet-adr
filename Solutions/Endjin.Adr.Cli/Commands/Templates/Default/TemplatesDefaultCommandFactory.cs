@@ -8,23 +8,23 @@ namespace Endjin.Adr.Cli.Commands.Templates.Default
 
     public class TemplatesDefaultCommandFactory : ICommandFactory<TemplatesDefaultCommandFactory>
     {
-        private readonly ICommandFactory<TemplatesDefaultShowCommandFactory> templatesDefaultShowCommand;
-        private readonly ICommandFactory<TemplatesDefaultSetCommandFactory> templatesDefaultSetCommand;
+        private readonly ICommandFactory<TemplatesDefaultShowCommandFactory> templatesDefaultShowCommandFactory;
+        private readonly ICommandFactory<TemplatesDefaultSetCommandFactory> templatesDefaultSetCommandFactory;
 
         public TemplatesDefaultCommandFactory(
-            ICommandFactory<TemplatesDefaultShowCommandFactory> templatesDefaultShowCommand,
-            ICommandFactory<TemplatesDefaultSetCommandFactory> templatesDefaultSetCommand)
+            ICommandFactory<TemplatesDefaultShowCommandFactory> templatesDefaultShowCommandFactory,
+            ICommandFactory<TemplatesDefaultSetCommandFactory> templatesDefaultSetCommandFactory)
         {
-            this.templatesDefaultShowCommand = templatesDefaultShowCommand;
-            this.templatesDefaultSetCommand = templatesDefaultSetCommand;
+            this.templatesDefaultShowCommandFactory = templatesDefaultShowCommandFactory;
+            this.templatesDefaultSetCommandFactory = templatesDefaultSetCommandFactory;
         }
 
         public Command Create()
         {
             var cmd = new Command("default", "Operations that can be performed against the default ADR templates.");
 
-            cmd.AddCommand(this.templatesDefaultSetCommand.Create());
-            cmd.AddCommand(this.templatesDefaultShowCommand.Create());
+            cmd.AddCommand(this.templatesDefaultSetCommandFactory.Create());
+            cmd.AddCommand(this.templatesDefaultShowCommandFactory.Create());
 
             return cmd;
         }

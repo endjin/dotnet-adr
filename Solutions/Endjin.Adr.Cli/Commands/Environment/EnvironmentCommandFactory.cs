@@ -9,18 +9,18 @@ namespace Endjin.Adr.Cli.Commands.Environment
 
     public class EnvironmentCommandFactory : ICommandFactory<EnvironmentCommandFactory>
     {
-        private readonly ICommandFactory<EnvironmentResetCommandFactory> environmentResetCommand;
+        private readonly ICommandFactory<EnvironmentResetCommandFactory> environmentResetCommandFactory;
 
-        public EnvironmentCommandFactory(ICommandFactory<EnvironmentResetCommandFactory> environmentResetCommand)
+        public EnvironmentCommandFactory(ICommandFactory<EnvironmentResetCommandFactory> environmentResetCommandFactory)
         {
-            this.environmentResetCommand = environmentResetCommand;
+            this.environmentResetCommandFactory = environmentResetCommandFactory;
         }
 
         public Command Create()
         {
             var cmd = new Command("environment", "Manipulate the dotnet-adr environment.");
 
-            cmd.AddCommand(this.environmentResetCommand.Create());
+            cmd.AddCommand(this.environmentResetCommandFactory.Create());
 
             return cmd;
         }
