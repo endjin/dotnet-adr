@@ -34,7 +34,7 @@ namespace Endjin.Adr.Cli.Commands.New
                     var adr = new Adr
                     {
                         Content = this.CreateNewDefaultTemplate(title),
-                        RecordNumber = adrs.OrderBy(x => x.RecordNumber).Last().RecordNumber + 1,
+                        RecordNumber = adrs.Count == 0 ? 1 : adrs.OrderBy(x => x.RecordNumber).Last().RecordNumber + 1,
                         Title = title,
                     };
 
@@ -47,12 +47,13 @@ namespace Endjin.Adr.Cli.Commands.New
                         var updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSupersceded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
 
                         File.WriteAllText(supersede.Path, updatedContent);
+
+                        Console.WriteLine($"Supersede ADR Record: {id}");
                     }
 
                     File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), adr.SafeFileName()), adr.Content);
 
-                    Console.WriteLine($"Create ADR Record {title}");
-                    Console.WriteLine($"Supersede ADR Record {id}");
+                    Console.WriteLine($"Create ADR Record: \"{title}\"");
                 }),
             };
 
