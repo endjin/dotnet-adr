@@ -38,10 +38,10 @@ namespace Endjin.Adr.Cli
                                  .ConfigureAwait(false);
 
             var cmd = new CommandLineBuilder()
-                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<InitCommand>>().Create())
-                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<NewCommand>>().Create())
-                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<TemplatesCommand>>().Create())
-                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<EnvironmentCommand>>().Create())
+                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<InitCommandFactory>>().Create())
+                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<NewCommandFactory>>().Create())
+                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<TemplatesCommandFactory>>().Create())
+                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<EnvironmentCommandFactory>>().Create())
                 .UseDefaults()
                 .Build();
 

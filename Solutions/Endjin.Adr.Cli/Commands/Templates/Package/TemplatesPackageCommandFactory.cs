@@ -6,12 +6,12 @@ namespace Endjin.Adr.Cli.Commands.Templates.Package
 {
     using System.CommandLine;
 
-    public class TemplatesPackageCommand : ICommandFactory<TemplatesPackageCommand>
+    public class TemplatesPackageCommandFactory : ICommandFactory<TemplatesPackageCommandFactory>
     {
-        private readonly ICommandFactory<TemplatesPackageSetCommand> templatesPackageSetCommand;
-        private readonly ICommandFactory<TemplatesPackageShowCommand> templatesPackageShowCommand;
+        private readonly ICommandFactory<TemplatesPackageSetCommandFactory> templatesPackageSetCommand;
+        private readonly ICommandFactory<TemplatesPackageShowCommandFactory> templatesPackageShowCommand;
 
-        public TemplatesPackageCommand(ICommandFactory<TemplatesPackageSetCommand> templatesPackageSetCommand, ICommandFactory<TemplatesPackageShowCommand> templatesPackageShowCommand)
+        public TemplatesPackageCommandFactory(ICommandFactory<TemplatesPackageSetCommandFactory> templatesPackageSetCommand, ICommandFactory<TemplatesPackageShowCommandFactory> templatesPackageShowCommand)
         {
             this.templatesPackageSetCommand = templatesPackageSetCommand;
             this.templatesPackageShowCommand = templatesPackageShowCommand;

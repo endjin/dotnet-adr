@@ -28,23 +28,23 @@ namespace Endjin.Adr.Cli.Extensions
             serviceCollection.AddTransient<ITemplatePackageManager, NuGetTemplatePackageManager>();
             serviceCollection.AddTransient<ITemplateSettingsManager, TemplateSettingsManager>();
 
-            serviceCollection.AddTransient<ICommandFactory<InitCommand>, InitCommand>();
-            serviceCollection.AddTransient<ICommandFactory<EnvironmentCommand>, EnvironmentCommand>();
-            serviceCollection.AddTransient<ICommandFactory<NewCommand>, NewCommand>();
-            serviceCollection.AddTransient<ICommandFactory<TemplatesCommand>, TemplatesCommand>();
+            serviceCollection.AddTransient<ICommandFactory<InitCommandFactory>, InitCommandFactory>();
+            serviceCollection.AddTransient<ICommandFactory<EnvironmentCommandFactory>, EnvironmentCommandFactory>();
+            serviceCollection.AddTransient<ICommandFactory<NewCommandFactory>, NewCommandFactory>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesCommandFactory>, TemplatesCommandFactory>();
 
-            serviceCollection.AddTransient<ICommandFactory<EnvironmentResetCommand>, EnvironmentResetCommand>();
+            serviceCollection.AddTransient<ICommandFactory<EnvironmentResetCommandFactory>, EnvironmentResetCommandFactory>();
 
-            serviceCollection.AddTransient<ICommandFactory<TemplatesDefaultCommand>, TemplatesDefaultCommand>();
-            serviceCollection.AddTransient<ICommandFactory<TemplatesDefaultShowCommand>, TemplatesDefaultShowCommand>();
-            serviceCollection.AddTransient<ICommandFactory<TemplatesDefaultSetCommand>, TemplatesDefaultSetCommand>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesDefaultCommandFactory>, TemplatesDefaultCommandFactory>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesDefaultShowCommandFactory>, TemplatesDefaultShowCommandFactory>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesDefaultSetCommandFactory>, TemplatesDefaultSetCommandFactory>();
 
-            serviceCollection.AddTransient<ICommandFactory<TemplatesListCommand>, TemplatesListCommand>();
-            serviceCollection.AddTransient<ICommandFactory<TemplatesUpdateCommand>, TemplatesUpdateCommand>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesListCommandFactory>, TemplatesListCommandFactory>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesUpdateCommandFactory>, TemplatesUpdateCommandFactory>();
 
-            serviceCollection.AddTransient<ICommandFactory<TemplatesPackageCommand>, TemplatesPackageCommand>();
-            serviceCollection.AddTransient<ICommandFactory<TemplatesPackageSetCommand>, TemplatesPackageSetCommand>();
-            serviceCollection.AddTransient<ICommandFactory<TemplatesPackageShowCommand>, TemplatesPackageShowCommand>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesPackageCommandFactory>, TemplatesPackageCommandFactory>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesPackageSetCommandFactory>, TemplatesPackageSetCommandFactory>();
+            serviceCollection.AddTransient<ICommandFactory<TemplatesPackageShowCommandFactory>, TemplatesPackageShowCommandFactory>();
         }
     }
 }

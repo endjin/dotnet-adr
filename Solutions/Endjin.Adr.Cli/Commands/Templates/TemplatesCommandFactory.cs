@@ -10,18 +10,18 @@ namespace Endjin.Adr.Cli.Commands.Templates
     using Endjin.Adr.Cli.Commands.Templates.Package;
     using Endjin.Adr.Cli.Commands.Templates.Update;
 
-    public class TemplatesCommand : ICommandFactory<TemplatesCommand>
+    public class TemplatesCommandFactory : ICommandFactory<TemplatesCommandFactory>
     {
-        private readonly ICommandFactory<TemplatesDefaultCommand> templatesDefaultCommand;
-        private readonly ICommandFactory<TemplatesListCommand> templatesListCommand;
-        private readonly ICommandFactory<TemplatesUpdateCommand> templatesUpdateCommand;
-        private readonly ICommandFactory<TemplatesPackageCommand> templatesPackageCommand;
+        private readonly ICommandFactory<TemplatesDefaultCommandFactory> templatesDefaultCommand;
+        private readonly ICommandFactory<TemplatesListCommandFactory> templatesListCommand;
+        private readonly ICommandFactory<TemplatesUpdateCommandFactory> templatesUpdateCommand;
+        private readonly ICommandFactory<TemplatesPackageCommandFactory> templatesPackageCommand;
 
-        public TemplatesCommand(
-            ICommandFactory<TemplatesDefaultCommand> templatesDefaultCommand,
-            ICommandFactory<TemplatesListCommand> templatesListCommand,
-            ICommandFactory<TemplatesUpdateCommand> templatesUpdateCommand,
-            ICommandFactory<TemplatesPackageCommand> templatesPackageCommand)
+        public TemplatesCommandFactory(
+            ICommandFactory<TemplatesDefaultCommandFactory> templatesDefaultCommand,
+            ICommandFactory<TemplatesListCommandFactory> templatesListCommand,
+            ICommandFactory<TemplatesUpdateCommandFactory> templatesUpdateCommand,
+            ICommandFactory<TemplatesPackageCommandFactory> templatesPackageCommand)
         {
             this.templatesDefaultCommand = templatesDefaultCommand;
             this.templatesListCommand = templatesListCommand;

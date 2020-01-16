@@ -11,11 +11,11 @@ namespace Endjin.Adr.Cli.Commands.Templates.List
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class TemplatesListCommand : ICommandFactory<TemplatesListCommand>
+    public class TemplatesListCommandFactory : ICommandFactory<TemplatesListCommandFactory>
     {
         private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public TemplatesListCommand(ITemplateSettingsManager templateSettingsManager)
+        public TemplatesListCommandFactory(ITemplateSettingsManager templateSettingsManager)
         {
             this.templateSettingsManager = templateSettingsManager;
         }

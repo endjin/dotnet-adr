@@ -8,11 +8,11 @@ namespace Endjin.Adr.Cli.Commands.Environment.Reset
     using System.CommandLine.Invocation;
     using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class EnvironmentResetCommand : ICommandFactory<EnvironmentResetCommand>
+    public class EnvironmentResetCommandFactory : ICommandFactory<EnvironmentResetCommandFactory>
     {
         private readonly IAppEnvironmentManager appEnvironmentManager;
 
-        public EnvironmentResetCommand(IAppEnvironmentManager appEnvironmentManager)
+        public EnvironmentResetCommandFactory(IAppEnvironmentManager appEnvironmentManager)
         {
             this.appEnvironmentManager = appEnvironmentManager;
         }

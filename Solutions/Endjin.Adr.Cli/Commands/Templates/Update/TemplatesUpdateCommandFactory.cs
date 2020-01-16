@@ -11,12 +11,12 @@ namespace Endjin.Adr.Cli.Commands.Templates.Update
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class TemplatesUpdateCommand : ICommandFactory<TemplatesUpdateCommand>
+    public class TemplatesUpdateCommandFactory : ICommandFactory<TemplatesUpdateCommandFactory>
     {
         private readonly ITemplatePackageManager templateManager;
         private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public TemplatesUpdateCommand(ITemplatePackageManager templateManager, ITemplateSettingsManager templateSettingsManager)
+        public TemplatesUpdateCommandFactory(ITemplatePackageManager templateManager, ITemplateSettingsManager templateSettingsManager)
         {
             this.templateManager = templateManager;
             this.templateSettingsManager = templateSettingsManager;

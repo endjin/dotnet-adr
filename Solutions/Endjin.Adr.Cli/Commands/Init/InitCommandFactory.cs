@@ -9,7 +9,7 @@ namespace Endjin.Adr.Cli.Commands.Init
     using System.CommandLine.Invocation;
     using System.IO;
 
-    public class InitCommand : ICommandFactory<InitCommand>
+    public class InitCommandFactory : ICommandFactory<InitCommandFactory>
     {
         public Command Create()
         {

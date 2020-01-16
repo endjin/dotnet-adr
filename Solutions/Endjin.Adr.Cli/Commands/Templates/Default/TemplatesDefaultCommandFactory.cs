@@ -6,14 +6,14 @@ namespace Endjin.Adr.Cli.Commands.Templates.Default
 {
     using System.CommandLine;
 
-    public class TemplatesDefaultCommand : ICommandFactory<TemplatesDefaultCommand>
+    public class TemplatesDefaultCommandFactory : ICommandFactory<TemplatesDefaultCommandFactory>
     {
-        private readonly ICommandFactory<TemplatesDefaultShowCommand> templatesDefaultShowCommand;
-        private readonly ICommandFactory<TemplatesDefaultSetCommand> templatesDefaultSetCommand;
+        private readonly ICommandFactory<TemplatesDefaultShowCommandFactory> templatesDefaultShowCommand;
+        private readonly ICommandFactory<TemplatesDefaultSetCommandFactory> templatesDefaultSetCommand;
 
-        public TemplatesDefaultCommand(
-            ICommandFactory<TemplatesDefaultShowCommand> templatesDefaultShowCommand,
-            ICommandFactory<TemplatesDefaultSetCommand> templatesDefaultSetCommand)
+        public TemplatesDefaultCommandFactory(
+            ICommandFactory<TemplatesDefaultShowCommandFactory> templatesDefaultShowCommand,
+            ICommandFactory<TemplatesDefaultSetCommandFactory> templatesDefaultSetCommand)
         {
             this.templatesDefaultShowCommand = templatesDefaultShowCommand;
             this.templatesDefaultSetCommand = templatesDefaultSetCommand;

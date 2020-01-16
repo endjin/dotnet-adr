@@ -14,11 +14,11 @@ namespace Endjin.Adr.Cli.Commands.New
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class NewCommand : ICommandFactory<NewCommand>
+    public class NewCommandFactory : ICommandFactory<NewCommandFactory>
     {
         private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public NewCommand(ITemplateSettingsManager templateSettingsManager)
+        public NewCommandFactory(ITemplateSettingsManager templateSettingsManager)
         {
             this.templateSettingsManager = templateSettingsManager;
         }

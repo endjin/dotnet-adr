@@ -7,11 +7,11 @@ namespace Endjin.Adr.Cli.Commands.Environment
     using System.CommandLine;
     using Endjin.Adr.Cli.Commands.Environment.Reset;
 
-    public class EnvironmentCommand : ICommandFactory<EnvironmentCommand>
+    public class EnvironmentCommandFactory : ICommandFactory<EnvironmentCommandFactory>
     {
-        private readonly ICommandFactory<EnvironmentResetCommand> environmentResetCommand;
+        private readonly ICommandFactory<EnvironmentResetCommandFactory> environmentResetCommand;
 
-        public EnvironmentCommand(ICommandFactory<EnvironmentResetCommand> environmentResetCommand)
+        public EnvironmentCommandFactory(ICommandFactory<EnvironmentResetCommandFactory> environmentResetCommand)
         {
             this.environmentResetCommand = environmentResetCommand;
         }
