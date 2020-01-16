@@ -44,7 +44,7 @@ namespace Endjin.Adr.Cli.Commands.New
 
                         Regex supersedeRegEx = new Regex(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
 
-                        var updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSupersceded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
+                        var updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSuperseded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
 
                         File.WriteAllText(supersede.Path, updatedContent);
 
