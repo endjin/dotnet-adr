@@ -26,7 +26,7 @@
 
   <PropertyGroup>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageDescription></PackageDescription>
+    <PackageDescription>A .NET Global Tool for adopting and using Architectural Decision Records (ADR).</PackageDescription>
     <PackageTags>dotnet-adr architecture tools endjin dotnet-cli</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <AssemblyName>adr</AssemblyName>
