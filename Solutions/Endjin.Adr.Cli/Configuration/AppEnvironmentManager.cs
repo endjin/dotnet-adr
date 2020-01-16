@@ -23,7 +23,7 @@ namespace Endjin.Adr.Cli.Configuration
 
         public async Task SetDesiredStateAsync()
         {
-            const string defaultPackageId = "Endjin.Adr.Templates";
+            const string defaultPackageId = "adr.templates";
 
             this.appEnvironment.Initialize();
 
