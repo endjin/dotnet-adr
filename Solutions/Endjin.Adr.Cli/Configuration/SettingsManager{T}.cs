@@ -5,7 +5,7 @@
 namespace Endjin.Adr.Cli.Configuration
 {
     using System.IO;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
     using Newtonsoft.Json;
 
     public class SettingsManager<T> : ISettingsManager<T>

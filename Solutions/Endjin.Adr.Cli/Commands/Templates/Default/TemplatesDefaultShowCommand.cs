@@ -2,22 +2,22 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Commands
+namespace Endjin.Adr.Cli.Commands.Templates.Default
 {
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
     using System.Globalization;
     using Endjin.Adr.Cli.Configuration;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class TemplatesDefaultShowCommand
+    public class TemplatesDefaultShowCommand : ICommandFactory<TemplatesDefaultShowCommand>
     {
-        private readonly ITemplateSettingsMananger templateSettingsMananger;
+        private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public TemplatesDefaultShowCommand(ITemplateSettingsMananger templateSettingsMananger)
+        public TemplatesDefaultShowCommand(ITemplateSettingsManager templateSettingsManager)
         {
-            this.templateSettingsMananger = templateSettingsMananger;
+            this.templateSettingsManager = templateSettingsManager;
         }
 
         public Command Create()
@@ -26,7 +26,7 @@ namespace Endjin.Adr.Cli.Commands
             {
                 Handler = CommandHandler.Create(() =>
                 {
-                    var templateSettings = this.templateSettingsMananger.LoadSettings(nameof(TemplateSettings));
+                    var templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
                     var template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
 
                     Console.WriteLine($"Title: {template.Title}");

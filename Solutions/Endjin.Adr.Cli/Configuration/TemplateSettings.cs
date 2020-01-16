@@ -6,9 +6,6 @@ namespace Endjin.Adr.Cli.Configuration
 {
     using Endjin.Adr.Cli.Templates;
 
-    /// <summary>
-    /// Llkjlkjalksjd.
-    /// </summary>
     public class TemplateSettings
     {
         /// <summary>

@@ -2,20 +2,19 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Commands
+namespace Endjin.Adr.Cli.Commands.Environment.Reset
 {
-    using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class EnvironmentResetCommand
+    public class EnvironmentResetCommand : ICommandFactory<EnvironmentResetCommand>
     {
         private readonly IAppEnvironmentManager appEnvironmentManager;
 
-        public EnvironmentResetCommand(IAppEnvironmentManager appEnvironmentManager2)
+        public EnvironmentResetCommand(IAppEnvironmentManager appEnvironmentManager)
         {
-            this.appEnvironmentManager = appEnvironmentManager2;
+            this.appEnvironmentManager = appEnvironmentManager;
         }
 
         public Command Create()
@@ -24,7 +23,7 @@ namespace Endjin.Adr.Cli.Commands
             {
                 Handler = CommandHandler.Create(async () =>
                 {
-                    await this.appEnvironmentManager.ResetDesiredStateAsync();
+                    await this.appEnvironmentManager.ResetDesiredStateAsync().ConfigureAwait(false);
                 }),
             };
 

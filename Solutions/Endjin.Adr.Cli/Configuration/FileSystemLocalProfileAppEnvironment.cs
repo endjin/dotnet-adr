@@ -6,7 +6,7 @@ namespace Endjin.Adr.Cli.Configuration
 {
     using System;
     using System.IO;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
 
     public class FileSystemLocalProfileAppEnvironment : IAppEnvironment
     {
@@ -36,6 +36,11 @@ namespace Endjin.Adr.Cli.Configuration
             get { return Path.Combine(this.AppPath, ConfigurationDirectorName); }
         }
 
+        public void Clean()
+        {
+            Directory.Delete(this.AppPath, recursive: true);
+        }
+
         public void Initialize()
         {
             if (!Directory.Exists(this.AppPath))
@@ -52,11 +57,6 @@ namespace Endjin.Adr.Cli.Configuration
             {
                 Directory.CreateDirectory(this.TemplatesPath);
             }
-        }
-
-        public void Clean()
-        {
-            Directory.Delete(this.AppPath, recursive: true);
         }
 
         public bool IsInitialized()

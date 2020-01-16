@@ -6,19 +6,19 @@ namespace Endjin.Adr.Cli.Configuration
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
 
     public class AppEnvironmentManager : IAppEnvironmentManager
     {
         private readonly IAppEnvironment appEnvironment;
         private readonly ITemplatePackageManager templateManager;
-        private readonly ITemplateSettingsMananger templateSettingsMananger;
+        private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public AppEnvironmentManager(IAppEnvironment appEnvironment, ITemplatePackageManager templateManager, ITemplateSettingsMananger templateSettingsMananger)
+        public AppEnvironmentManager(IAppEnvironment appEnvironment, ITemplatePackageManager templateManager, ITemplateSettingsManager templateSettingsManager)
         {
             this.appEnvironment = appEnvironment;
             this.templateManager = templateManager;
-            this.templateSettingsMananger = templateSettingsMananger;
+            this.templateSettingsManager = templateSettingsManager;
         }
 
         public async Task SetDesiredStateAsync()
@@ -30,11 +30,11 @@ namespace Endjin.Adr.Cli.Configuration
             var templateSettings = new TemplateSettings
             {
                 MetaData = templateMetaData,
-                DefaultTemplate = templateMetaData.Details.FirstOrDefault(x => x.IsDefault).FullPath,
+                DefaultTemplate = templateMetaData.Details.FirstOrDefault(x => x.IsDefault)?.FullPath,
                 DefaultTemplatePackage = defaultPackageId,
             };
 
-            this.templateSettingsMananger.SaveSettings(templateSettings, nameof(TemplateSettings));
+            this.templateSettingsManager.SaveSettings(templateSettings, nameof(TemplateSettings));
         }
 
         public async Task SetFirstRunDesiredStateAsync()

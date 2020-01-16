@@ -1,11 +1,11 @@
-﻿// <copyright file="TemplateSettingsMananger.cs" company="Endjin Limited">
+﻿// <copyright file="TemplateSettingsManager.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-using Endjin.Adr.Cli.Configuration.Contracts;
-
 namespace Endjin.Adr.Cli.Configuration
 {
+    using Endjin.Adr.Cli.Configuration.Contracts;
+
     public class TemplateSettingsManager : SettingsManager<TemplateSettings>, ITemplateSettingsManager
     {
         public TemplateSettingsManager(IAppEnvironment appEnvironment)

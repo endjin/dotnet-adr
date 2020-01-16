@@ -5,6 +5,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Endjin.Adr.Cli</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>

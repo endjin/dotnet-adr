@@ -2,21 +2,21 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Commands
+namespace Endjin.Adr.Cli.Commands.Templates.Default
 {
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
     using Endjin.Adr.Cli.Configuration;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class TemplatesDefaultSetCommand
+    public class TemplatesDefaultSetCommand : ICommandFactory<TemplatesDefaultSetCommand>
     {
-        private readonly ITemplateSettingsMananger templateSettingsMananger;
+        private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public TemplatesDefaultSetCommand(ITemplateSettingsMananger templateSettingsMananger)
+        public TemplatesDefaultSetCommand(ITemplateSettingsManager templateSettingsManager)
         {
-            this.templateSettingsMananger = templateSettingsMananger;
+            this.templateSettingsManager = templateSettingsManager;
         }
 
         public Command Create()
@@ -27,12 +27,12 @@ namespace Endjin.Adr.Cli.Commands
                 {
                     if (!string.IsNullOrEmpty(templateId))
                     {
-                        var templateSettings = this.templateSettingsMananger.LoadSettings(nameof(TemplateSettings));
+                        var templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
                         var template = templateSettings.MetaData.Details.Find(x => x.Id == templateId);
 
                         templateSettings.DefaultTemplate = template.FullPath;
 
-                        this.templateSettingsMananger.SaveSettings(templateSettings, nameof(TemplateSettings));
+                        this.templateSettingsManager.SaveSettings(templateSettings, nameof(TemplateSettings));
 
                         Console.WriteLine($"Setting \"{template.Title}\" as the default ADR template.");
                     }

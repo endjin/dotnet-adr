@@ -4,8 +4,6 @@
 
 namespace Endjin.Adr.Cli.Templates
 {
-    #region Using Directives
-
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -13,7 +11,7 @@ namespace Endjin.Adr.Cli.Templates
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
     using Microsoft.Toolkit.Parsers.Markdown;
     using Microsoft.Toolkit.Parsers.Markdown.Blocks;
     using NuGet.Common;
@@ -24,8 +22,6 @@ namespace Endjin.Adr.Cli.Templates
     using NuGet.Packaging.Signing;
     using NuGet.Protocol.Core.Types;
     using NuGet.Resolver;
-
-    #endregion
 
     public class NuGetTemplatePackageManager : ITemplatePackageManager
     {
@@ -63,27 +59,27 @@ namespace Endjin.Adr.Cli.Templates
 
                 YamlHeaderBlock metadata = document.Blocks.FirstOrDefault(x => x.Type == MarkdownBlockType.YamlHeader) as YamlHeaderBlock;
 
-                if (metadata.Children.TryGetValue("Authors", out string authors))
+                if (metadata != null && metadata.Children.TryGetValue("Authors", out string authors))
                 {
                     details.Authors = authors;
                 }
 
-                if (metadata.Children.TryGetValue("Description", out string description))
+                if (metadata != null && metadata.Children.TryGetValue("Description", out string description))
                 {
                     details.Description = description;
                 }
 
-                if (metadata.Children.TryGetValue("Effort", out string effort))
+                if (metadata != null && metadata.Children.TryGetValue("Effort", out string effort))
                 {
                     details.Effort = effort;
                 }
 
-                if (metadata.Children.TryGetValue("Default", out string @default))
+                if (metadata != null && metadata.Children.TryGetValue("Default", out string @default))
                 {
                     details.IsDefault = bool.Parse(@default);
                 }
 
-                if (metadata.Children.TryGetValue("Last Modified", out string lastModified))
+                if (metadata != null && metadata.Children.TryGetValue("Last Modified", out string lastModified))
                 {
                     details.LastModified = DateTime.Parse(lastModified, CultureInfo.InvariantCulture);
                 }
@@ -111,7 +107,7 @@ namespace Endjin.Adr.Cli.Templates
 
         private async Task<TemplatePackageMetaData> GetLatestTemplatePackage(string packageId, string frameworkVersion, string templateRepositoryPath)
         {
-            var nuGetFramework = NuGetFramework.ParseFolder(frameworkVersion);
+            var nugetFramework = NuGetFramework.ParseFolder(frameworkVersion);
             var settings = Settings.LoadDefaultSettings(root: null);
             var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(settings), Repository.Provider.GetCoreV3());
 
@@ -128,7 +124,7 @@ namespace Endjin.Adr.Cli.Templates
 
                     var dependencyInfo = await dependencyInfoResource.ResolvePackages(
                         packageId,
-                        nuGetFramework,
+                        nugetFramework,
                         cacheContext,
                         NullLogger.Instance,
                         CancellationToken.None).ConfigureAwait(false);

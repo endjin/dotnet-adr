@@ -2,21 +2,21 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Commands
+namespace Endjin.Adr.Cli.Commands.Templates.Package
 {
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
     using Endjin.Adr.Cli.Configuration;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class TemplatesPackageShowCommand
+    public class TemplatesPackageShowCommand : ICommandFactory<TemplatesPackageShowCommand>
     {
-        private readonly ITemplateSettingsMananger templateSettingsMananger;
+        private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public TemplatesPackageShowCommand(ITemplateSettingsMananger templateSettingsMananger)
+        public TemplatesPackageShowCommand(ITemplateSettingsManager templateSettingsManager)
         {
-            this.templateSettingsMananger = templateSettingsMananger;
+            this.templateSettingsManager = templateSettingsManager;
         }
 
         public Command Create()
@@ -25,7 +25,7 @@ namespace Endjin.Adr.Cli.Commands
             {
                 Handler = CommandHandler.Create(() =>
                 {
-                    var templateSettings = this.templateSettingsMananger.LoadSettings(nameof(TemplateSettings));
+                    var templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
                     Console.WriteLine($"NuGet ADR Template Package: {templateSettings.DefaultTemplatePackage}");
                 }),

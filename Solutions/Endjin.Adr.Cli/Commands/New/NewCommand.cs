@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Commands
+namespace Endjin.Adr.Cli.Commands.New
 {
     using System;
     using System.Collections.Generic;
@@ -12,20 +12,20 @@ namespace Endjin.Adr.Cli.Commands
     using System.Linq;
     using System.Text.RegularExpressions;
     using Endjin.Adr.Cli.Configuration;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class NewCommand
+    public class NewCommand : ICommandFactory<NewCommand>
     {
-        private readonly ITemplateSettingsMananger templateSettingsMananger;
+        private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public NewCommand(ITemplateSettingsMananger templateSettingsMananger)
+        public NewCommand(ITemplateSettingsManager templateSettingsManager)
         {
-            this.templateSettingsMananger = templateSettingsMananger;
+            this.templateSettingsManager = templateSettingsManager;
         }
 
         public Command Create()
         {
-            var cmd = new Command("new", "Creates a new Architecural Decision Record, from the default ADR Template.")
+            var cmd = new Command("new", "Creates a new Architectural Decision Record, from the default ADR Template.")
             {
                 Handler = CommandHandler.Create((int? id, string title) =>
                 {
@@ -40,19 +40,19 @@ namespace Endjin.Adr.Cli.Commands
 
                     if (id.HasValue)
                     {
-                        var superscede = adrs.Find(x => x.RecordNumber == id.Value);
+                        var supersede = adrs.Find(x => x.RecordNumber == id.Value);
 
-                        Regex superscededRegEx = new Regex(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
+                        Regex supersedeRegEx = new Regex(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
 
-                        var updatedContent = superscededRegEx.Replace(superscede.Content, $"\nSupersceded by ADR {adr.RecordNumber.ToString("D4")} - {adr.Title}\n");
+                        var updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSupersceded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
 
-                        File.WriteAllText(superscede.Path, updatedContent);
+                        File.WriteAllText(supersede.Path, updatedContent);
                     }
 
                     File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), adr.SafeFileName()), adr.Content);
 
                     Console.WriteLine($"Create ADR Record {title}");
-                    Console.WriteLine($"Supercede ADR Record {id}");
+                    Console.WriteLine($"Supersede ADR Record {id}");
                 }),
             };
 
@@ -64,7 +64,7 @@ namespace Endjin.Adr.Cli.Commands
 
         private string CreateNewDefaultTemplate(string title)
         {
-            var templateSettings = this.templateSettingsMananger.LoadSettings(nameof(TemplateSettings));
+            var templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
             var template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
             var templateContents = File.ReadAllText(template.FullPath);
 

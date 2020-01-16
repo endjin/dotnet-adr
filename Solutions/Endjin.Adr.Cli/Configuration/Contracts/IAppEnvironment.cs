@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Contracts
+namespace Endjin.Adr.Cli.Configuration.Contracts
 {
     public interface IAppEnvironment
     {
@@ -12,10 +12,10 @@ namespace Endjin.Adr.Cli.Contracts
 
         string TemplatesPath { get; }
 
+        void Clean();
+
         void Initialize();
 
         bool IsInitialized();
-
-        void Clean();
     }
 }

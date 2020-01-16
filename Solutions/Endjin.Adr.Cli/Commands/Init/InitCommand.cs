@@ -2,14 +2,14 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Commands
+namespace Endjin.Adr.Cli.Commands.Init
 {
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
     using System.IO;
 
-    public class InitCommand
+    public class InitCommand : ICommandFactory<InitCommand>
     {
         public Command Create()
         {

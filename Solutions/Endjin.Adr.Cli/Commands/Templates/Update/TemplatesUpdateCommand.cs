@@ -2,24 +2,24 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Commands
+namespace Endjin.Adr.Cli.Commands.Templates.Update
 {
     using System;
     using System.CommandLine;
     using System.CommandLine.Invocation;
     using System.Linq;
     using Endjin.Adr.Cli.Configuration;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Configuration.Contracts;
 
-    public class TemplatesUpdateCommand
+    public class TemplatesUpdateCommand : ICommandFactory<TemplatesUpdateCommand>
     {
         private readonly ITemplatePackageManager templateManager;
-        private readonly ITemplateSettingsMananger templateSettingsMananger;
+        private readonly ITemplateSettingsManager templateSettingsManager;
 
-        public TemplatesUpdateCommand(ITemplatePackageManager templateManager, ITemplateSettingsMananger templateSettingsMananger)
+        public TemplatesUpdateCommand(ITemplatePackageManager templateManager, ITemplateSettingsManager templateSettingsManager)
         {
             this.templateManager = templateManager;
-            this.templateSettingsMananger = templateSettingsMananger;
+            this.templateSettingsManager = templateSettingsManager;
         }
 
         public Command Create()
@@ -28,24 +28,19 @@ namespace Endjin.Adr.Cli.Commands
             {
                 Handler = CommandHandler.Create(async () =>
                 {
-                    var currentSettings = this.templateSettingsMananger.LoadSettings(nameof(TemplateSettings));
+                    var currentSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
                     Console.WriteLine($"Current ADR Templates version {currentSettings.MetaData.Version}");
 
                     var templateMetaData = await this.templateManager.InstallLatestAsync(currentSettings.DefaultTemplatePackage).ConfigureAwait(false);
-                    var defaultTemplate = templateMetaData.Details.Find(x => x.IsDefault);
-
-                    if (defaultTemplate == null)
-                    {
-                        defaultTemplate = templateMetaData.Details.First();
-                    }
+                    var defaultTemplate = templateMetaData.Details.Find(x => x.IsDefault) ?? templateMetaData.Details.First();
 
                     currentSettings.MetaData = templateMetaData;
                     currentSettings.DefaultTemplate = defaultTemplate.FullPath;
 
                     Console.WriteLine($"Downloaded ADR Templates version {templateMetaData.Version}");
 
-                    this.templateSettingsMananger.SaveSettings(currentSettings, nameof(TemplateSettings));
+                    this.templateSettingsManager.SaveSettings(currentSettings, nameof(TemplateSettings));
 
                     Console.WriteLine($"Updated ADR Templates to version {templateMetaData.Version}");
                 }),

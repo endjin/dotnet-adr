@@ -8,7 +8,11 @@ namespace Endjin.Adr.Cli
     using System.CommandLine.Invocation;
     using System.Threading.Tasks;
     using Endjin.Adr.Cli.Commands;
-    using Endjin.Adr.Cli.Contracts;
+    using Endjin.Adr.Cli.Commands.Environment;
+    using Endjin.Adr.Cli.Commands.Init;
+    using Endjin.Adr.Cli.Commands.New;
+    using Endjin.Adr.Cli.Commands.Templates;
+    using Endjin.Adr.Cli.Configuration.Contracts;
     using Endjin.Adr.Cli.Extensions;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -29,14 +33,15 @@ namespace Endjin.Adr.Cli
 
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-            var appEnvironmentManager = serviceProvider.GetRequiredService<IAppEnvironmentManager>();
-            await appEnvironmentManager.SetFirstRunDesiredStateAsync().ConfigureAwait(false);
+            await serviceProvider.GetRequiredService<IAppEnvironmentManager>()
+                                 .SetFirstRunDesiredStateAsync()
+                                 .ConfigureAwait(false);
 
             var cmd = new CommandLineBuilder()
-                .AddCommand(new InitCommand().Create())
-                .AddCommand(new NewCommand(serviceProvider.GetRequiredService<ITemplateSettingsMananger>()).Create())
-                .AddCommand(new TemplatesCommand(serviceProvider.GetRequiredService<ITemplatePackageManager>(), serviceProvider.GetRequiredService<ITemplateSettingsMananger>()).Create())
-                .AddCommand(new EnvironmentCommand(serviceProvider.GetRequiredService<IAppEnvironmentManager>()).Create())
+                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<InitCommand>>().Create())
+                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<NewCommand>>().Create())
+                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<TemplatesCommand>>().Create())
+                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<EnvironmentCommand>>().Create())
                 .UseDefaults()
                 .Build();
 
