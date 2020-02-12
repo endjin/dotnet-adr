@@ -108,7 +108,7 @@ namespace Endjin.Adr.Cli.Templates
         private async Task<TemplatePackageMetaData> GetLatestTemplatePackage(string packageId, string frameworkVersion, string templateRepositoryPath)
         {
             var nugetFramework = NuGetFramework.ParseFolder(frameworkVersion);
-            var settings = Settings.LoadDefaultSettings(root: null);
+            var settings = Settings.LoadSpecificSettings(root: null, this.appEnvironment.NuGetConfigFilePath);
             var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(settings), Repository.Provider.GetCoreV3());
 
             var templatePackageMetaDataList = new List<TemplatePackageMetaData>();

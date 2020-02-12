@@ -25,7 +25,7 @@ namespace Endjin.Adr.Cli.Configuration
         {
             const string defaultPackageId = "adr.templates";
 
-            this.appEnvironment.Initialize();
+            await this.appEnvironment.InitializeAsync().ConfigureAwait(false);
 
             var templateMetaData = await this.templateManager.InstallLatestAsync(defaultPackageId).ConfigureAwait(false);
             var templateSettings = new TemplateSettings

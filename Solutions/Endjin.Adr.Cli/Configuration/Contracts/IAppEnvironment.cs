@@ -4,17 +4,21 @@
 
 namespace Endjin.Adr.Cli.Configuration.Contracts
 {
+    using System.Threading.Tasks;
+
     public interface IAppEnvironment
     {
         string AppPath { get; }
 
         string ConfigurationPath { get; }
 
+        string NuGetConfigFilePath { get; }
+
         string TemplatesPath { get; }
 
         void Clean();
 
-        void Initialize();
+        Task InitializeAsync();
 
         bool IsInitialized();
     }
