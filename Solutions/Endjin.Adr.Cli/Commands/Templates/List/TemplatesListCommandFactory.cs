@@ -57,7 +57,7 @@ namespace Endjin.Adr.Cli.Commands.Templates.List
                 }),
             };
 
-            cmd.AddOption(new Option("ids-only"));
+            cmd.AddOption(new Option("--ids-only"));
 
             return cmd;
         }
