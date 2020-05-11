@@ -16,7 +16,7 @@ namespace Endjin.Adr.Cli
 
         public string SafeFileName()
         {
-            return $"{this.RecordNumber.ToString("D4")}-{this.Title.ToLowerInvariant().Replace(" ", "-")}.md";
+            return $"{this.RecordNumber:D4}-{this.Title.ToLowerInvariant().Replace(" ", "-")}.md";
         }
     }
 }
