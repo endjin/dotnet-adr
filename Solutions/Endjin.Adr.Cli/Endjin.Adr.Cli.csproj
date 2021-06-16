@@ -45,7 +45,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
     <PackageReference Include="Microsoft.Toolkit.Parsers" Version="6.0.0" />
-    <PackageReference Include="NuGet.Common" Version="5.5.1" />
+    <PackageReference Include="NuGet.Common" Version="5.10.0" />
     <PackageReference Include="NuGet.Packaging.Core" Version="5.5.1" />
     <PackageReference Include="NuGet.Resolver" Version="5.5.1" />
     <PackageReference Include="System.CommandLine.Experimental" Version="0.3.0-alpha.19405.1" />
