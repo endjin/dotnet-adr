@@ -5,7 +5,9 @@
 namespace Endjin.Adr.Cli.Templates
 {
     using System;
+    using System.Diagnostics;
 
+    [DebuggerDisplay("{Title} - {Version}")]
     public class TemplatePackageDetail
     {
         public string Title { get; set; }

@@ -2,7 +2,7 @@
   "profiles": {
     "Endjin.Adr.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "templates list --ids-only"
+      "commandLineArgs": "environment reset"
     }
   }
 }

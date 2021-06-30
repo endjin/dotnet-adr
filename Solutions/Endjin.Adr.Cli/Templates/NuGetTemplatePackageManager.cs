@@ -12,8 +12,11 @@ namespace Endjin.Adr.Cli.Templates
     using System.Threading;
     using System.Threading.Tasks;
     using Endjin.Adr.Cli.Configuration.Contracts;
-    using Microsoft.Toolkit.Parsers.Markdown;
-    using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+
+    using Markdig;
+    using Markdig.Extensions.Yaml;
+    using Markdig.Syntax;
+
     using NuGet.Common;
     using NuGet.Configuration;
     using NuGet.Frameworks;
@@ -22,6 +25,8 @@ namespace Endjin.Adr.Cli.Templates
     using NuGet.Packaging.Signing;
     using NuGet.Protocol.Core.Types;
     using NuGet.Resolver;
+
+    using YamlDotNet.Serialization;
 
     public class NuGetTemplatePackageManager : ITemplatePackageManager
     {
@@ -44,6 +49,12 @@ namespace Endjin.Adr.Cli.Templates
         private async Task<List<TemplatePackageDetail>> GetTemplatePackageDetails(string templatePackagePath, List<string> templates)
         {
             var packageDetails = new List<TemplatePackageDetail>();
+            MarkdownPipeline pipeline = new MarkdownPipelineBuilder()
+                                    .UseAutoIdentifiers()
+                                    .UseGridTables()
+                                    .UsePipeTables()
+                                    .UseYamlFrontMatter()
+                                    .Build();
 
             MarkdownDocument document = new MarkdownDocument();
 
@@ -55,11 +66,72 @@ namespace Endjin.Adr.Cli.Templates
                     FullPath = Path.GetFullPath(Path.Combine(templatePackagePath, template)),
                 };
 
-                document.Parse(await File.ReadAllTextAsync(details.FullPath).ConfigureAwait(false));
+                MarkdownDocument doc = Markdown.Parse(await File.ReadAllTextAsync(details.FullPath).ConfigureAwait(false), pipeline);
 
-                YamlHeaderBlock metadata = document.Blocks.FirstOrDefault(x => x.Type == MarkdownBlockType.YamlHeader) as YamlHeaderBlock;
+                var yamlBlock = doc.Descendants<YamlFrontMatterBlock>().FirstOrDefault();
 
-                if (metadata != null && metadata.Children.TryGetValue("Authors", out string authors))
+                if (yamlBlock != null)
+                {
+                    var yaml = string.Join(Environment.NewLine, yamlBlock.Lines.Lines.Select(l => l.ToString()).Where(x => !string.IsNullOrEmpty(x)));
+
+                    try
+                    {
+                        var deserializer = new DeserializerBuilder().IgnoreUnmatchedProperties().IgnoreFields().Build();
+                        var frontMatter = deserializer.Deserialize<Dictionary<string, dynamic>>(yaml);
+
+                        if (frontMatter.TryGetValue("Authors", out dynamic authors))
+                        {
+                            details.Authors = authors;
+                        }
+
+                        if (frontMatter.TryGetValue("Description", out dynamic description))
+                        {
+                            details.Description = description;
+                        }
+
+                        if (frontMatter.TryGetValue("Effort", out dynamic effort))
+                        {
+                            details.Effort = effort;
+                        }
+
+                        if (frontMatter.TryGetValue("Default", out dynamic @default))
+                        {
+                            if (bool.TryParse(@default, out bool isDefault))
+                            {
+                                details.IsDefault = isDefault;
+                            }
+                        }
+
+                        if (frontMatter.TryGetValue("Last Modified", out dynamic lastModified))
+                        {
+                            if (DateTime.TryParse(lastModified, out DateTime dateTime))
+                            {
+                                details.LastModified = dateTime;
+                            }
+                        }
+
+                        if (frontMatter.TryGetValue("More Info", out dynamic moreInfo))
+                        {
+                            details.MoreInfo = moreInfo;
+                        }
+
+                        if (frontMatter.TryGetValue("Title", out dynamic title))
+                        {
+                            details.Title = title;
+                        }
+
+                        if (frontMatter.TryGetValue("Version", out dynamic version))
+                        {
+                            details.Version = Version.Parse(version);
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        throw new AggregateException(new InvalidOperationException($"Error parsing {details.FullPath}"), exception);
+                    }
+                }
+
+/*                if (metadata != null && metadata.Children.TryGetValue("Authors", out string authors))
                 {
                     details.Authors = authors;
                 }
@@ -97,7 +169,7 @@ namespace Endjin.Adr.Cli.Templates
                 if (metadata.Children.TryGetValue("Version", out string version))
                 {
                     details.Version = Version.Parse(version);
-                }
+                }*/
 
                 packageDetails.Add(details);
             }
