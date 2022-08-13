@@ -11,11 +11,11 @@ namespace Endjin.Adr.Cli.Configuration
     public class SettingsManager<T> : ISettingsManager<T>
         where T : class
     {
-        private readonly IAppEnvironment appEnvironment;
+        private readonly IAppEnvironmentConfiguration appEnvironmentConfiguration;
 
-        public SettingsManager(IAppEnvironment appEnvironment)
+        public SettingsManager(IAppEnvironmentConfiguration appEnvironmentConfiguration)
         {
-            this.appEnvironment = appEnvironment;
+            this.appEnvironmentConfiguration = appEnvironmentConfiguration;
         }
 
         public T LoadSettings(string fileName)
@@ -35,7 +35,7 @@ namespace Endjin.Adr.Cli.Configuration
 
         private string GetLocalFilePath(string fileName)
         {
-            return Path.Combine(this.appEnvironment.ConfigurationPath, fileName);
+            return Path.Combine(this.appEnvironmentConfiguration.ConfigurationPath.ToString(), fileName);
         }
     }
 }

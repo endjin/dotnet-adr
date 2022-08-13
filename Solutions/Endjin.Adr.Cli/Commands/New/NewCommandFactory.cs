@@ -57,7 +57,7 @@ namespace Endjin.Adr.Cli.Commands.New
                 }),
             };
 
-            cmd.AddOption(new Option("--id", "Id of ADR to supersede.") { Argument = new Argument<int>() });
+            cmd.AddOption(new Option<int>("--id", "Id of ADR to supersede."));
             cmd.AddArgument(new Argument<string>("title") { Description = "Title of the ADR" });
 
             return cmd;

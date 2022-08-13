@@ -39,7 +39,7 @@ namespace Endjin.Adr.Cli.Templates
 
         public async Task<TemplatePackageMetaData> InstallLatestAsync(string packageId)
         {
-            var templateMetaData = await this.GetLatestTemplatePackage(packageId, "any", this.appEnvironment.TemplatesPath).ConfigureAwait(false);
+            var templateMetaData = await this.GetLatestTemplatePackage(packageId, "any", this.appEnvironment.TemplatesPath.ToString()).ConfigureAwait(false);
 
             templateMetaData.Details.AddRange(await this.GetTemplatePackageDetails(templateMetaData.TemplatePath, templateMetaData.Templates).ConfigureAwait(false));
 
@@ -180,7 +180,7 @@ namespace Endjin.Adr.Cli.Templates
         private async Task<TemplatePackageMetaData> GetLatestTemplatePackage(string packageId, string frameworkVersion, string templateRepositoryPath)
         {
             var nugetFramework = NuGetFramework.ParseFolder(frameworkVersion);
-            var settings = Settings.LoadSpecificSettings(root: null, this.appEnvironment.NuGetConfigFilePath);
+            var settings = Settings.LoadSpecificSettings(root: null, this.appEnvironment.NuGetConfigFilePath.ToString());
             var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(settings), Repository.Provider.GetCoreV3());
 
             var templatePackageMetaDataList = new List<TemplatePackageMetaData>();

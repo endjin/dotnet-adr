@@ -1,4 +1,4 @@
-﻿// <copyright file="FileSystemLocalProfileAppEnvironment.cs" company="Endjin Limited">
+﻿// <copyright file="FileSystemRoamingProfileAppEnvironment.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -15,21 +15,27 @@ namespace Endjin.Adr.Cli.Configuration
   using Endjin.Adr.Cli.Configuration.Contracts;
   using NDepend.Path;
 
-  public class FileSystemLocalProfileAppEnvironment : IAppEnvironment
+  public class FileSystemRoamingProfileAppEnvironment : IAppEnvironment
   {
-    public const string AppName = "adr";
+    public const string AppName = "dotnet-adr";
     public const string AppOrgName = "endjin";
     public const string ConfigurationDirectorName = "configuration";
-    public const string PluginsDirectoryName = "plugins";
     public const string TemplatesDirectoryName = "templates";
     public const string NuGetFileName = "NuGet.Config";
-
+    public const string PluginsDirectoryName = "plugins";
     public const string DefaultNuGetConfig = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <configuration>
     <packageSources>
         <add key=""NuGet official package source"" value=""https://api.nuget.org/v3/index.json"" />
     </packageSources>
 </configuration>";
+
+    private readonly IConsole console;
+
+    public FileSystemRoamingProfileAppEnvironment(IConsole console)
+    {
+      this.console = console;
+    }
 
     public IAbsoluteDirectoryPath AppPath
     {
@@ -59,9 +65,9 @@ namespace Endjin.Adr.Cli.Configuration
             directory = Directory.GetParent(directory).FullName;
           }
 
-          IEnumerable<string> dirs = Directory
-            .EnumerateDirectories(directory, "*.*", SearchOption.AllDirectories)
-            .Where(f => !Directory.EnumerateDirectories(f, "*.*", SearchOption.TopDirectoryOnly).Any() && f.EndsWith(@"bin\Debug\net6.0"));
+          IEnumerable<string> dirs = Directory.EnumerateDirectories(directory, "*.*", SearchOption.AllDirectories)
+            .Where(f => !Directory.EnumerateDirectories(f, "*.*", SearchOption.TopDirectoryOnly).Any() &&
+                        f.EndsWith(@"bin\Debug\net6.0"));
 
           foreach (string dir in dirs)
           {

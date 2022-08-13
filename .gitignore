@@ -348,5 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-/Solutions/.idea/.idea.Endjin.Adr/.idea
-/Solutions/.idea/.idea.Endjin.Adr
+.idea/
+
+*.sbom.*
+launchSettings.json

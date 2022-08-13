@@ -4,22 +4,26 @@
 
 namespace Endjin.Adr.Cli.Configuration.Contracts
 {
+    using System.Collections.Generic;
+    using System.CommandLine;
     using System.Threading.Tasks;
 
-    public interface IAppEnvironment
+    using NDepend.Path;
+
+    public interface IAppEnvironment : IAppEnvironmentConfiguration
     {
-        string AppPath { get; }
+      IAbsoluteFilePath NuGetConfigFilePath { get; }
 
-        string ConfigurationPath { get; }
+      IAbsoluteDirectoryPath TemplatesPath { get; }
 
-        string NuGetConfigFilePath { get; }
+      IAbsoluteDirectoryPath PluginPath { get; }
 
-        string TemplatesPath { get; }
+      IEnumerable<IAbsoluteDirectoryPath> PluginPaths { get; }
 
-        void Clean();
+      void Clean();
 
-        Task InitializeAsync();
+      Task InitializeAsync(IConsole console);
 
-        bool IsInitialized();
+      bool IsInitialized();
     }
 }

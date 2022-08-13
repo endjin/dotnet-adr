@@ -4,16 +4,12 @@
 
 namespace Endjin.Adr.Cli
 {
-    using System.CommandLine.Builder;
-    using System.CommandLine.Invocation;
+    using System;
+    using System.CommandLine.Parsing;
+    using System.Text;
     using System.Threading.Tasks;
-    using Endjin.Adr.Cli.Commands;
-    using Endjin.Adr.Cli.Commands.Environment;
-    using Endjin.Adr.Cli.Commands.Init;
-    using Endjin.Adr.Cli.Commands.New;
-    using Endjin.Adr.Cli.Commands.Templates;
-    using Endjin.Adr.Cli.Configuration.Contracts;
-    using Endjin.Adr.Cli.Extensions;
+    using Endjin.Adr.Cli.Configuration;
+    using Endjin.Adr.Cli.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
@@ -21,6 +17,8 @@ namespace Endjin.Adr.Cli
     /// </summary>
     public static class AdrCli
     {
+        private static readonly ServiceCollection ServiceCollection = new();
+
         /// <summary>
         /// Architectural Decision Records .NET Global Tool.
         /// </summary>
@@ -28,8 +26,16 @@ namespace Endjin.Adr.Cli
         /// <returns>Exit Code.</returns>
         public static async Task<int> Main(string[] args)
         {
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.ConfigureDependencies();
+            Console.OutputEncoding = Encoding.UTF8;
+
+            ICompositeConsole console = new CompositeConsole();
+
+            return await new CommandLineParser(
+                console,
+                new FileSystemRoamingProfileAppEnvironment(console),
+                ServiceCollection).Create().InvokeAsync(args, console).ConfigureAwait(false);
+
+/*            serviceCollection.ConfigureDependencies();
 
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -45,7 +51,7 @@ namespace Endjin.Adr.Cli
                 .UseDefaults()
                 .Build();
 
-            return await cmd.InvokeAsync(args).ConfigureAwait(false);
+            return await cmd.InvokeAsync(args).ConfigureAwait(false);*/
         }
     }
 }

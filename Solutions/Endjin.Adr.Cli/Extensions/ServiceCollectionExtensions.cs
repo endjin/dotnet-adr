@@ -23,12 +23,12 @@ namespace Endjin.Adr.Cli.Extensions
     {
         public static void ConfigureDependencies(this ServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IAppEnvironment, FileSystemLocalProfileAppEnvironment>();
+            serviceCollection.AddTransient<IAppEnvironment, FileSystemRoamingProfileAppEnvironment>();
             serviceCollection.AddTransient<IAppEnvironmentManager, AppEnvironmentManager>();
             serviceCollection.AddTransient<ITemplatePackageManager, NuGetTemplatePackageManager>();
             serviceCollection.AddTransient<ITemplateSettingsManager, TemplateSettingsManager>();
 
-            serviceCollection.AddTransient<ICommandFactory<InitCommandFactory>, InitCommandFactory>();
+            // serviceCollection.AddTransient<ICommandFactory<InitCommandFactory>, InitCommandFactory>();
             serviceCollection.AddTransient<ICommandFactory<EnvironmentCommandFactory>, EnvironmentCommandFactory>();
             serviceCollection.AddTransient<ICommandFactory<NewCommandFactory>, NewCommandFactory>();
             serviceCollection.AddTransient<ICommandFactory<TemplatesCommandFactory>, TemplatesCommandFactory>();

@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Endjin.Adr.Cli</RootNamespace>
   </PropertyGroup>
 
@@ -30,6 +30,7 @@
     <PackageTags>dotnet-adr architecture tools endjin dotnet-cli</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <AssemblyName>adr</AssemblyName>
+    <Copyright>Copyright (c) Endjin Limited 2021. All rights reserved.</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -43,13 +44,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.25.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
-    <PackageReference Include="NuGet.Common" Version="5.10.0" />
-    <PackageReference Include="NuGet.Packaging.Core" Version="5.10.0" />
-    <PackageReference Include="NuGet.Resolver" Version="5.10.0" />
-    <PackageReference Include="System.CommandLine.Experimental" Version="0.3.0-alpha.19405.1" />
-    <PackageReference Include="YamlDotNet" Version="11.2.1" />
+    <PackageReference Include="Markdig" Version="0.30.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="NDepend.Path" Version="2.0.0" />
+    <PackageReference Include="NuGet.Common" Version="6.3.0" />
+    <PackageReference Include="NuGet.Packaging.Core" Version="6.3.0" />
+    <PackageReference Include="NuGet.Resolver" Version="6.3.0" />
+    <PackageReference Include="Spectre.Console" Version="0.44.0" />
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
+    <PackageReference Include="YamlDotNet" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+    <Folder Include="Environment\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Update="StyleCop.Analyzers" Version="1.2.0-beta.354" />
   </ItemGroup>
 
 </Project>
