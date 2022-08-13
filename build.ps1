@@ -135,7 +135,7 @@ $SkipPackage = $false
 #
 # Build process configuration
 #
-$SolutionToBuild = (Resolve-Path (Join-Path $here ".\Solutions\Endjin.Adr.Cli.sln")).Path
+$SolutionToBuild = (Resolve-Path (Join-Path $here ".\Solutions\Endjin.Adr.sln")).Path
 
 #
 # Specify files to exclude from code coverage
