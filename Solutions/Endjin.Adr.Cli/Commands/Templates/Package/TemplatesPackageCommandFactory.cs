@@ -8,23 +8,13 @@ namespace Endjin.Adr.Cli.Commands.Templates.Package
 
     public class TemplatesPackageCommandFactory : ICommandFactory<TemplatesPackageCommandFactory>
     {
-        private readonly ICommandFactory<TemplatesPackageSetCommandFactory> templatesPackageSetCommandFactory;
-        private readonly ICommandFactory<TemplatesPackageShowCommandFactory> templatesPackageShowCommandFactory;
-
-        public TemplatesPackageCommandFactory(
-            ICommandFactory<TemplatesPackageSetCommandFactory> templatesPackageSetCommandFactory,
-            ICommandFactory<TemplatesPackageShowCommandFactory> templatesPackageShowCommandFactory)
+        public TemplatesPackageCommandFactory()
         {
-            this.templatesPackageSetCommandFactory = templatesPackageSetCommandFactory;
-            this.templatesPackageShowCommandFactory = templatesPackageShowCommandFactory;
         }
 
         public Command Create()
         {
             var cmd = new Command("package", "Operations that can be performed against the NuGet ADR Template package.");
-
-            cmd.AddCommand(this.templatesPackageSetCommandFactory.Create());
-            cmd.AddCommand(this.templatesPackageShowCommandFactory.Create());
 
             return cmd;
         }

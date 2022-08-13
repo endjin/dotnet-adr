@@ -26,7 +26,7 @@
         {
             var args = new string[] { "init",  this.scenarioContext.Get<string>("Directory") };
 
-            var result = await AdrCli.Main(args).ConfigureAwait(false);
+            var result = await Program.Main(args).ConfigureAwait(false);
 
             this.scenarioContext.Set(result, "Result");
         }

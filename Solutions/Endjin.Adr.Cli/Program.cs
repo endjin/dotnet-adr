@@ -1,4 +1,4 @@
-﻿// <copyright file="AdrCli.cs" company="Endjin Limited">
+﻿// <copyright file="Program.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -10,12 +10,13 @@ namespace Endjin.Adr.Cli
     using System.Threading.Tasks;
     using Endjin.Adr.Cli.Configuration;
     using Endjin.Adr.Cli.Infrastructure;
+    using Endjin.Adr.Cli.Templates;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// A CLI tool for creating and manading Architectural Decision Records.
     /// </summary>
-    public static class AdrCli
+    public static class Program
     {
         private static readonly ServiceCollection ServiceCollection = new();
 
@@ -26,13 +27,17 @@ namespace Endjin.Adr.Cli
         /// <returns>Exit Code.</returns>
         public static async Task<int> Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.UTF8;
-
             ICompositeConsole console = new CompositeConsole();
 
             return await new CommandLineParser(
                 console,
                 new FileSystemRoamingProfileAppEnvironment(console),
+                new AppEnvironmentManager(
+                  new FileSystemLocalProfileAppEnvironment(),
+                  new NuGetTemplatePackageManager(new FileSystemLocalProfileAppEnvironment()),
+                  new TemplateSettingsManager(new FileSystemLocalProfileAppEnvironment()),
+                  console),
+                new TemplateSettingsManager(new FileSystemLocalProfileAppEnvironment()),
                 ServiceCollection).Create().InvokeAsync(args, console).ConfigureAwait(false);
 
 /*            serviceCollection.ConfigureDependencies();

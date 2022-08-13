@@ -12,20 +12,11 @@ namespace Endjin.Adr.Cli.Commands.Templates
 
     public class TemplatesCommandFactory : ICommandFactory<TemplatesCommandFactory>
     {
-        private readonly ICommandFactory<TemplatesDefaultCommandFactory> templatesDefaultCommandFactory;
-        private readonly ICommandFactory<TemplatesListCommandFactory> templatesListCommandFactory;
-        private readonly ICommandFactory<TemplatesUpdateCommandFactory> templatesUpdateCommand;
         private readonly ICommandFactory<TemplatesPackageCommandFactory> templatesPackageCommandFactory;
 
         public TemplatesCommandFactory(
-            ICommandFactory<TemplatesDefaultCommandFactory> templatesDefaultCommandFactory,
-            ICommandFactory<TemplatesListCommandFactory> templatesListCommandFactory,
-            ICommandFactory<TemplatesUpdateCommandFactory> templatesUpdateCommandFactory,
             ICommandFactory<TemplatesPackageCommandFactory> templatesPackageCommandFactory)
         {
-            this.templatesDefaultCommandFactory = templatesDefaultCommandFactory;
-            this.templatesListCommandFactory = templatesListCommandFactory;
-            this.templatesUpdateCommand = templatesUpdateCommandFactory;
             this.templatesPackageCommandFactory = templatesPackageCommandFactory;
         }
 
@@ -33,9 +24,6 @@ namespace Endjin.Adr.Cli.Commands.Templates
         {
             var cmd = new Command("templates", "Perform operations on ADR templates.");
 
-            cmd.AddCommand(this.templatesDefaultCommandFactory.Create());
-            cmd.AddCommand(this.templatesListCommandFactory.Create());
-            cmd.AddCommand(this.templatesUpdateCommand.Create());
             cmd.AddCommand(this.templatesPackageCommandFactory.Create());
 
             return cmd;
