@@ -2,28 +2,24 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Configuration.Contracts
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using NDepend.Path;
+
+namespace Endjin.Adr.Cli.Configuration.Contracts;
+public interface IAppEnvironment : IAppEnvironmentConfiguration
 {
-    using System.Collections.Generic;
-    using System.CommandLine;
-    using System.Threading.Tasks;
+    IAbsoluteFilePath NuGetConfigFilePath { get; }
 
-    using NDepend.Path;
+    IAbsoluteDirectoryPath TemplatesPath { get; }
 
-    public interface IAppEnvironment : IAppEnvironmentConfiguration
-    {
-      IAbsoluteFilePath NuGetConfigFilePath { get; }
+    IAbsoluteDirectoryPath PluginPath { get; }
 
-      IAbsoluteDirectoryPath TemplatesPath { get; }
+    IEnumerable<IAbsoluteDirectoryPath> PluginPaths { get; }
 
-      IAbsoluteDirectoryPath PluginPath { get; }
+    void Clean();
 
-      IEnumerable<IAbsoluteDirectoryPath> PluginPaths { get; }
+    Task InitializeAsync();
 
-      void Clean();
-
-      Task InitializeAsync(IConsole console);
-
-      bool IsInitialized();
-    }
+    bool IsInitialized();
 }

@@ -2,21 +2,19 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli
+namespace Endjin.Adr.Cli;
+public class Adr
 {
-    public class Adr
+    public int RecordNumber { get; set; }
+
+    public string Path { get; set; }
+
+    public string Title { get; set; }
+
+    public string Content { get; set; }
+
+    public string SafeFileName()
     {
-        public int RecordNumber { get; set; }
-
-        public string Path { get; set; }
-
-        public string Title { get; set; }
-
-        public string Content { get; set; }
-
-        public string SafeFileName()
-        {
-            return $"{this.RecordNumber:D4}-{this.Title.ToLowerInvariant().Replace(" ", "-")}.md";
-        }
+        return $"{this.RecordNumber:D4}-{this.Title.ToLowerInvariant().Replace(" ", "-")}.md";
     }
 }

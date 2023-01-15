@@ -2,7 +2,7 @@
   "profiles": {
     "Endjin.Adr.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "environment reset"
+      "commandLineArgs": "new \"First ADR\""
     }
   }
 }

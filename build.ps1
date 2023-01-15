@@ -71,7 +71,7 @@ param (
     [string] $BuildModulePath,
 
     [Parameter()]
-    [version] $BuildModuleVersion = "0.2.8",
+    [version] $BuildModuleVersion = "1.2.2",
 
     [Parameter()]
     [version] $InvokeBuildModuleVersion = "5.7.1"
@@ -130,6 +130,7 @@ $SkipTest = $true
 $SkipTestReport = $false
 $SkipAnalysis = $false
 $SkipPackage = $false
+$SkipPublish = $false
 
 
 #
@@ -162,9 +163,10 @@ task PostTest {}
 task PreTestReport {}
 task PostTestReport {}
 task PreAnalysis {}
-task PostAnalysis
+task PostAnalysis {}
 task PrePackage {}
 task PostPackage {}
 task PrePublish {}
 task PostPublish {}
 task RunLast {}
+

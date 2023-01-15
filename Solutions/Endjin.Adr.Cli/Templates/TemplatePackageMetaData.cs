@@ -2,39 +2,37 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Templates
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
+
+namespace Endjin.Adr.Cli.Templates;
+public class TemplatePackageMetaData
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using Newtonsoft.Json;
+    public string Name { get; set; }
 
-    public class TemplatePackageMetaData
+    public string Version { get; set; }
+
+    public string RepositoryPath { get; set; }
+
+    public List<TemplatePackageDetail> Details { get; } = new List<TemplatePackageDetail>();
+
+    [JsonIgnore]
+    public List<string> Templates { get; } = new List<string>();
+
+    public string Id
     {
-        public string Name { get; set; }
-
-        public string Version { get; set; }
-
-        public string RepositoryPath { get; set; }
-
-        public List<TemplatePackageDetail> Details { get; } = new List<TemplatePackageDetail>();
-
-        [JsonIgnore]
-        public List<string> Templates { get; } = new List<string>();
-
-        public string Id
+        get
         {
-            get
-            {
-                return $"{this.Name}.{this.Version}";
-            }
+            return $"{this.Name}.{this.Version}";
         }
+    }
 
-        public string TemplatePath
+    public string TemplatePath
+    {
+        get
         {
-            get
-            {
-                return Path.Combine(this.RepositoryPath, this.Version);
-            }
+            return Path.Combine(this.RepositoryPath, this.Version);
         }
     }
 }

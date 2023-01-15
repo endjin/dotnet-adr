@@ -2,13 +2,11 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Configuration.Contracts
-{
-    public interface ISettingsManager<T>
+namespace Endjin.Adr.Cli.Configuration.Contracts;
+public interface ISettingsManager<T>
         where T : class
-    {
-        T LoadSettings(string fileName);
+{
+    T LoadSettings(string fileName);
 
-        void SaveSettings(T settings, string fileName);
-    }
+    void SaveSettings(T settings, string fileName);
 }

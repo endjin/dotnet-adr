@@ -2,61 +2,71 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli
+using System.Threading.Tasks;
+using Endjin.Adr.Cli.Commands.Init;
+using Endjin.Adr.Cli.Commands.New;
+using Endjin.Adr.Cli.Commands.Templates.Default;
+using Endjin.Adr.Cli.Commands.Templates.List;
+using Endjin.Adr.Cli.Commands.Templates.Package;
+using Endjin.Adr.Cli.Commands.Templates.Update;
+using Endjin.Adr.Cli.Extensions;
+using Endjin.Adr.Cli.Infrastructure.Injection;
+using Microsoft.Extensions.DependencyInjection;
+using Spectre.Console.Cli;
+
+namespace Endjin.Adr.Cli;
+
+/// <summary>
+/// A CLI tool for creating and managing Architectural Decision Records.
+/// </summary>
+public static class Program
 {
-    using System;
-    using System.CommandLine.Parsing;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Endjin.Adr.Cli.Configuration;
-    using Endjin.Adr.Cli.Infrastructure;
-    using Endjin.Adr.Cli.Templates;
-    using Microsoft.Extensions.DependencyInjection;
-
     /// <summary>
-    /// A CLI tool for creating and manading Architectural Decision Records.
+    /// Architectural Decision Records .NET Global Tool.
     /// </summary>
-    public static class Program
+    /// <param name="args">Command Line Switches.</param>
+    /// <returns>Exit Code.</returns>
+    public static Task<int> Main(string[] args)
     {
-        private static readonly ServiceCollection ServiceCollection = new();
+        var registrations = new ServiceCollection();
+        registrations.ConfigureDependencies();
 
-        /// <summary>
-        /// Architectural Decision Records .NET Global Tool.
-        /// </summary>
-        /// <param name="args">Command Line Switches.</param>
-        /// <returns>Exit Code.</returns>
-        public static async Task<int> Main(string[] args)
+        var registrar = new TypeRegistrar(registrations);
+        var app = new CommandApp(registrar);
+        app.Configure(config =>
         {
-            ICompositeConsole console = new CompositeConsole();
+            config.CaseSensitivity(CaseSensitivity.None);
+            config.SetApplicationName("adr");
+            config.AddExample(new[] { "new", "\"Identity Provider\"" });
 
-            return await new CommandLineParser(
-                console,
-                new FileSystemRoamingProfileAppEnvironment(console),
-                new AppEnvironmentManager(
-                  new FileSystemLocalProfileAppEnvironment(),
-                  new NuGetTemplatePackageManager(new FileSystemLocalProfileAppEnvironment()),
-                  new TemplateSettingsManager(new FileSystemLocalProfileAppEnvironment()),
-                  console),
-                new TemplateSettingsManager(new FileSystemLocalProfileAppEnvironment()),
-                ServiceCollection).Create().InvokeAsync(args, console).ConfigureAwait(false);
+            config.AddCommand<NewAdrCommand>("new");
 
-/*            serviceCollection.ConfigureDependencies();
+            config.AddBranch("environment", environment =>
+            {
+                environment.SetDescription("initialise the local environment.");
+                environment.AddCommand<EnvironmentInitCommand>("init");
+            });
 
-            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+            config.AddBranch("templates", templates =>
+            {
+                templates.SetDescription("Show, set, list, update templates.");
+                templates.AddCommand<TemplatesSetCommand>("set");
+                templates.AddCommand<TemplatesListCommand>("list");
 
-            await serviceProvider.GetRequiredService<IAppEnvironmentManager>()
-                                 .SetFirstRunDesiredStateAsync()
-                                 .ConfigureAwait(false);
+                templates.AddBranch("package", package =>
+                {
+                    package.SetDescription("Show, set, update, template packages.");
+                    package.AddCommand<TemplatesPackageSetCommand>("set");
+                    package.AddCommand<TemplatesPackageShowCommand>("show");
+                    package.AddCommand<TemplatesUpdateCommand>("update");
+                });
+            });
+#if DEBUG
+            config.PropagateExceptions();
+#endif
+            config.ValidateExamples();
+        });
 
-            var cmd = new CommandLineBuilder()
-                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<InitCommandFactory>>().Create())
-                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<NewCommandFactory>>().Create())
-                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<TemplatesCommandFactory>>().Create())
-                .AddCommand(serviceProvider.GetRequiredService<ICommandFactory<EnvironmentCommandFactory>>().Create())
-                .UseDefaults()
-                .Build();
-
-            return await cmd.InvokeAsync(args).ConfigureAwait(false);*/
-        }
+        return app.RunAsync(args);
     }
 }

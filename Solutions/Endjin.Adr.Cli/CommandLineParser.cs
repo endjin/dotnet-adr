@@ -2,50 +2,38 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+/*
 namespace Endjin.Adr.Cli
 {
-  using System.CommandLine;
-  using System.CommandLine.Builder;
-  using System.CommandLine.Invocation;
-  using System.CommandLine.Parsing;
   using System.Threading.Tasks;
-  using Endjin.Adr.Cli.Commands.Init;
-  using Endjin.Adr.Cli.Commands.New;
   using Endjin.Adr.Cli.Configuration.Contracts;
-  using Endjin.Adr.Cli.Infrastructure;
   using Microsoft.Extensions.DependencyInjection;
 
   public class CommandLineParser
   {
-    private readonly ICompositeConsole console;
     private readonly IAppEnvironment appEnvironment;
     private readonly IAppEnvironmentManager appEnvironmentManager;
     private readonly ITemplateSettingsManager templateSettingsManager;
     private readonly IServiceCollection services;
 
     public CommandLineParser(
-      ICompositeConsole console,
       IAppEnvironment appEnvironment,
       IAppEnvironmentManager appEnvironmentManager,
       ITemplateSettingsManager templateSettingsManager,
       IServiceCollection services)
     {
-      this.console = console;
       this.services = services;
       this.appEnvironment = appEnvironment;
       this.appEnvironmentManager = appEnvironmentManager;
       this.templateSettingsManager = templateSettingsManager;
     }
 
-    public delegate Task EnvironmentInit(string path, ICompositeConsole console);
+    public delegate Task EnvironmentInit(string path);
 
-    public delegate Task NewAdr(string title, int? id, ICompositeConsole console, ITemplateSettingsManager templateSettingsManager);
+    public delegate Task NewAdr(string title, int? id, ITemplateSettingsManager templateSettingsManager);
 
     public Parser Create(EnvironmentInit environmentInit = null, NewAdr newAdr = null)
     {
-      environmentInit ??= EnvironmentInitHandler.ExecuteAsync;
-      newAdr ??= NewAdrHandler.ExecuteAsync;
-
       // Set up intrinsic commands that will always be available.
       RootCommand rootCommand = new()
       {
@@ -75,7 +63,7 @@ namespace Endjin.Adr.Cli
         {
           string title = context.ParseResult.GetValueForArgument(arg);
           int? id = context.ParseResult.GetValueForOption(option);
-          await newAdr(title, id, this.console, this.templateSettingsManager);
+          await newAdr(title, id, this.templateSettingsManager);
         });
 
         return cmd;
@@ -94,7 +82,7 @@ namespace Endjin.Adr.Cli
         cmd.SetHandler(async (context) =>
         {
           string path = context.ParseResult.GetValueForArgument(arg);
-          await environmentInit(path, this.console).ConfigureAwait(false);
+          await environmentInit(path).ConfigureAwait(false);
         });
 
         return cmd;
@@ -102,13 +90,14 @@ namespace Endjin.Adr.Cli
 
       Command Templates()
       {
-        var cmd = new Command("templates", "Perform operations on ADR templates.");
-
-        cmd.Add(Default());
-        cmd.Add(Set());
-        cmd.Add(List());
-        cmd.Add(Packages());
-        cmd.Add(Update());
+        var cmd = new Command("templates", "Perform operations on ADR templates.")
+        {
+          Default(),
+          Set(),
+          List(),
+          Packages(),
+          Update(),
+        };
 
         return cmd;
 
@@ -197,4 +186,4 @@ namespace Endjin.Adr.Cli
       }
     }
   }
-}
+}*/

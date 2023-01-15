@@ -2,14 +2,12 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Configuration.Contracts
+using NDepend.Path;
+
+namespace Endjin.Adr.Cli.Configuration.Contracts;
+public interface IAppEnvironmentConfiguration
 {
-    using NDepend.Path;
+    IAbsoluteDirectoryPath AppPath { get; }
 
-    public interface IAppEnvironmentConfiguration
-    {
-        IAbsoluteDirectoryPath AppPath { get; }
-
-        IAbsoluteDirectoryPath ConfigurationPath { get; }
-    }
+    IAbsoluteDirectoryPath ConfigurationPath { get; }
 }
