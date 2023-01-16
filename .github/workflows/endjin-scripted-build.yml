@@ -1,6 +1,10 @@
 on:
   workflow_call:
     inputs:
+      includeCheckout:
+        required: false
+        type: boolean
+        default: true
       netSdkVersion:
         required: true
         type: string
@@ -33,7 +37,8 @@ jobs:
       with:
         dotnet-version: '${{ inputs.additionalNetSdkVersion }}'
     
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+      if: ${{ inputs.includeCheckout }}
       with:
           fetch-depth: 0
     
