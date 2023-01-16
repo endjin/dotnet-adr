@@ -1,14 +1,22 @@
 on:
   workflow_call:
     inputs:
+      displayName:
+        description: The display name given to the step running the build script
+        required: true
+        type: string
+        default: 'Run Build Script'
       netSdkVersion:
+        description: The primary .NET SDK version required for the build process, as per the syntax required by the 'setup-dotnet' action.
         required: true
         type: string
         default: '6.0.x'
       additionalNetSdkVersion:
+        description: An additional .NET SDK version required for the build process, as per the syntax required by the 'setup-dotnet' action.
         required: false
         type: string
       tasks:
+        description: The tasks that need to be run as part of the build script, formatted as a comma-delimited string (e.g. 'FullBuild' or 'Build,Test').
         required: true
         type: string
 
@@ -38,7 +46,7 @@ jobs:
         fetch-depth: 0
     
     - id: run_build
-      name: Run Build Script
+      name: ${{ inputs.displayName }}
       run: |
         $tasks = "${{ inputs.tasks }}" -split ","
         ./build.ps1 -Tasks $tasks
