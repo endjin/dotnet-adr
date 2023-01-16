@@ -57,3 +57,16 @@ jobs:
       displayName: Build Packages
       netSdkVersion: ${{ needs.setup.NetSdkVersion }}
       tasks: 'Package'
+
+  publish:
+    needs:
+    - setup
+    - build
+    - test
+    - package
+    uses: ./.github/workflows/endjin-scripted-build.yml
+    with:
+      jobShortName: publish
+      displayName: Publish Packages
+      netSdkVersion: ${{ needs.setup.NetSdkVersion }}
+      tasks: 'Publish'
