@@ -44,10 +44,35 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    
+
+    - name: Restore Compilation Outputs
+      id: cache_compile_outputs_restore
+      uses: actions/cache/restore@v3
+      with:
+        path: |
+          .nuget-packages
+          Solutions
+        key: compile-outputs-${{ github.ref }}
+
+    - id: cache_debug
+      run: |
+        echo "CacheHit: ${{ steps.cache_compile_outputs_restore.outputs.cache-hit }}"
+   
     - id: run_build
       name: ${{ inputs.displayName }}
       run: |
         $tasks = "${{ inputs.tasks }}" -split ","
         ./build.ps1 -Tasks $tasks
       shell: pwsh
+      env:
+        NUGET_PACKAGES: .nuget-packages
+
+    - name: Cache Compilation Outputs
+      id: cache_compile_outputs_save
+      if: steps.cache_compile_outputs_restore.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v3
+      with:
+        path: |
+          .nuget-packages
+          Solutions
+        key: compile-outputs-${{ github.ref }}
