@@ -22,12 +22,12 @@ jobs:
       preReleaseTag: ${{ steps.run_build.outputs.PreReleaseTag }}
 
     steps:
-    - uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v3
       name: Install .NET Core SDK ${{ inputs.netSdkVersion }}
       with:
         dotnet-version: '${{ inputs.netSdkVersion }}'
     
-    - uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v3
       if: ${{ inputs.additionalNetSdkVersion }}
       name: Install .NET Core SDK ${{ inputs.additionalNetSdkVersion }}
       with:
