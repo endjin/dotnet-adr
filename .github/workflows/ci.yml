@@ -6,6 +6,10 @@ on:
     - feature/gha-build
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   NETSDKVERSION: '6.0.x'
 
@@ -47,6 +51,6 @@ jobs:
     - build
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
-      displayName: Test
+      displayName: Package
       netSdkVersion: ${{ needs.setup.NetSdkVersion }}
       tasks: 'Package'
