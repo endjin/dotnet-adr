@@ -30,7 +30,8 @@ jobs:
     - setup
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
-      displayName: Compile
+      jobShortName: compile
+      displayName: Compile & Analyse
       netSdkVersion: ${{ needs.setup.NetSdkVersion }}
       tasks: 'Build,Analysis'
 
@@ -41,7 +42,8 @@ jobs:
     - build
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
-      displayName: Test
+      jobShortName: test
+      displayName: Run Tests
       netSdkVersion: ${{ needs.setup.NetSdkVersion }}
       tasks: 'Test,TestReport'
 
@@ -51,6 +53,7 @@ jobs:
     - build
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
-      displayName: Package
+      jobShortName: package
+      displayName: Build Packages
       netSdkVersion: ${{ needs.setup.NetSdkVersion }}
       tasks: 'Package'

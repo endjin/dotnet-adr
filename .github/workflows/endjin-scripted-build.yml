@@ -1,6 +1,11 @@
 on:
   workflow_call:
     inputs:
+      jobShortName:
+        description: The workflow job name
+        required: true
+        type: string
+        default: 'build'
       displayName:
         description: The display name given to the step running the build script
         required: true
@@ -22,6 +27,7 @@ on:
 
 jobs:
   build:
+    name: ${{ inputs.jobShortName }}
     runs-on: ubuntu-latest
     outputs:
       semver: ${{ steps.run_build.outputs.SemVer }}
@@ -56,9 +62,9 @@ jobs:
 
     - id: cache_debug
       run: |
-        echo "CacheHit: ${{ steps.cache_compile_outputs_restore.outputs.cache-hit }}"
+        echo "CacheHit: '${{ steps.cache_compile_outputs_restore.outputs.cache-hit }}'"
    
-    - id: run_build
+    - id: run_script
       name: ${{ inputs.displayName }}
       run: |
         $tasks = "${{ inputs.tasks }}" -split ","
