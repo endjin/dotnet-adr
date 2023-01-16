@@ -7,17 +7,33 @@ on:
   workflow_dispatch:
 
 env:
-  netSdkVersion: '6.0.x'
+  NETSDKVERSION: '6.0.x'
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      NetSdkVersion: ${{ steps.setVars.outputs.netSdkVersion }}
+    steps:
+    - id: setVars
+      run: |
+        echo "netSdkVersion=$NETSDKVERSION" >> $GITHUB_OUTPUT
+      env:
+        NETSDKVERSION: ${{ env.NETSDKVERSION }}
+
   build:
+    needs:
+    - setup
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
-      netSdkVersion: ${{ env.netSdkVersion }}
+      netSdkVersion: ${{ needs.setup.NetSdkVersion }}
       tasks: 'Build,Analysis'
 
   test:
+    needs:
+    - setup
+    - build
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
-      netSdkVersion: ${{ env.netSdkVersion }}
+      netSdkVersion: ${{ needs.setup.NetSdkVersion }}
       tasks: 'Test,TestReport'
