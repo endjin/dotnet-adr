@@ -39,4 +39,6 @@ jobs:
     
     - id: run_build
       run: |
-        pwsh -f ./build.ps1 -Tasks ${{ inputs.tasks }}
+        $tasks = "${{ inputs.tasks }}" -split ","
+        ./build.ps1 -Tasks $tasks
+      shell: pwsh
