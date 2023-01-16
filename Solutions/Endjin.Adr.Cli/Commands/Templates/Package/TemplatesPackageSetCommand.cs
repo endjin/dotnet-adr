@@ -28,7 +28,7 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
             return Task.FromResult(ReturnCodes.Error);
         }
 
-        var templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
+        TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
         templateSettings.DefaultTemplatePackage = settings.PackageId;
 
         this.templateSettingsManager.SaveSettings(templateSettings, nameof(TemplateSettings));

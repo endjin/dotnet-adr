@@ -37,19 +37,28 @@ public static class Program
         {
             config.CaseSensitivity(CaseSensitivity.None);
             config.SetApplicationName("adr");
-            config.AddExample(new[] { "new", "\"Identity Provider\"" });
+            config.AddExample(new[] { "new", "\"Integration of an Event Store\"" });
+            config.AddExample(new[] { "new", "-i", "1", "\"Integration of an Event Store\"" });
+            config.AddExample(new[] { "environment", "init" });
+            config.AddExample(new[] { "environment", "reset" });
+            config.AddExample(new[] { "templates", "set" });
+            config.AddExample(new[] { "templates", "list" });
+            config.AddExample(new[] { "templates", "package", "set" });
+            config.AddExample(new[] { "templates", "package", "show" });
+            config.AddExample(new[] { "templates", "package", "update" });
 
-            config.AddCommand<NewAdrCommand>("new");
+            config.AddCommand<NewAdrCommand>("new")
+                  .WithDescription("Creates a new Architectural Decision Record, from the default ADR Template.");
 
             config.AddBranch("environment", environment =>
             {
-                environment.SetDescription("initialise the local environment.");
-                environment.AddCommand<EnvironmentInitCommand>("init");
+                environment.AddCommand<EnvironmentInitCommand>("init")
+                           .WithDescription("Initialises a new ADR repository.");
             });
 
             config.AddBranch("templates", templates =>
             {
-                templates.SetDescription("Show, set, list, update templates.");
+                templates.SetDescription("set, list, ADR templates");
                 templates.AddCommand<TemplatesSetCommand>("set");
                 templates.AddCommand<TemplatesListCommand>("list");
 

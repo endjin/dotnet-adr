@@ -35,7 +35,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
 
     public async Task<TemplatePackageMetaData> InstallLatestAsync(string packageId)
     {
-        var templateMetaData = await this.GetLatestTemplatePackage(packageId, "any", this.appEnvironment.TemplatesPath.ToString()).ConfigureAwait(false);
+        TemplatePackageMetaData templateMetaData = await this.GetLatestTemplatePackage(packageId, "any", this.appEnvironment.TemplatesPath.ToString()).ConfigureAwait(false);
 
         templateMetaData.Details.AddRange(await this.GetTemplatePackageDetails(templateMetaData.TemplatePath, templateMetaData.Templates).ConfigureAwait(false));
 
@@ -54,7 +54,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
 
         MarkdownDocument document = new MarkdownDocument();
 
-        foreach (var template in templates)
+        foreach (string template in templates)
         {
             var details = new TemplatePackageDetail
             {
@@ -64,16 +64,16 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
 
             MarkdownDocument doc = Markdown.Parse(await File.ReadAllTextAsync(details.FullPath).ConfigureAwait(false), pipeline);
 
-            var yamlBlock = doc.Descendants<YamlFrontMatterBlock>().FirstOrDefault();
+            YamlFrontMatterBlock yamlBlock = doc.Descendants<YamlFrontMatterBlock>().FirstOrDefault();
 
             if (yamlBlock != null)
             {
-                var yaml = string.Join(Environment.NewLine, yamlBlock.Lines.Lines.Select(l => l.ToString()).Where(x => !string.IsNullOrEmpty(x)));
+                string yaml = string.Join(Environment.NewLine, yamlBlock.Lines.Lines.Select(l => l.ToString()).Where(x => !string.IsNullOrEmpty(x)));
 
                 try
                 {
-                    var deserializer = new DeserializerBuilder().IgnoreUnmatchedProperties().IgnoreFields().Build();
-                    var frontMatter = deserializer.Deserialize<Dictionary<string, dynamic>>(yaml);
+                    IDeserializer deserializer = new DeserializerBuilder().IgnoreUnmatchedProperties().IgnoreFields().Build();
+                    Dictionary<string, dynamic> frontMatter = deserializer.Deserialize<Dictionary<string, dynamic>>(yaml);
 
                     if (frontMatter.TryGetValue("Authors", out dynamic authors))
                     {
@@ -176,21 +176,21 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
     private async Task<TemplatePackageMetaData> GetLatestTemplatePackage(string packageId, string frameworkVersion, string templateRepositoryPath)
     {
         var nugetFramework = NuGetFramework.ParseFolder(frameworkVersion);
-        var settings = Settings.LoadSpecificSettings(root: null, this.appEnvironment.NuGetConfigFilePath.ToString());
+        ISettings settings = Settings.LoadSpecificSettings(root: null, this.appEnvironment.NuGetConfigFilePath.ToString());
         var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(settings), Repository.Provider.GetCoreV3());
 
         var templatePackageMetaDataList = new List<TemplatePackageMetaData>();
 
         using (var cacheContext = new SourceCacheContext())
         {
-            var repositories = sourceRepositoryProvider.GetRepositories();
+            IEnumerable<SourceRepository> repositories = sourceRepositoryProvider.GetRepositories();
             var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
 
-            foreach (var sourceRepository in repositories)
+            foreach (SourceRepository sourceRepository in repositories)
             {
-                var dependencyInfoResource = await sourceRepository.GetResourceAsync<DependencyInfoResource>().ConfigureAwait(false);
+                DependencyInfoResource dependencyInfoResource = await sourceRepository.GetResourceAsync<DependencyInfoResource>().ConfigureAwait(false);
 
-                var dependencyInfo = await dependencyInfoResource.ResolvePackages(
+                IEnumerable<SourcePackageDependencyInfo> dependencyInfo = await dependencyInfoResource.ResolvePackages(
                         packageId,
                         nugetFramework,
                         cacheContext,
@@ -217,7 +217,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
 
             var resolver = new PackageResolver();
 
-            var packageToInstall = resolver.Resolve(resolverContext, CancellationToken.None).Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p))).FirstOrDefault();
+            SourcePackageDependencyInfo packageToInstall = resolver.Resolve(resolverContext, CancellationToken.None).Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p))).FirstOrDefault();
             var packagePathResolver = new PackagePathResolver(SettingsUtility.GetGlobalPackagesFolder(settings));
 
             var packageExtractionContext = new PackageExtractionContext(
@@ -227,14 +227,14 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                     NullLogger.Instance);
 
             var frameworkReducer = new FrameworkReducer();
-            var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
+            string installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
             PackageReaderBase packageReader;
 
             if (installedPath == null)
             {
-                var downloadResource = await packageToInstall.Source.GetResourceAsync<DownloadResource>(CancellationToken.None).ConfigureAwait(false);
+                DownloadResource downloadResource = await packageToInstall.Source.GetResourceAsync<DownloadResource>(CancellationToken.None).ConfigureAwait(false);
 
-                var downloadResult = await downloadResource.GetDownloadResourceResultAsync(
+                DownloadResourceResult downloadResult = await downloadResource.GetDownloadResourceResultAsync(
                         packageToInstall,
                         new PackageDownloadContext(cacheContext),
                         SettingsUtility.GetGlobalPackagesFolder(settings),
@@ -255,7 +255,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                 packageReader = new PackageFolderReader(installedPath);
             }
 
-            var identity = await packageReader.GetIdentityAsync(CancellationToken.None).ConfigureAwait(false);
+            PackageIdentity identity = await packageReader.GetIdentityAsync(CancellationToken.None).ConfigureAwait(false);
             var templatePackageMetaData = new TemplatePackageMetaData
             {
                     Name = identity.Id,
@@ -263,7 +263,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                     RepositoryPath = templateRepositoryPath,
             };
 
-            foreach (var contentItem in packageReader.GetContentItems())
+            foreach (FrameworkSpecificGroup contentItem in packageReader.GetContentItems())
             {
                 templatePackageMetaData.Templates.AddRange(contentItem.Items);
             }

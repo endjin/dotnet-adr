@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
+using Endjin.Adr.Cli.Templates;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
@@ -25,12 +26,12 @@ public class TemplatesUpdateCommand : AsyncCommand<TemplatesUpdateCommand.Settin
     /// <inheritdoc/>
     public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
-        var currentSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
+        TemplateSettings currentSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
         AnsiConsole.MarkupLine($"Current ADR Templates version {currentSettings.MetaData.Version}");
 
-        var templateMetaData = await this.templatePackageManager.InstallLatestAsync(currentSettings.DefaultTemplatePackage).ConfigureAwait(false);
-        var defaultTemplate = templateMetaData.Details.Find(x => x.IsDefault) ?? templateMetaData.Details[0];
+        TemplatePackageMetaData templateMetaData = await this.templatePackageManager.InstallLatestAsync(currentSettings.DefaultTemplatePackage).ConfigureAwait(false);
+        TemplatePackageDetail defaultTemplate = templateMetaData.Details.Find(x => x.IsDefault) ?? templateMetaData.Details[0];
 
         currentSettings.MetaData = templateMetaData;
         currentSettings.DefaultTemplate = defaultTemplate.FullPath;

@@ -60,12 +60,6 @@
           "NuGet.Protocol": "6.4.0"
         }
       },
-      "Roslynator.Analyzers": {
-        "type": "Direct",
-        "requested": "[4.2.0, )",
-        "resolved": "4.2.0",
-        "contentHash": "3N8CNx1Q/Q5VDDL7qgfZRgTURyMqzHAkAB59AZKRnsOXoh2n9xRzhiBMIbJaUtBATmieECBx68GcjRn2xoNDug=="
-      },
       "Spectre.Console": {
         "type": "Direct",
         "requested": "[0.46.0, )",
@@ -88,15 +82,6 @@
         "contentHash": "Q5HQEI3Ofv/jVYaggksipN3z2Hy0J7q3bogeidIIuQ/QGsY110DGw6n7+tp9nTswT70SDXvXfrXpeGKTJ7TwmA==",
         "dependencies": {
           "Spectre.Console": "0.46.0"
-        }
-      },
-      "StyleCop.Analyzers": {
-        "type": "Direct",
-        "requested": "[1.2.0-beta.435, )",
-        "resolved": "1.2.0-beta.435",
-        "contentHash": "TADk7vdGXtfTnYCV7GyleaaRTQjfoSfZXprQrVMm7cSJtJbFc1QIbWPyLvrgrfGdfHbGmUPvaN4ODKNxg2jgPQ==",
-        "dependencies": {
-          "StyleCop.Analyzers.Unstable": "1.2.0.435"
         }
       },
       "YamlDotNet": {
@@ -180,11 +165,6 @@
         "type": "Transitive",
         "resolved": "6.4.0",
         "contentHash": "YE8p3TpX4jIw+Gb24maE8YRDoqWA4imLmCbdOj5IvslLrZJXQ8akeFOGOplxICNVevON1g1SFYT2+cq4yy0nQQ=="
-      },
-      "StyleCop.Analyzers.Unstable": {
-        "type": "Transitive",
-        "resolved": "1.2.0.435",
-        "contentHash": "ouwPWZxbOV3SmCZxIRqHvljkSzkCyi1tDoMzQtDb/bRP8ctASV/iRJr+A2Gdj0QLaLmWnqTWDrH82/iP+X80Lg=="
       },
       "System.Formats.Asn1": {
         "type": "Transitive",

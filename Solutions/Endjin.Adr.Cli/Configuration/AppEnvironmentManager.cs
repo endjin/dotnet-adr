@@ -4,6 +4,7 @@
 
 using System.Threading.Tasks;
 using Endjin.Adr.Cli.Configuration.Contracts;
+using Endjin.Adr.Cli.Templates;
 
 namespace Endjin.Adr.Cli.Configuration;
 public class AppEnvironmentManager : IAppEnvironmentManager
@@ -25,8 +26,8 @@ public class AppEnvironmentManager : IAppEnvironmentManager
 
         await this.appEnvironment.InitializeAsync().ConfigureAwait(false);
 
-        var templateMetaData = await this.templateManager.InstallLatestAsync(defaultPackageId).ConfigureAwait(false);
-        var templateSettings = new TemplateSettings
+        TemplatePackageMetaData templateMetaData = await this.templateManager.InstallLatestAsync(defaultPackageId).ConfigureAwait(false);
+        TemplateSettings templateSettings = new()
         {
                 MetaData = templateMetaData,
                 DefaultTemplate = templateMetaData.Details.Find(x => x.IsDefault)?.FullPath,

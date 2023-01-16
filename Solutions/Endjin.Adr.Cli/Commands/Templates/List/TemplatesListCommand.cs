@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
+using Endjin.Adr.Cli.Templates;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
@@ -24,11 +25,11 @@ public class TemplatesListCommand : AsyncCommand<TemplatesListCommand.Settings>
     /// <inheritdoc/>
     public override Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
-        var templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
+        TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
         if (settings.IdsOnly)
         {
-            foreach (var template in templateSettings.MetaData.Details)
+            foreach (TemplatePackageDetail template in templateSettings.MetaData.Details)
             {
                 AnsiConsole.MarkupLine(template.Id);
             }
@@ -37,7 +38,7 @@ public class TemplatesListCommand : AsyncCommand<TemplatesListCommand.Settings>
         {
             AnsiConsole.MarkupLine("-------");
 
-            foreach (var template in templateSettings.MetaData.Details)
+            foreach (TemplatePackageDetail template in templateSettings.MetaData.Details)
             {
                 AnsiConsole.MarkupLine(string.Empty);
                 AnsiConsole.MarkupLine($"Title: {template.Title}");

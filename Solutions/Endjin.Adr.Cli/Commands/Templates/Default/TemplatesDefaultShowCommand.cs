@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
+using Endjin.Adr.Cli.Templates;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
@@ -24,8 +25,8 @@ public class TemplatesDefaultShowCommand : AsyncCommand<TemplatesDefaultShowComm
     /// <inheritdoc/>
     public override Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
-        var templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
-        var template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
+        TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
+        TemplatePackageDetail template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
 
         AnsiConsole.MarkupLine($"Title: {template.Title}");
         AnsiConsole.MarkupLine($"Id: {template.Id}");

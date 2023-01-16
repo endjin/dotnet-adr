@@ -13,10 +13,12 @@ using System.Threading.Tasks;
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
+using Endjin.Adr.Cli.Templates;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace Endjin.Adr.Cli.Commands.New;
+
 public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 {
     private readonly ITemplateSettingsManager templateSettingsManager;
@@ -32,7 +34,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
     {
         try
         {
-            var adrs = GetAllAdrFilesFromCurrentDirectory();
+            List<Adr> adrs = GetAllAdrFilesFromCurrentDirectory();
 
             var adr = new Adr
             {
@@ -43,11 +45,11 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
             if (settings.Id.HasValue)
             {
-                var supersede = adrs.Find(x => x.RecordNumber == settings.Id);
+                Adr supersede = adrs.Find(x => x.RecordNumber == settings.Id);
 
-                var supersedeRegEx = new Regex(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
+                Regex supersedeRegEx = new Regex(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
 
-                var updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSuperseded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
+                string updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSuperseded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
 
                 await File.WriteAllTextAsync(supersede.Path, updatedContent).ConfigureAwait(false);
 
@@ -69,30 +71,30 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
     private static string CreateNewDefaultTemplate(string title, ITemplateSettingsManager templateSettingsManager)
     {
-        var templateSettings = templateSettingsManager.LoadSettings(nameof(TemplateSettings));
+        TemplateSettings templateSettings = templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
         if (templateSettings is null)
         {
             throw new InvalidOperationException("Couldn't load the template settings. Environment may not be initialised");
         }
 
-        var template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
-        var templateContents = File.ReadAllText(template.FullPath);
+        TemplatePackageDetail template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
+        string templateContents = File.ReadAllText(template.FullPath);
 
-        var yamlHeaderRegExp = new Regex(@"((?:^-{3})(?:.*\n)*(?:^-{3})\n# Title)", RegexOptions.Multiline);
+        Regex yamlHeaderRegExp = new(@"((?:^-{3})(?:.*\n)*(?:^-{3})\n# Title)", RegexOptions.Multiline);
 
         return yamlHeaderRegExp.Replace(templateContents, $"# {title}");
     }
 
     private static List<Adr> GetAllAdrFilesFromCurrentDirectory()
     {
-        var adrs = new List<Adr>();
-        var fileNameRegExp = new Regex(@"(\d{4}.*\.md)");
+        List<Adr> adrs = new();
+        Regex fileNameRegExp = new Regex(@"(\d{4}.*\.md)");
 
-        foreach (var file in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.md").Where(path => fileNameRegExp.IsMatch(path)))
+        foreach (string file in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.md").Where(path => fileNameRegExp.IsMatch(path)))
         {
-            var fileInfo = new FileInfo(file);
-            var existingAdr = new Adr
+            FileInfo fileInfo = new FileInfo(file);
+            Adr existingAdr = new Adr
             {
                 Path = file,
                 RecordNumber = int.Parse(fileInfo.Name.Substring(0, 4)),
@@ -105,15 +107,14 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         return adrs;
     }
 
-    [Description("Add a NuGet package reference to the project")]
     public class Settings : CommandSettings
     {
         [CommandArgument(0, "<TITLE>")]
-        [Description("The title of the ADR to add")]
+        [Description("Title of the ADR")]
         public string Title { get; set; }
 
-        [CommandOption("-r|--record-number <RECORDNUMBER>")]
-        [Description("The record number of the ADR to add")]
+        [CommandOption("-i|--id <RECORDNUMBER>")]
+        [Description("Id of ADR to supersede.")]
         public int? Id { get; set; }
     }
 }
