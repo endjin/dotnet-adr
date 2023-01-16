@@ -58,7 +58,7 @@ jobs:
         path: |
           ${{ github.workspace }}/.nuget-packages
           ${{ github.workspace }}/Solutions
-        key: compile-outputs-${{ github.ref }}
+        key: compile-outputs-${{ github.sha }}
 
     - id: cache_debug
       run: |
@@ -81,4 +81,4 @@ jobs:
         path: |
           ${{ github.workspace }}/.nuget-packages
           ${{ github.workspace }}/Solutions
-        key: compile-outputs-${{ github.ref }}
+        key: compile-outputs-${{ github.sha }}
