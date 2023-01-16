@@ -6,9 +6,18 @@ on:
     - feature/gha-build
   workflow_dispatch:
 
+env:
+  netSdkVersion: '6.0.x'
+
 jobs:
   build:
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
-      netSdkVersion: '6.0.x'
+      netSdkVersion: ${{ env.netSdkVersion }}
       tasks: 'Build,Analysis'
+
+  test:
+    uses: ./.github/workflows/endjin-scripted-build.yml
+    with:
+      netSdkVersion: ${{ env.netSdkVersion }}
+      tasks: 'Test,TestReport'
