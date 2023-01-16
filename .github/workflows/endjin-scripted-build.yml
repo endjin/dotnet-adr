@@ -1,0 +1,42 @@
+on:
+  workflow_call:
+    inputs:
+      netSdkVersion:
+        required: true
+        type: string
+        default: '6.0.x'
+      additionalNetSdkVersion:
+        required: false
+        type: string
+      tasks:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      semver: ${{ steps.run_build.outputs.SemVer }}
+      major: ${{ steps.run_build.outputs.Major }}
+      majorMinor: ${{ steps.run_build.outputs.Major }}.${{ steps.run_build.outputs.Minor }}
+      preReleaseTag: ${{ steps.run_build.outputs.PreReleaseTag }}
+
+    steps:
+    - uses: actions/setup-dotnet@v1
+      name: Install .NET Core SDK ${{ inputs.netSdkVersion }}
+      with:
+        dotnet-version: '${{ inputs.netSdkVersion }}'
+    
+    - uses: actions/setup-dotnet@v1
+      if: ${{ inputs.additionalNetSdkVersion }}
+      name: Install .NET Core SDK ${{ inputs.additionalNetSdkVersion }}
+      with:
+        dotnet-version: '${{ inputs.additionalNetSdkVersion }}'
+    
+    - uses: actions/checkout@v2
+      with:
+          fetch-depth: 0
+    
+    - id: run_build
+      run: |
+        pwsh -f ./build.ps1 -Tasks ${{ inputs.tasks }}

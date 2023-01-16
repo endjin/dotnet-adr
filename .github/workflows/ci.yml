@@ -1,0 +1,23 @@
+name: build
+on:
+  push:
+    branches:
+    - main
+    - feature/gha-build
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Run Build
+    outputs:
+      semver: ${{ steps.run_build.outputs.SemVer }}
+      major: ${{ steps.run_build.outputs.Major }}
+      majorMinor: ${{ steps.run_build.outputs.Major }}.${{ steps.run_build.outputs.Minor }}
+      preReleaseTag: ${{ steps.run_build.outputs.PreReleaseTag }}
+    steps:
+    - uses: ./.github/workflows/endjin-scripted-build.yml
+      id: run_build
+      with:
+        netSdkVersion: '6.0.x'
+        tasks: 'Build,Analysis'
