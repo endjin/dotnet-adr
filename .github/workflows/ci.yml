@@ -2,8 +2,8 @@ name: build
 on:
   push:
     branches:
-      - main
-      - feature/gha-build
+    - main
+    - feature/gha-build
   workflow_dispatch:
 
 env:
@@ -15,15 +15,15 @@ jobs:
     outputs:
       NetSdkVersion: ${{ steps.setVars.outputs.netSdkVersion }}
     steps:
-      - id: setVars
-        run: |
-          echo "netSdkVersion=$NETSDKVERSION" >> $GITHUB_OUTPUT
-        env:
-          NETSDKVERSION: ${{ env.NETSDKVERSION }}
+    - id: setVars
+      run: |
+        echo "netSdkVersion=$NETSDKVERSION" >> $GITHUB_OUTPUT
+      env:
+        NETSDKVERSION: ${{ env.NETSDKVERSION }}
 
   build:
     needs:
-      - setup
+    - setup
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
       displayName: Compile
@@ -33,8 +33,8 @@ jobs:
   test:
     if: false   # disabled whilst tests are disabled in build.ps1
     needs:
-      - setup
-      - build
+    - setup
+    - build
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
       displayName: Test
@@ -43,8 +43,8 @@ jobs:
 
   package:
     needs:
-      - setup
-      - build
+    - setup
+    - build
     uses: ./.github/workflows/endjin-scripted-build.yml
     with:
       displayName: Test
