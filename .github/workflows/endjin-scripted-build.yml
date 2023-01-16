@@ -38,6 +38,7 @@ jobs:
         fetch-depth: 0
     
     - id: run_build
+      name: Run Build Script
       run: |
         $tasks = "${{ inputs.tasks }}" -split ","
         ./build.ps1 -Tasks $tasks
