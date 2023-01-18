@@ -12,8 +12,6 @@ concurrency:
 
 jobs:
   build:
-    needs:
-    - setup
     uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@main
     with:
       netSdkVersion: '6.0.x'
