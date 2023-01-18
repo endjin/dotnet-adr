@@ -5,6 +5,12 @@ on:
     - main
     - feature/gha-build
   workflow_dispatch:
+    inputs:
+      forcePublish:
+        description: When true the Publish stage will always be run, otherwise it only runs for tagged versions.
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,3 +21,4 @@ jobs:
     uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@main
     with:
       netSdkVersion: '6.0.x'
+      forcePublish: ${{ github.event.inputs.forcePublish }}
