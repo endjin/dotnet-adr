@@ -11,6 +11,11 @@ on:
         required: false
         default: false
         type: boolean
+      skipCleanup:
+        description: When true the pipeline clean-up stage will not be run. For example, the cache used between pipeline stages will be retained.
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,4 +26,6 @@ jobs:
     uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@main
     with:
       netSdkVersion: '6.0.x'
+      # workflow_dispatch inputs are always strings, the type property is just for the UI
       forcePublish: ${{ github.event.inputs.forcePublish == 'true' }}
+      skipCleanup: ${{ github.event.inputs.skipCleanup == 'true' }}
