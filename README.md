@@ -229,3 +229,5 @@ This approach is based on our 10+ years experience of delivering complex, high p
 [![Packaging](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/dotnet-adr/rule/547fd9f5-9caf-449f-82d9-4fba9e7ce13a?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/dotnet-adr/rule/547fd9f5-9caf-449f-82d9-4fba9e7ce13a?cache=false)
 
 [![Deployment](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/dotnet-adr/rule/edea4593-d2dd-485b-bc1b-aaaf18f098f9?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/dotnet-adr/rule/edea4593-d2dd-485b-bc1b-aaaf18f098f9?cache=false)
+[![OpenChain](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/dotnet-adr/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/dotnet-adr/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)
+
