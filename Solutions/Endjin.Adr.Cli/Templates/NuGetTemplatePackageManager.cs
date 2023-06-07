@@ -44,7 +44,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
 
     private async Task<List<TemplatePackageDetail>> GetTemplatePackageDetails(string templatePackagePath, List<string> templates)
     {
-        var packageDetails = new List<TemplatePackageDetail>();
+        List<TemplatePackageDetail> packageDetails = new();
         MarkdownPipeline pipeline = new MarkdownPipelineBuilder()
                 .UseAutoIdentifiers()
                 .UseGridTables()
@@ -52,11 +52,11 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                 .UseYamlFrontMatter()
                 .Build();
 
-        MarkdownDocument document = new MarkdownDocument();
+        MarkdownDocument document = new();
 
         foreach (string template in templates)
         {
-            var details = new TemplatePackageDetail
+            TemplatePackageDetail details = new()
             {
                     Id = template.Split('/')[1],
                     FullPath = Path.GetFullPath(Path.Combine(templatePackagePath, template)),
@@ -175,16 +175,16 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
 
     private async Task<TemplatePackageMetaData> GetLatestTemplatePackage(string packageId, string frameworkVersion, string templateRepositoryPath)
     {
-        var nugetFramework = NuGetFramework.ParseFolder(frameworkVersion);
+        NuGetFramework nugetFramework = NuGetFramework.ParseFolder(frameworkVersion);
         ISettings settings = Settings.LoadSpecificSettings(root: null, this.appEnvironment.NuGetConfigFilePath.ToString());
-        var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(settings), Repository.Provider.GetCoreV3());
+        SourceRepositoryProvider sourceRepositoryProvider = new(new PackageSourceProvider(settings), Repository.Provider.GetCoreV3());
 
-        var templatePackageMetaDataList = new List<TemplatePackageMetaData>();
+        List<TemplatePackageMetaData> templatePackageMetaDataList = new();
 
-        using (var cacheContext = new SourceCacheContext())
+        using (SourceCacheContext cacheContext = new())
         {
             IEnumerable<SourceRepository> repositories = sourceRepositoryProvider.GetRepositories();
-            var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
+            HashSet<SourcePackageDependencyInfo> availablePackages = new(PackageIdentityComparer.Default);
 
             foreach (SourceRepository sourceRepository in repositories)
             {
@@ -205,7 +205,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                 availablePackages.AddRange(dependencyInfo);
             }
 
-            var resolverContext = new PackageResolverContext(
+            PackageResolverContext resolverContext = new(
                     DependencyBehavior.Highest,
                     new[] { packageId },
                     Enumerable.Empty<string>(),
@@ -215,18 +215,18 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                     sourceRepositoryProvider.GetRepositories().Select(s => s.PackageSource),
                     NullLogger.Instance);
 
-            var resolver = new PackageResolver();
+            PackageResolver resolver = new();
 
             SourcePackageDependencyInfo packageToInstall = resolver.Resolve(resolverContext, CancellationToken.None).Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p))).FirstOrDefault();
-            var packagePathResolver = new PackagePathResolver(SettingsUtility.GetGlobalPackagesFolder(settings));
+            PackagePathResolver packagePathResolver = new(SettingsUtility.GetGlobalPackagesFolder(settings));
 
-            var packageExtractionContext = new PackageExtractionContext(
+            PackageExtractionContext packageExtractionContext = new(
                     PackageSaveMode.Defaultv3,
                     XmlDocFileSaveMode.None,
                     ClientPolicyContext.GetClientPolicy(settings, NullLogger.Instance),
                     NullLogger.Instance);
 
-            var frameworkReducer = new FrameworkReducer();
+            FrameworkReducer frameworkReducer = new();
             string installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
             PackageReaderBase packageReader;
 
@@ -236,7 +236,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
 
                 DownloadResourceResult downloadResult = await downloadResource.GetDownloadResourceResultAsync(
                         packageToInstall,
-                        new PackageDownloadContext(cacheContext),
+                        new(cacheContext),
                         SettingsUtility.GetGlobalPackagesFolder(settings),
                         NullLogger.Instance,
                         CancellationToken.None).ConfigureAwait(false);
@@ -256,7 +256,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
             }
 
             PackageIdentity identity = await packageReader.GetIdentityAsync(CancellationToken.None).ConfigureAwait(false);
-            var templatePackageMetaData = new TemplatePackageMetaData
+            TemplatePackageMetaData templatePackageMetaData = new()
             {
                     Name = identity.Id,
                     Version = identity.Version.OriginalVersion,
@@ -268,7 +268,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                 templatePackageMetaData.Templates.AddRange(contentItem.Items);
             }
 
-            var packageFileExtractor = new PackageFileExtractor(
+            PackageFileExtractor packageFileExtractor = new(
                     templatePackageMetaData.Templates,
                     XmlDocFileSaveMode.None);
 

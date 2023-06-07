@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Endjin.Adr.Cli.Abstractions;
@@ -23,20 +24,63 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 {
     private readonly ITemplateSettingsManager templateSettingsManager;
     private readonly IAppEnvironmentManager appEnvironmentManager;
+    private readonly IConfigurationLocator configurationLocator;
 
-    public NewAdrCommand(ITemplateSettingsManager templateSettingsManager, IAppEnvironmentManager appEnvironmentManager)
+    public NewAdrCommand(ITemplateSettingsManager templateSettingsManager, IAppEnvironmentManager appEnvironmentManager, IConfigurationLocator configurationLocator)
     {
         this.templateSettingsManager = templateSettingsManager;
         this.appEnvironmentManager = appEnvironmentManager;
+        this.configurationLocator = configurationLocator;
     }
 
     public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
         try
         {
-            List<Adr> adrs = GetAllAdrFilesFromCurrentDirectory();
+            string targetPath = string.Empty;
 
-            var adr = new Adr
+            // If the user hasn't specified the path to create the ADR
+            if (!string.IsNullOrEmpty(settings.Path))
+            {
+                targetPath = settings.Path;
+            }
+            else
+            {
+                // We'll attempt to see if there's a configuration file in the root of the "project".
+                // We'll make the assumption that the root of the "project" is defined by the presence of
+                // a ".git" directory, otherwise we'll just use the current location the ADR tool was launched from.
+                string rootConfiguration = this.configurationLocator.LocatedRootConfiguration();
+
+                if (!string.IsNullOrEmpty(rootConfiguration))
+                {
+                    string configText = await File.ReadAllTextAsync(rootConfiguration).ConfigureAwait(false);
+
+                    JsonSerializerOptions options = new()
+                    {
+                        PropertyNameCaseInsensitive = true,
+                    };
+
+                    AdrConfig config = JsonSerializer.Deserialize<AdrConfig>(configText, options);
+                    FileInfo rootConfigurationFileInfo = new(rootConfiguration);
+
+                    // The configuration path is relative to config file.
+                    targetPath = Path.GetFullPath(Path.Combine(rootConfigurationFileInfo.Directory.FullName, config.Path));
+
+                    if (!rootConfigurationFileInfo.Directory.Exists)
+                    {
+                        rootConfigurationFileInfo.Directory.Create();
+                    }
+                }
+
+                if (string.IsNullOrEmpty(targetPath))
+                {
+                    targetPath = Environment.CurrentDirectory;
+                }
+            }
+
+            List<Adr> adrs = await GetAllAdrFilesFromCurrentDirectoryAsync(targetPath).ConfigureAwait(false);
+
+            Adr adr = new()
             {
                 Content = CreateNewDefaultTemplate(settings.Title, this.templateSettingsManager),
                 RecordNumber = adrs.Count == 0 ? 1 : adrs.OrderBy(x => x.RecordNumber).Last().RecordNumber + 1,
@@ -47,18 +91,18 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
             {
                 Adr supersede = adrs.Find(x => x.RecordNumber == settings.Id);
 
-                Regex supersedeRegEx = new Regex(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
+                Regex supersedeRegEx = new(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
 
                 string updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSuperseded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
 
                 await File.WriteAllTextAsync(supersede.Path, updatedContent).ConfigureAwait(false);
 
-                AnsiConsole.MarkupLine($"Supersede ADR Record: {settings.Id}");
+                AnsiConsole.MarkupLine($"Superseded ADR Record: {settings.Id}");
             }
 
-            await File.WriteAllTextAsync(Path.Combine(Directory.GetCurrentDirectory(), adr.SafeFileName()), adr.Content).ConfigureAwait(false);
+            await File.WriteAllTextAsync(Path.Combine(targetPath, adr.SafeFileName()), adr.Content).ConfigureAwait(false);
 
-            AnsiConsole.MarkupLine($"Create ADR Record: \"{settings.Title}\"");
+            AnsiConsole.MarkupLine($"Created ADR Record: \"{settings.Title}\"");
         }
         catch (InvalidOperationException)
         {
@@ -86,19 +130,24 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         return yamlHeaderRegExp.Replace(templateContents, $"# {title}");
     }
 
-    private static List<Adr> GetAllAdrFilesFromCurrentDirectory()
+    private static async Task<List<Adr>> GetAllAdrFilesFromCurrentDirectoryAsync(string targetPath)
     {
-        List<Adr> adrs = new();
-        Regex fileNameRegExp = new Regex(@"(\d{4}.*\.md)");
-
-        foreach (string file in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.md").Where(path => fileNameRegExp.IsMatch(path)))
+        if (!Directory.Exists(targetPath))
         {
-            FileInfo fileInfo = new FileInfo(file);
-            Adr existingAdr = new Adr
+            Directory.CreateDirectory(targetPath);
+        }
+
+        List<Adr> adrs = new();
+        Regex fileNameRegExp = new(@"(\d{4}.*\.md)");
+
+        foreach (string file in Directory.EnumerateFiles(targetPath, "*.md").Where(path => fileNameRegExp.IsMatch(path)))
+        {
+            FileInfo fileInfo = new(file);
+            Adr existingAdr = new()
             {
                 Path = file,
-                RecordNumber = int.Parse(fileInfo.Name.Substring(0, 4)),
-                Content = File.ReadAllText(file),
+                RecordNumber = int.Parse(fileInfo.Name[..4]),
+                Content = await File.ReadAllTextAsync(file).ConfigureAwait(false),
             };
 
             adrs.Add(existingAdr);
@@ -116,5 +165,9 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         [CommandOption("-i|--id <RECORDNUMBER>")]
         [Description("Id of ADR to supersede.")]
         public int? Id { get; set; }
+
+        [CommandOption("-p|--path <PATH>")]
+        [Description("Path to create the ADR in")]
+        public string Path { get; set; }
     }
 }

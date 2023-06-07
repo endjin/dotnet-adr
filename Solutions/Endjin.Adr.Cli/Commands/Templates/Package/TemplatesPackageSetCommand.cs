@@ -2,8 +2,11 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
@@ -38,9 +41,27 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
         return Task.FromResult(ReturnCodes.Ok);
     }
 
+    public override ValidationResult Validate(CommandContext context, Settings settings)
+    {
+        if (string.IsNullOrEmpty(settings.PackageId))
+        {
+            return ValidationResult.Error($"Please specify the PackageId");
+        }
+
+        return base.Validate(context, settings);
+    }
+
     public class Settings : CommandSettings
     {
+        [Description("The name to display")]
         [CommandArgument(0, "[PackageId]")]
         public string PackageId { get; set; }
+
+        public override ValidationResult Validate()
+        {
+            return string.IsNullOrEmpty(this.PackageId)
+                ? ValidationResult.Error("Please specify the PackageId")
+                : ValidationResult.Success();
+        }
     }
 }

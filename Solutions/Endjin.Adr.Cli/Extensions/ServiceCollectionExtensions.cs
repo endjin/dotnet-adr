@@ -16,5 +16,6 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddTransient<IAppEnvironmentManager, AppEnvironmentManager>();
         serviceCollection.AddTransient<ITemplatePackageManager, NuGetTemplatePackageManager>();
         serviceCollection.AddTransient<ITemplateSettingsManager, TemplateSettingsManager>();
+        serviceCollection.AddTransient<IConfigurationLocator, FileSystemConfigurationLocator>();
     }
 }

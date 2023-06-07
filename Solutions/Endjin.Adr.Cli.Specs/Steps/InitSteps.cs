@@ -23,9 +23,9 @@ public class InitSteps
     [When("I execute the adr cli")]
     public async Task WhenIExecuteTheAdrCli()
     {
-        var args = new string[] { "init",  this.scenarioContext.Get<string>("Directory") };
+        string[] args = new string[] { "init",  this.scenarioContext.Get<string>("Directory") };
 
-        var result = await Program.Main(args).ConfigureAwait(false);
+        int result = await Program.Main(args).ConfigureAwait(false);
 
         this.scenarioContext.Set(result, "Result");
     }

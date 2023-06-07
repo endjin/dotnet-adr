@@ -15,10 +15,10 @@ public class TemplatePackageMetaData
 
     public string RepositoryPath { get; set; }
 
-    public List<TemplatePackageDetail> Details { get; } = new List<TemplatePackageDetail>();
+    public List<TemplatePackageDetail> Details { get; } = new();
 
     [JsonIgnore]
-    public List<string> Templates { get; } = new List<string>();
+    public List<string> Templates { get; } = new();
 
     public string Id
     {
