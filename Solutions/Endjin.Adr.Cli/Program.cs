@@ -2,9 +2,6 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-using System;
-using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 
 using Endjin.Adr.Cli.Commands.Init;
@@ -12,13 +9,11 @@ using Endjin.Adr.Cli.Commands.New;
 using Endjin.Adr.Cli.Commands.Templates.Default;
 using Endjin.Adr.Cli.Commands.Templates.List;
 using Endjin.Adr.Cli.Commands.Templates.Package;
-using Endjin.Adr.Cli.Commands.Templates.Update;
 using Endjin.Adr.Cli.Extensions;
 using Endjin.Adr.Cli.Infrastructure.Injection;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace Endjin.Adr.Cli;
@@ -78,7 +73,7 @@ public static Task<int> Main(string[] args)
                 package.SetDescription("Show, set, update, template packages");
                 package.AddCommand<TemplatesPackageSetCommand>("set").WithDescription("set the active ADR template package");
                 package.AddCommand<TemplatesPackageShowCommand>("show").WithDescription("show all available ADR template packages");
-                package.AddCommand<TemplatesUpdateCommand>("update").WithDescription("update the specified ADR template package");
+                package.AddCommand<TemplatesPackageUpdateCommand>("update").WithDescription("update the specified ADR template package");
             });
         });
 /*#if DEBUG

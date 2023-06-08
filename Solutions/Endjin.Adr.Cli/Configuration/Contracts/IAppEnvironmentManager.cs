@@ -5,6 +5,7 @@
 using System.Threading.Tasks;
 
 namespace Endjin.Adr.Cli.Configuration.Contracts;
+
 public interface IAppEnvironmentManager
 {
     Task ResetDesiredStateAsync();

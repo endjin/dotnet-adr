@@ -8,10 +8,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Endjin.Adr.Cli.Configuration.Contracts;
+
 using Markdig;
 using Markdig.Extensions.Yaml;
 using Markdig.Syntax;
+
 using NuGet.Common;
 using NuGet.Configuration;
 using NuGet.Frameworks;
@@ -20,10 +23,13 @@ using NuGet.Packaging.Core;
 using NuGet.Packaging.Signing;
 using NuGet.Protocol.Core.Types;
 using NuGet.Resolver;
+
 using YamlDotNet.Serialization;
+
 using Settings = NuGet.Configuration.Settings;
 
 namespace Endjin.Adr.Cli.Templates;
+
 public class NuGetTemplatePackageManager : ITemplatePackageManager
 {
     private readonly IAppEnvironment appEnvironment;

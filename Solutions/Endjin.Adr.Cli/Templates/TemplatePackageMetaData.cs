@@ -4,9 +4,11 @@
 
 using System.Collections.Generic;
 using System.IO;
+
 using Newtonsoft.Json;
 
 namespace Endjin.Adr.Cli.Templates;
+
 public class TemplatePackageMetaData
 {
     public string Name { get; set; }

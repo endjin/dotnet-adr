@@ -4,9 +4,11 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using NDepend.Path;
 
 namespace Endjin.Adr.Cli.Configuration.Contracts;
+
 public interface IAppEnvironment : IAppEnvironmentConfiguration
 {
     IAbsoluteFilePath NuGetConfigFilePath { get; }

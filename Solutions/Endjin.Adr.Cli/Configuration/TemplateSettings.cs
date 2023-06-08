@@ -5,6 +5,7 @@
 using Endjin.Adr.Cli.Templates;
 
 namespace Endjin.Adr.Cli.Configuration;
+
 public class TemplateSettings
 {
     /// <summary>

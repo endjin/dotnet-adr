@@ -3,6 +3,7 @@
 // </copyright>
 
 namespace Endjin.Adr.Cli;
+
 public class Adr
 {
     public int RecordNumber { get; set; }

@@ -3,6 +3,7 @@
 // </copyright>
 
 namespace Endjin.Adr.Cli.Configuration.Contracts;
+
 public interface ITemplateSettingsManager : ISettingsManager<TemplateSettings>
 {
 }

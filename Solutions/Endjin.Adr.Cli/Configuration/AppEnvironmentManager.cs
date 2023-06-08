@@ -3,10 +3,12 @@
 // </copyright>
 
 using System.Threading.Tasks;
+
 using Endjin.Adr.Cli.Configuration.Contracts;
 using Endjin.Adr.Cli.Templates;
 
 namespace Endjin.Adr.Cli.Configuration;
+
 public class AppEnvironmentManager : IAppEnvironmentManager
 {
     private readonly IAppEnvironment appEnvironment;

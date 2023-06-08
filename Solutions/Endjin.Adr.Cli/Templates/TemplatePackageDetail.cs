@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 
 namespace Endjin.Adr.Cli.Templates;
+
 [DebuggerDisplay("{Title} - {Version}")]
 public class TemplatePackageDetail
 {

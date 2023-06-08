@@ -5,9 +5,11 @@
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
 using Endjin.Adr.Cli.Templates;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Endjin.Adr.Cli.Extensions;
+
 public static class ServiceCollectionExtensions
 {
     public static void ConfigureDependencies(this ServiceCollection serviceCollection)

@@ -8,11 +8,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Endjin.Adr.Cli.Configuration.Contracts;
+
 using NDepend.Path;
+
 using Spectre.Console;
 
 namespace Endjin.Adr.Cli.Configuration;
+
 public class FileSystemLocalProfileAppEnvironment : IAppEnvironment
 {
     public const string AppName = "adr";

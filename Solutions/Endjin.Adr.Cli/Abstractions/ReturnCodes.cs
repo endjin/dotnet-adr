@@ -3,6 +3,7 @@
 // </copyright>
 
 namespace Endjin.Adr.Cli.Abstractions;
+
 public static class ReturnCodes
 {
     public const int Exception = 2;

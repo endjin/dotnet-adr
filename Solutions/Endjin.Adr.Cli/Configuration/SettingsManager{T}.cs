@@ -3,10 +3,13 @@
 // </copyright>
 
 using System.IO;
+
 using Endjin.Adr.Cli.Configuration.Contracts;
+
 using Newtonsoft.Json;
 
 namespace Endjin.Adr.Cli.Configuration;
+
 public class SettingsManager<T> : ISettingsManager<T>
         where T : class
 {

@@ -11,10 +11,12 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
 using Endjin.Adr.Cli.Templates;
+
 using Spectre.Console;
 using Spectre.Console.Cli;
 
@@ -78,26 +80,30 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
                 }
             }
 
-            List<Adr> adrs = await GetAllAdrFilesFromCurrentDirectoryAsync(targetPath).ConfigureAwait(false);
+            List<Adr> documents = await GetAllAdrFilesFromCurrentDirectoryAsync(targetPath).ConfigureAwait(false);
 
             Adr adr = new()
             {
                 Content = CreateNewDefaultTemplate(settings.Title, this.templateSettingsManager),
-                RecordNumber = adrs.Count == 0 ? 1 : adrs.OrderBy(x => x.RecordNumber).Last().RecordNumber + 1,
+                RecordNumber = documents.Count == 0 ? 1 : documents.OrderBy(x => x.RecordNumber).Last().RecordNumber + 1,
                 Title = settings.Title,
             };
 
             if (settings.Id.HasValue)
             {
-                Adr supersede = adrs.Find(x => x.RecordNumber == settings.Id);
+                // if an id has been specified, check to see if we're superseding an existing ADR, and mark it as updated, pointing to the new ADR.
+                Adr supersede = documents.Find(x => x.RecordNumber == settings.Id);
 
-                Regex supersedeRegEx = new(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
+                if (supersede is not null)
+                {
+                    Regex supersedeRegEx = new(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
 
-                string updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSuperseded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
+                    string updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSuperseded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
 
-                await File.WriteAllTextAsync(supersede.Path, updatedContent).ConfigureAwait(false);
+                    await File.WriteAllTextAsync(supersede.Path, updatedContent).ConfigureAwait(false);
 
-                AnsiConsole.MarkupLine($"Superseded ADR Record: {settings.Id}");
+                    AnsiConsole.MarkupLine($"Superseded ADR Record: {settings.Id}");
+                }
             }
 
             await File.WriteAllTextAsync(Path.Combine(targetPath, adr.SafeFileName()), adr.Content).ConfigureAwait(false);
@@ -137,7 +143,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
             Directory.CreateDirectory(targetPath);
         }
 
-        List<Adr> adrs = new();
+        List<Adr> documents = new();
         Regex fileNameRegExp = new(@"(\d{4}.*\.md)");
 
         foreach (string file in Directory.EnumerateFiles(targetPath, "*.md").Where(path => fileNameRegExp.IsMatch(path)))
@@ -150,10 +156,10 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
                 Content = await File.ReadAllTextAsync(file).ConfigureAwait(false),
             };
 
-            adrs.Add(existingAdr);
+            documents.Add(existingAdr);
         }
 
-        return adrs;
+        return documents;
     }
 
     public class Settings : CommandSettings

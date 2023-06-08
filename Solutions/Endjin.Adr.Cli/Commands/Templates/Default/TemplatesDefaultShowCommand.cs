@@ -5,14 +5,17 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading.Tasks;
+
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
 using Endjin.Adr.Cli.Templates;
+
 using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace Endjin.Adr.Cli.Commands.Templates.Default;
+
 public class TemplatesDefaultShowCommand : AsyncCommand<TemplatesDefaultShowCommand.Settings>
 {
     private readonly ITemplateSettingsManager templateSettingsManager;

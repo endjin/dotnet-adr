@@ -5,15 +5,16 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
+
 using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace Endjin.Adr.Cli.Commands.Templates.Package;
+
 public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetCommand.Settings>
 {
     private readonly ITemplateSettingsManager templateSettingsManager;

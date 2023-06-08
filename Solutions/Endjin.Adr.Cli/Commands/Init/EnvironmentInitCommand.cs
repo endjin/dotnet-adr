@@ -5,11 +5,14 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
+
 using Endjin.Adr.Cli.Abstractions;
+
 using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace Endjin.Adr.Cli.Commands.Init;
+
 public class EnvironmentInitCommand : AsyncCommand<EnvironmentInitCommand.Settings>
 {
     /// <inheritdoc/>

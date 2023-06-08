@@ -5,6 +5,7 @@
 using NDepend.Path;
 
 namespace Endjin.Adr.Cli.Configuration.Contracts;
+
 public interface IAppEnvironmentConfiguration
 {
     IAbsoluteDirectoryPath AppPath { get; }
