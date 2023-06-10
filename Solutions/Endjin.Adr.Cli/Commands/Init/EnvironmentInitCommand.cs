@@ -18,7 +18,8 @@ public class EnvironmentInitCommand : AsyncCommand<EnvironmentInitCommand.Settin
     /// <inheritdoc/>
     public override Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
-        // await appEnvironment.InitializeAsync(console).ConfigureAwait(false);
+        AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
+
         if (string.IsNullOrEmpty(settings.Path))
         {
             settings.Path = Path.Combine(Directory.GetCurrentDirectory(), "docs", "adr");
@@ -28,11 +29,11 @@ public class EnvironmentInitCommand : AsyncCommand<EnvironmentInitCommand.Settin
         {
             Directory.CreateDirectory(settings.Path);
 
-            AnsiConsole.MarkupLine($"Created ADR Repository in '{settings.Path}'");
+            AnsiConsole.MarkupLine($"Created ADR Repository in [aqua]'{settings.Path}'[/]");
         }
         else
         {
-            AnsiConsole.MarkupLine($"'{settings.Path}' already exists.");
+            AnsiConsole.MarkupLine($"'[red]{settings.Path}'[/] already exists.");
         }
 
         return Task.FromResult(ReturnCodes.Ok);

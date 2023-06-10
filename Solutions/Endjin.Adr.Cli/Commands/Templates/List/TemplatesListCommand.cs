@@ -29,6 +29,8 @@ public class TemplatesListCommand : AsyncCommand<TemplatesListCommand.Settings>
     /// <inheritdoc/>
     public override Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
+        AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
+
         TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
         if (settings.IdsOnly)
@@ -42,21 +44,21 @@ public class TemplatesListCommand : AsyncCommand<TemplatesListCommand.Settings>
         {
             if (settings.FormatAsList)
             {
-                AnsiConsole.MarkupLine("-------");
+                AnsiConsole.MarkupLine("[green]-------[/]");
 
                 foreach (TemplatePackageDetail template in templateSettings.MetaData.Details)
                 {
                     AnsiConsole.MarkupLine(string.Empty);
-                    AnsiConsole.MarkupLine($"Title: {template.Title}");
-                    AnsiConsole.MarkupLine($"Id: {template.Id}");
-                    AnsiConsole.MarkupLine($"Description: {template.Description}");
-                    AnsiConsole.MarkupLine($"Authors: {template.Authors}");
-                    AnsiConsole.MarkupLine($"Effort: {template.Effort}");
-                    AnsiConsole.MarkupLine($"More Info: {template.MoreInfo}");
-                    AnsiConsole.MarkupLine($"Last Modified: {template.LastModified.ToString(CultureInfo.InvariantCulture)}");
-                    AnsiConsole.MarkupLine($"Version: {template.Version}");
+                    AnsiConsole.MarkupLine($"[aqua]Title:[/] {template.Title}");
+                    AnsiConsole.MarkupLine($"[aqua]Id:[/] {template.Id}");
+                    AnsiConsole.MarkupLine($"[aqua]Description:[/] {template.Description}");
+                    AnsiConsole.MarkupLine($"[aqua]Authors:[/] {template.Authors}");
+                    AnsiConsole.MarkupLine($"[aqua]Effort:[/] {template.Effort}");
+                    AnsiConsole.MarkupLine($"[aqua]More Info:[/] {template.MoreInfo}");
+                    AnsiConsole.MarkupLine($"[aqua]Last Modified:[/] {template.LastModified.ToString(CultureInfo.InvariantCulture)}");
+                    AnsiConsole.MarkupLine($"[aqua]Version:[/] {template.Version}");
                     AnsiConsole.MarkupLine(string.Empty);
-                    AnsiConsole.MarkupLine("-------");
+                    AnsiConsole.MarkupLine("[green]-------[/]");
                 }
             }
             else
@@ -97,7 +99,7 @@ public class TemplatesListCommand : AsyncCommand<TemplatesListCommand.Settings>
         [DefaultValue(false)]
         public bool IdsOnly { get; set; }
 
-        [CommandOption("--format-as-list")]
+        [CommandOption("--format-list")]
         [DefaultValue(false)]
         public bool FormatAsList { get; set; }
     }

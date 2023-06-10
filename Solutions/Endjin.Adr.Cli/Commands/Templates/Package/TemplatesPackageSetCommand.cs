@@ -27,6 +27,8 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
     /// <inheritdoc/>
     public override Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
+        AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
+
         if (string.IsNullOrEmpty(settings.PackageId))
         {
             return Task.FromResult(ReturnCodes.Error);
@@ -37,7 +39,7 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
 
         this.templateSettingsManager.SaveSettings(templateSettings, nameof(TemplateSettings));
 
-        AnsiConsole.MarkupLine($"Setting \"{templateSettings.DefaultTemplatePackage}\" as the default NuGet ADR Template package.");
+        AnsiConsole.MarkupLine($"""Setting [aqua]"{templateSettings.DefaultTemplatePackage}"[/] as the default NuGet ADR Template package.""");
 
         return Task.FromResult(ReturnCodes.Ok);
     }
@@ -46,7 +48,7 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
     {
         if (string.IsNullOrEmpty(settings.PackageId))
         {
-            return ValidationResult.Error($"Please specify the PackageId");
+            return ValidationResult.Error("Please specify the PackageId");
         }
 
         return base.Validate(context, settings);

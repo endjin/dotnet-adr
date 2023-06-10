@@ -14,7 +14,7 @@ using Spectre.Console.Cli;
 
 namespace Endjin.Adr.Cli.Commands.Templates.Package;
 
-public class TemplatesPackageShowCommand : AsyncCommand<TemplatesPackageShowCommand.Settings>
+public class TemplatesPackageShowCommand : AsyncCommand
 {
     private readonly ITemplateSettingsManager templateSettingsManager;
 
@@ -24,21 +24,14 @@ public class TemplatesPackageShowCommand : AsyncCommand<TemplatesPackageShowComm
     }
 
     /// <inheritdoc/>
-    public override Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
+    public override Task<int> ExecuteAsync([NotNull] CommandContext context)
     {
+        AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
+
         TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
-        AnsiConsole.MarkupLine($"NuGet ADR Template Package: {templateSettings.DefaultTemplatePackage}");
+        AnsiConsole.MarkupLine($"NuGet ADR Template Package: [aqua]{templateSettings.DefaultTemplatePackage}[/]");
 
         return Task.FromResult(ReturnCodes.Ok);
-    }
-
-    public class Settings : CommandSettings
-    {
-        [CommandArgument(0, "[Title]")]
-        public string Title { get; set; }
-
-        [CommandArgument(0, "[Title]")]
-        public int? Id { get; set; }
     }
 }

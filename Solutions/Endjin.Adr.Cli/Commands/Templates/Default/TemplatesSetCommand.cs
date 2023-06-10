@@ -28,6 +28,8 @@ public class TemplatesSetCommand : AsyncCommand<TemplatesSetCommand.Settings>
     /// <inheritdoc/>
     public override Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
+        AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
+
         TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
         TemplatePackageDetail template = templateSettings.MetaData.Details.Find(x => x.Id == settings.TemplateId);
 

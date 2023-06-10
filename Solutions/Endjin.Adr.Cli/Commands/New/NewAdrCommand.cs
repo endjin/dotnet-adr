@@ -37,6 +37,8 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
     public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
+        AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
+
         try
         {
             string targetPath = string.Empty;
@@ -102,13 +104,13 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
                     await File.WriteAllTextAsync(supersede.Path, updatedContent).ConfigureAwait(false);
 
-                    AnsiConsole.MarkupLine($"Superseded ADR Record: {settings.Id}");
+                    AnsiConsole.MarkupLine($"Superseded ADR Record: [aqua]{settings.Id}[/]");
                 }
             }
 
             await File.WriteAllTextAsync(Path.Combine(targetPath, adr.SafeFileName()), adr.Content).ConfigureAwait(false);
 
-            AnsiConsole.MarkupLine($"Created ADR Record: \"{settings.Title}\"");
+            AnsiConsole.MarkupLine($"""Created ADR Record: [aqua]"{settings.Title}"[/]""");
         }
         catch (InvalidOperationException)
         {

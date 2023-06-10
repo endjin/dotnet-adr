@@ -116,7 +116,7 @@ public class FileSystemLocalProfileAppEnvironment : IAppEnvironment
             Directory.CreateDirectory(this.ConfigurationPath.ToString());
         }
 
-        using (StreamWriter writer = File.CreateText(this.NuGetConfigFilePath.ToString()))
+        await using (StreamWriter writer = File.CreateText(this.NuGetConfigFilePath.ToString()))
         {
             AnsiConsole.MarkupLine($"Creating {this.NuGetConfigFilePath}");
             await writer.WriteAsync(DefaultNuGetConfig).ConfigureAwait(false);
