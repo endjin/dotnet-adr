@@ -2,40 +2,41 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Configuration
-{
-    using System.IO;
-    using Endjin.Adr.Cli.Configuration.Contracts;
-    using Newtonsoft.Json;
+using System.IO;
 
-    public class SettingsManager<T> : ISettingsManager<T>
+using Endjin.Adr.Cli.Configuration.Contracts;
+
+using Newtonsoft.Json;
+
+namespace Endjin.Adr.Cli.Configuration;
+
+public class SettingsManager<T> : ISettingsManager<T>
         where T : class
+{
+    private readonly IAppEnvironmentConfiguration appEnvironmentConfiguration;
+
+    public SettingsManager(IAppEnvironmentConfiguration appEnvironmentConfiguration)
     {
-        private readonly IAppEnvironment appEnvironment;
+        this.appEnvironmentConfiguration = appEnvironmentConfiguration;
+    }
 
-        public SettingsManager(IAppEnvironment appEnvironment)
-        {
-            this.appEnvironment = appEnvironment;
-        }
+    public T LoadSettings(string fileName)
+    {
+        string filePath = $"{this.GetLocalFilePath(fileName)}.json";
 
-        public T LoadSettings(string fileName)
-        {
-            string filePath = $"{this.GetLocalFilePath(fileName)}.json";
+        return File.Exists(filePath) ? JsonConvert.DeserializeObject<T>(File.ReadAllText(filePath)) : null;
+    }
 
-            return File.Exists(filePath) ? JsonConvert.DeserializeObject<T>(File.ReadAllText(filePath)) : null;
-        }
+    public void SaveSettings(T settings, string fileName)
+    {
+        string filePath = this.GetLocalFilePath(fileName);
+        string json = JsonConvert.SerializeObject(settings);
 
-        public void SaveSettings(T settings, string fileName)
-        {
-            string filePath = this.GetLocalFilePath(fileName);
-            string json = JsonConvert.SerializeObject(settings);
+        File.WriteAllText($"{filePath}.json", json);
+    }
 
-            File.WriteAllText($"{filePath}.json", json);
-        }
-
-        private string GetLocalFilePath(string fileName)
-        {
-            return Path.Combine(this.appEnvironment.ConfigurationPath, fileName);
-        }
+    private string GetLocalFilePath(string fileName)
+    {
+        return Path.Combine(this.appEnvironmentConfiguration.ConfigurationPath.ToString(), fileName);
     }
 }

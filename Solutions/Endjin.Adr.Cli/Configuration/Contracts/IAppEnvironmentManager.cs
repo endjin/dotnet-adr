@@ -2,16 +2,15 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Configuration.Contracts
+using System.Threading.Tasks;
+
+namespace Endjin.Adr.Cli.Configuration.Contracts;
+
+public interface IAppEnvironmentManager
 {
-    using System.Threading.Tasks;
+    Task ResetDesiredStateAsync();
 
-    public interface IAppEnvironmentManager
-    {
-        Task ResetDesiredStateAsync();
+    Task SetDesiredStateAsync();
 
-        Task SetDesiredStateAsync();
-
-        Task SetFirstRunDesiredStateAsync();
-    }
+    Task SetFirstRunDesiredStateAsync();
 }

@@ -2,13 +2,13 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Configuration.Contracts
-{
-    using System.Threading.Tasks;
-    using Endjin.Adr.Cli.Templates;
+using System.Threading.Tasks;
 
-    public interface ITemplatePackageManager
-    {
-        Task<TemplatePackageMetaData> InstallLatestAsync(string packageId);
-    }
+using Endjin.Adr.Cli.Templates;
+
+namespace Endjin.Adr.Cli.Configuration.Contracts;
+
+public interface ITemplatePackageManager
+{
+    Task<TemplatePackageMetaData> InstallLatestAsync(string packageId);
 }

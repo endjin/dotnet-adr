@@ -2,9 +2,8 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Adr.Cli.Configuration.Contracts
+namespace Endjin.Adr.Cli.Configuration.Contracts;
+
+public interface ITemplateSettingsManager : ISettingsManager<TemplateSettings>
 {
-    public interface ITemplateSettingsManager : ISettingsManager<TemplateSettings>
-    {
-    }
 }

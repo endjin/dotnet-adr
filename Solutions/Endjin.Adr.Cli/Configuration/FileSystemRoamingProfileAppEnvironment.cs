@@ -1,4 +1,4 @@
-﻿// <copyright file="FileSystemLocalProfileAppEnvironment.cs" company="Endjin Limited">
+﻿// <copyright file="FileSystemRoamingProfileAppEnvironment.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -17,15 +17,14 @@ using Spectre.Console;
 
 namespace Endjin.Adr.Cli.Configuration;
 
-public class FileSystemLocalProfileAppEnvironment : IAppEnvironment
+public class FileSystemRoamingProfileAppEnvironment : IAppEnvironment
 {
     public const string AppName = "adr";
     public const string AppOrgName = "endjin";
     public const string ConfigurationDirectorName = "configuration";
-    public const string PluginsDirectoryName = "plugins";
     public const string TemplatesDirectoryName = "templates";
     public const string NuGetFileName = "NuGet.Config";
-
+    public const string PluginsDirectoryName = "plugins";
     public const string DefaultNuGetConfig = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <configuration>
     <packageSources>
@@ -61,9 +60,9 @@ public class FileSystemLocalProfileAppEnvironment : IAppEnvironment
                     directory = Directory.GetParent(directory).FullName;
                 }
 
-                IEnumerable<string> dirs = Directory
-                        .EnumerateDirectories(directory, "*.*", SearchOption.AllDirectories)
-                        .Where(f => !Directory.EnumerateDirectories(f, "*.*", SearchOption.TopDirectoryOnly).Any() && f.EndsWith(@"bin\Debug\net6.0"));
+                IEnumerable<string> dirs = Directory.EnumerateDirectories(directory, "*.*", SearchOption.AllDirectories)
+                        .Where(f => !Directory.EnumerateDirectories(f, "*.*", SearchOption.TopDirectoryOnly).Any() &&
+                                    f.EndsWith(@"bin\Debug\net6.0"));
 
                 foreach (string dir in dirs)
                 {
@@ -116,7 +115,7 @@ public class FileSystemLocalProfileAppEnvironment : IAppEnvironment
             Directory.CreateDirectory(this.ConfigurationPath.ToString());
         }
 
-        await using (StreamWriter writer = File.CreateText(this.NuGetConfigFilePath.ToString()))
+        using (StreamWriter writer = File.CreateText(this.NuGetConfigFilePath.ToString()))
         {
             AnsiConsole.MarkupLine($"Creating {this.NuGetConfigFilePath}");
             await writer.WriteAsync(DefaultNuGetConfig).ConfigureAwait(false);

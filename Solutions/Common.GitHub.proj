@@ -1,6 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <GitHubOrg>endjin</GitHubOrg>
-    <GitHubProject>dotnet-adr</GitHubProject>
-  </PropertyGroup>
-</Project>
