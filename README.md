@@ -1,10 +1,10 @@
 # dotnet adr
+A .NET Global Tool for adopting and using Architectural Decision Records (ADR).
+
 [![Build Status](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/badge.svg)](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/)
 [![#](https://img.shields.io/nuget/v/adr.svg)](https://www.nuget.org/packages/adr/) 
 [![IMM](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/endjin/dotnet-adr/master/LICENSE)
-
-A .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
 Contents:
 
