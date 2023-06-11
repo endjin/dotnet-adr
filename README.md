@@ -168,7 +168,10 @@ This project is sponsored by [endjin](https://endjin.com), a UK based Technology
 
 > We help small teams achieve big things.
 
-We produce two free weekly newsletters; [Azure Weekly](https://azureweekly.info) for all things about the Microsoft Azure Platform, and [Power BI Weekly](https://powerbiweekly.info).
+We produce two free weekly newsletters: 
+
+ - [Azure Weekly](https://azureweekly.info) for all things about the Microsoft Azure Platform
+ - [Power BI Weekly](https://powerbiweekly.info) for all things Power BI, Microsoft Fabric, and Azure Synapse Analytics
 
 Keep up with everything that's going on at endjin via our [blog](https://endjin.com/blog), follow us on [Twitter](https://twitter.com/endjin), [YouTube](https://www.youtube.com/c/endjin) or [LinkedIn](https://www.linkedin.com/company/endjin).
 
