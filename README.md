@@ -1,5 +1,5 @@
-# dotnet adr - Architectural Decision Records made simple.
-A .NET Global Tool for adopting and using Architectural Decision Records (ADR).
+# dotnet adr - Make Future You Thank Past You.
+A cross platform .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
 [![Build Status](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/badge.svg)](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/)
 [![#](https://img.shields.io/nuget/v/adr.svg)](https://www.nuget.org/packages/adr/) 
@@ -8,21 +8,34 @@ A .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
 Contents:
 
-- What are Architectural Decision Records?
-- Installing dotnet adr
-- Which ADR templates are available out of the box?
-- dotnet ADR Commands
-- ADR Templates & ADR Template Packages
-- Local System Details
-- DevOps
-- Packages
-- More about dotnet global tools
-- Acknowledgements
-- Code of conduct
-- IP Maturity Model (IMM)
-- IMM Scores
+- [dotnet adr - Make Future You Thank Past You.](#dotnet-adr---make-future-you-thank-past-you)
+  - [What are Architectural Decision Records?](#what-are-architectural-decision-records)
+  - [Installing dotnet adr](#installing-dotnet-adr)
+  - [Which ADR templates are available out of the box?](#which-adr-templates-are-available-out-of-the-box)
+    - [Alexandrian Pattern](#alexandrian-pattern)
+    - [Business Case Pattern](#business-case-pattern)
+    - [Markdown Architectural Decision Records (MADR)](#markdown-architectural-decision-records-madr)
+    - [Nygard Pattern](#nygard-pattern)
+    - [Planguage Pattern](#planguage-pattern)
+    - [Tyree \& Akerman Pattern](#tyree--akerman-pattern)
+  - [Why create another ADR tool?](#why-create-another-adr-tool)
+  - [dotnet adr Commands](#dotnet-adr-commands)
+  - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
+    - [Changing ADR Template Packages](#changing-adr-template-packages)
+  - [Local System Details](#local-system-details)
+  - [DevOps](#devops)
+  - [Packages](#packages)
+  - [Licenses](#licenses)
+  - [Project Sponsor](#project-sponsor)
+  - [Managing and maintaining .NET Global Tools](#managing-and-maintaining-net-global-tools)
+  - [Acknowledgements](#acknowledgements)
+  - [Code of conduct](#code-of-conduct)
+  - [IP Maturity Model (IMM)](#ip-maturity-model-imm)
+  - [IP Maturity Model Scores](#ip-maturity-model-scores)
 
 ## What are Architectural Decision Records?
+
+## Installing dotnet adr
 
 ## Which ADR templates are available out of the box?
 
@@ -50,7 +63,7 @@ One of the reasons for "re-inventing the wheel" with `adr` when there are so man
 
 See https://github.com/joelparkerhenderson/architecture_decision_record for a comprehensive overview of ADR.
 
-## ADR Commands
+## dotnet adr Commands
 
 Here is a detailed list of the available `adr` commands:
 
@@ -86,7 +99,7 @@ Here is a detailed list of the available `adr` commands:
 
 `adr environment reset` - Resets the `adr` environment back to its default settings.
 
-## ADR Templates & ADR Template Packages
+## ADR Templates and ADR Template Packages
 
 ADR Templates are simply markdown files which contain headings and guidance for the end users. The only hard requirement is that they contains `# Title` and `## Status` headings as `adr` uses Regular Expressions to find and replace these values to power the `adr new <TITLE>` and `adr new -s <RECORD NUMBER> <TITLE>` commands.
 
@@ -193,7 +206,7 @@ And the DevOps tooling we have created for managing all these projects is availa
 
 For more information about our products and services, or for commercial support of this project, please [contact us](https://endjin.com/contact-us). 
 
-## More about dotnet global tools
+## Managing and maintaining .NET Global Tools
 
 `adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine. 
 
