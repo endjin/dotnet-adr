@@ -1,4 +1,4 @@
-# dotnet adr
+# dotnet adr - Architectural Decision Records made simple.
 A .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
 [![Build Status](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/badge.svg)](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/)
@@ -44,7 +44,7 @@ A Quality Assurance oriented approach.
 ### Tyree & Akerman Pattern
 ADR approach by Jeff Tyree and Art Akerman, Capital One Financial
 
-# Why create another ADR tool?
+## Why create another ADR tool?
 
 One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. With `adr` I wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
 
@@ -94,6 +94,8 @@ The default ADR Templates are contained in the `Endjin.Adr.Templates` project, w
 
 To test extensibility, this solution contains a second "Third Party" ADR template example in `ThirdParty.Adr.Templates`, this is also available via NuGet.org as `thirdparty.adr.templates`.
 
+### Changing ADR Template Packages
+
 To swap between the packages use the following `adr` commands:
 
 `adr templates package set thirdparty.adr.templates`
@@ -122,7 +124,7 @@ Then:
 
 `adr templates install`
 
-## 💽 System Details
+## Local System Details
 
 `adr` stores various configuration files and packages in an application profile folder created in:
 
@@ -138,11 +140,11 @@ Configuration in:
 
 The templates NuGet package is cached in `%%UserProfile%%\.nuget\packages`. 
 
-## 🔁 DevOps
+## DevOps
 
 The project is [hosted on GitHub](https://github.com/endjin/dotnet-adr) and uses a [GitHub Actions workflow](https://github.com/endjin/dotnet-adr/blob/main/.github/workflows/build.yml) and [Endjin.RecommendedPractices.Build](https://www.powershellgallery.com/packages/Endjin.RecommendedPractices.Build/) to manage the full DevOps lifecycle.
 
-## 📦 Packages
+## Packages
 
 The NuGet packages for the project, hosted on NuGet.org are:
 
@@ -152,7 +154,7 @@ The NuGet packages for the project, hosted on NuGet.org are:
 
 If you want to create a 3rd Party Template, please tag it with `dotnet-adr`
 
-## 📄 Licenses
+## Licenses
 
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/endjin/dotnet-adr/master/LICENSE)
 
@@ -160,7 +162,7 @@ This project is available under the Apache 2.0 open source license.
 
 For any licensing questions, please email [&#108;&#105;&#99;&#101;&#110;&#115;&#105;&#110;&#103;&#64;&#101;&#110;&#100;&#106;&#105;&#110;&#46;&#99;&#111;&#109;](&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#99;&#101;&#110;&#115;&#105;&#110;&#103;&#64;&#101;&#110;&#100;&#106;&#105;&#110;&#46;&#99;&#111;&#109;)
 
-## 🏆 Project Sponsor
+## Project Sponsor
 
 This project is sponsored by [endjin](https://endjin.com), a UK based Technology Consultancy which specialises in Data, AI, DevOps & Cloud, and is .NET Foundation Corporate Sponsor.
 
