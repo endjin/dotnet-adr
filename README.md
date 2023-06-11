@@ -44,19 +44,15 @@ A Quality Assurance oriented approach.
 ### Tyree & Akerman Pattern
 ADR approach by Jeff Tyree and Art Akerman, Capital One Financial
 
+# Why create another ADR tool?
 
-One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existance, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. With `dotnet-adr` I wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using nuget.org.
+One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. With `adr` I wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
 
 See https://github.com/joelparkerhenderson/architecture_decision_record for a comprehensive overview of ADR.
 
-`dotnet-adr` is built using Microsoft's `System.CommandLine` [libraries](https://github.com/dotnet/command-line-api). These packages, while still marked as experimental, are seeing lots of real-world usage, including tools such as [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet). 
-
-A useful blog post for understanding `System.CommandLine` is [Radu Matei's](https://twitter.com/matei_radu) blog post "[Building self-contained, single executable .NET Core 3 CLI tools](https://radu-matei.com/blog/self-contained-dotnet-cli/)".
-
-
 ## ADR Commands
 
-Once you have `dotnet-suggest` installed, you can use `adr` then TAB to explore the available commands. Here is a detailed list of the available commands:
+Here is a detailed list of the available `adr` commands:
 
 `adr init <PATH>` - Initialises a new ADR repository. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
 
@@ -72,9 +68,13 @@ Once you have `dotnet-suggest` installed, you can use `adr` then TAB to explore 
 
 `adr templates default set <TEMPLATE ID>` - Sets the default ADR Template. The `<TEMPLATE ID>` can be obtained from `adr templates default show`
 
-`adr templates list` - Displays the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
+`adr templates list` - Displays a table containing the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
 
 `adr templates list --ids-only` - Displays the ids of all ADR Templates contained in the current default ADR Template Package.
+
+`adr templates list --format-list` - Displays a list of the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
+
+`adr templates install` - Installs the latest version of the currently set ADR Templates Package.
 
 `adr templates update` - Updates to the latest version of the currently set ADR Templates Package.
 
@@ -84,23 +84,23 @@ Once you have `dotnet-suggest` installed, you can use `adr` then TAB to explore 
 
 `adr environment` - Manipulate the dotnet-adr environment. Root command for environment operations. Will list available sub-commands.
 
-`adr environment reset` - Resets the `dotnet-adr` environment back to its default settings.
+`adr environment reset` - Resets the `adr` environment back to its default settings.
 
 ## ADR Templates & ADR Template Packages
 
-ADR Templates are simply markdown files which contain headings and guidance for the end users. The only hard requirement is that they contains `# Title` and `## Status` headings as `dotnet-adr` uses Regular Expressions to find and replace these values to power the `adr new <TITLE>` and `adr new -s <RECORD NUMBER> <TITLE>` commands.
+ADR Templates are simply markdown files which contain headings and guidance for the end users. The only hard requirement is that they contains `# Title` and `## Status` headings as `adr` uses Regular Expressions to find and replace these values to power the `adr new <TITLE>` and `adr new -s <RECORD NUMBER> <TITLE>` commands.
 
 The default ADR Templates are contained in the `Endjin.Adr.Templates` project, which contains nuget configuration elements in `Endjin.Adr.Templates.csproj` to create a NuGet "content" package, which is available via NuGet.org as `adr.templates`.
 
 To test extensibility, this solution contains a second "Third Party" ADR template example in `ThirdParty.Adr.Templates`, this is also available via NuGet.org as `thirdparty.adr.templates`.
 
-To swap between the packages use the following `dotnet-adr` commands:
+To swap between the packages use the following `adr` commands:
 
 `adr templates package set thirdparty.adr.templates`
 
 Next, to download the latest version of 'thirdparty.adr.templates` use the command:
 
-`adr templates update`
+`adr templates install`
 
 To see the currently set default package, use: 
 
@@ -110,7 +110,7 @@ To see the id of the currently set default template, use:
 
 `adr templates default show`
 
-To revent to to the "official" ADT Template Package you can either, reset the environment:
+To revert to the "official" ADT Template Package you can either, reset the environment:
 
 `adr environment reset`
 
@@ -120,11 +120,11 @@ or:
 
 Then:
 
-`adr templates update`
+`adr templates install`
 
 ## 💽 System Details
 
-An application profile folder is created in:
+`adr` stores various configuration files and packages in an application profile folder created in:
 
 `%%UserProfile%%\AppData\Roaming\endjin\dotnet-adr`
 
@@ -149,6 +149,8 @@ The NuGet packages for the project, hosted on NuGet.org are:
 - [adr](https://www.nuget.org/packages/adr)
 - [adr.templates](https://www.nuget.org/packages/adr.templates)
 - [thirdparty.adr.templates](https://www.nuget.org/packages/thirdparty.adr.templates)
+
+If you want to create a 3rd Party Template, please tag it with `dotnet-adr`
 
 ## 📄 Licenses
 
