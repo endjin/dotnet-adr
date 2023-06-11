@@ -189,6 +189,8 @@ And we have over 50 Open Source projects of our own, spread across the following
 - [Marain](https://github.com/marain-dotnet)
 - [AIS.NET](https://github.com/ais-dotnet)
 
+And the DevOps tooling we have created for managing all these projects is available on the [PowerShell Gallery](https://www.powershellgallery.com/profiles/endjin).
+
 For more information about our products and services, or for commercial support of this project, please [contact us](https://endjin.com/contact-us). 
 
 ## More about dotnet global tools
