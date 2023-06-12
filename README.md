@@ -192,7 +192,7 @@ Last Modified: YYYY-MM-DD HH:MM
 4. Create a `.csproj` file which contains the following properties:
 
 ```xml
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>thirdparty.adr.templates</AssemblyName>
@@ -278,7 +278,7 @@ The NuGet packages for the project, hosted on NuGet.org are:
 - [adr.templates](https://www.nuget.org/packages/adr.templates)
 - [thirdparty.adr.templates](https://www.nuget.org/packages/thirdparty.adr.templates)
 
-If you want to create a 3rd Party Template, please tag it with `dotnet-adr`
+If you want to [Create your own custom ADR Template Package](#create-your-own-custom-adr-template-package), please add `dotnet-adr` to the `PackageTags` element.
 
 ## Community Contributions
 
@@ -294,7 +294,7 @@ For any licensing questions, please email [&#108;&#105;&#99;&#101;&#110;&#115;&#
 
 ## Project Sponsor
 
-This project is sponsored by [endjin](https://endjin.com), a UK based Technology Consultancy which specialises in Data, AI, DevOps & Cloud, and is a [.NET Foundation Corporate Sponsor](https://dotnetfoundation.org/membership/corporate-sponsorship).
+This project is sponsored by [endjin](https://endjin.com), a UK based Technology Consultancy which specializes in Data, AI, DevOps & Cloud, and is a [.NET Foundation Corporate Sponsor](https://dotnetfoundation.org/membership/corporate-sponsorship).
 
 > We help small teams achieve big things.
 
