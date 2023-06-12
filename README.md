@@ -106,15 +106,15 @@ To list all the global tools installed on your machine, open a command prompt an
 
 Here is a detailed list of the available `adr` commands:
 
-`adr init <PATH>` - Initializes a new ADR repository. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
+`adr init <PATH>` - Initializes a new Architecture Knowledge Management (AKM) folder. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
 
 `adr new <TITLE>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package.
 
 `adr new <TITLE> -i <RECORD NUMBER>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have its status updated to reflect this change.
 
-`adr new <TITLE> -p <PATH>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package, at the specified path.
+`adr new <TITLE> -p <PATH>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package, for the Architecture Knowledge Management (AKM) folder located at the specified path.
 
-`adr new <TITLE> -i <RECORD NUMBER> -p <PATH>` - Creates a new Architectural Decision Record, at the specified path, superseding the specified ADR record, which will have its status updated to reflect this change.
+`adr new <TITLE> -i <RECORD NUMBER> -p <PATH>` - Creates a new Architectural Decision Record, for the Architecture Knowledge Management (AKM) folder located at the specified path, superseding the specified ADR record, which will have its status updated to reflect this change.
 
 `adr templates` - Manipulate ADR Templates & ADR Template Packages. Root command for template operations. Will list available sub-commands.
 
