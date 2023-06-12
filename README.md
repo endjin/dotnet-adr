@@ -25,7 +25,6 @@ Table of Contents:
   - [Configure the default ADR location in your repo](#configure-the-default-adr-location-in-your-repo)
   - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
   - [Create your own custom ADR Template Package](#create-your-own-custom-adr-template-package)
-    - [Changing ADR Template Packages](#changing-adr-template-packages)
   - [Local System Details](#local-system-details)
   - [DevOps](#devops)
   - [Packages](#packages)
@@ -222,10 +221,6 @@ Last Modified: YYYY-MM-DD HH:MM
 ```
 
 5. When the solution is built, a `thirdparty.adr.templates.nupkg` NuGet package will be created. Publish this to nuget.org
-6. Use `adr templates package set <PACKAGE ID>` - Sets the default NuGet ADR Template Package to your custom template package id.
-7. `adr templates install` - Installs your custom template package.
-
-### Changing ADR Template Packages
 
 To swap between the packages use the following `adr` commands:
 
