@@ -1,4 +1,5 @@
 # dotnet adr - Make Future You Thank Past You.
+
 A cross platform .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
 [![Build Status](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/badge.svg)](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/)
@@ -6,11 +7,11 @@ A cross platform .NET Global Tool for adopting and using Architectural Decision 
 [![IMM](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/endjin/dotnet-adr/master/LICENSE)
 
-Contents:
+Table of Contents:
 
 - [dotnet adr - Make Future You Thank Past You.](#dotnet-adr---make-future-you-thank-past-you)
   - [What are Architectural Decision Records?](#what-are-architectural-decision-records)
-  - [Installing dotnet adr](#installing-dotnet-adr)
+  - [Why we adopted ADRs](#why-we-adopted-adrs)
   - [Which ADR templates are available out of the box?](#which-adr-templates-are-available-out-of-the-box)
     - [Alexandrian Pattern](#alexandrian-pattern)
     - [Business Case Pattern](#business-case-pattern)
@@ -19,15 +20,17 @@ Contents:
     - [Planguage Pattern](#planguage-pattern)
     - [Tyree \& Akerman Pattern](#tyree--akerman-pattern)
   - [Why create another ADR tool?](#why-create-another-adr-tool)
+  - [Install dotnet adr](#install-dotnet-adr)
+  - [Configure your repo](#configure-your-repo)
   - [dotnet adr Commands](#dotnet-adr-commands)
   - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
     - [Changing ADR Template Packages](#changing-adr-template-packages)
   - [Local System Details](#local-system-details)
   - [DevOps](#devops)
   - [Packages](#packages)
+  - [Community Contributions](#community-contributions)
   - [Licenses](#licenses)
   - [Project Sponsor](#project-sponsor)
-  - [Managing and maintaining .NET Global Tools](#managing-and-maintaining-net-global-tools)
   - [Acknowledgements](#acknowledgements)
   - [Code of conduct](#code-of-conduct)
   - [IP Maturity Model (IMM)](#ip-maturity-model-imm)
@@ -35,7 +38,13 @@ Contents:
 
 ## What are Architectural Decision Records?
 
-## Installing dotnet adr
+## Why we adopted ADRs
+
+Several years ago we worked on a very complex project which required R&D, technical spikes, benchmarking, load-testing, performance tuning cycles, and further benchmarking in order to find the optimal solution. This process worked incredibly well and we delivered orders of magnitude performance improvements over the existing solution. During the end-of-project retrospective we identified two sub-optimal outcomes; firstly we felt that while we had worked minor miracles in our technical solutions, the customer never seemed particularly impressed by the improvements. Secondly, the customer hired a new architect just as we finished delivering the solution, and as part of their onboarding process reviewed the solution and criticized almost every aspect with "I wouldn't have done it that way. At my last job we approached it like X and found it to be best". 
+
+We realized that the two issues were related. For the first problem, we concluded that we had failed to follow the most basic instruction you're given at school; "show your workings". We had hidden all the hard work, all the complexity, all of the hypothesis-testing experiments, and just presented the results _Fait Accompli_. The second problem had the same root cause. Because we had not recorded all of our experiments in a systematic way, we had no evidence to show that the approach the architect considered "best" was actually the first approach we took, but when we benchmarked and load-tested the approach it couldn't handle the data throughput at the price-point required by the customer. "Best" is an entirely contextual perspective. What's "best" in one situation is inappropriate in another.
+
+We embrace evidence-based-decision-making as part of our experimental approach, and wanted to find a process that would allow us to document this in a formalised way. We did some research and discovered Architectural Decision Records. They have now become a fundamental part of our software and data engineering processes.
 
 ## Which ADR templates are available out of the box?
 
@@ -59,19 +68,49 @@ ADR approach by Jeff Tyree and Art Akerman, Capital One Financial
 
 ## Why create another ADR tool?
 
-One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. With `adr` I wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
+One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. In the 5 years since we've adopted ADRs we've changed our default template a number of times. Thus, with `adr` I wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
 
-See https://github.com/joelparkerhenderson/architecture_decision_record for a comprehensive overview of ADR.
+## Install dotnet adr
+
+`adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine. 
+
+To install the `adr` global tool use the following command:
+
+`dotnet tool install -g adr`
+
+To install a specific version, use:
+
+`dotnet tool install -g adr --version <version-number>`
+
+To update to the latest version of the tool, use:
+
+`dotnet tool update -g adr`
+
+To uninstall the tool, use:
+
+`dotnet tool uninstall -g adr`
+
+To list all the global tools installed on your machine, open a command prompt and type:
+
+`dotnet tool list -g`
+
+## Configure your repo
+
+
 
 ## dotnet adr Commands
 
 Here is a detailed list of the available `adr` commands:
 
-`adr init <PATH>` - Initialises a new ADR repository. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
+`adr init <PATH>` - Initializes a new ADR repository. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
 
 `adr new <TITLE>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package.
 
-`adr new -s <RECORD NUMBER> <TITLE>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have it's status updated to reflect this change.
+`adr new <TITLE> -i <RECORD NUMBER>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have its status updated to reflect this change.
+
+`adr new <TITLE> -p <PATH>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package, at the specified path.
+
+`adr new <TITLE> -i <RECORD NUMBER> -p <PATH>` - Creates a new Architectural Decision Record, at the specified path, superseding the specified ADR record, which will have its status updated to reflect this change.
 
 `adr templates` - Manipulate ADR Templates & ADR Template Packages. Root command for template operations. Will list available sub-commands.
 
@@ -167,6 +206,10 @@ The NuGet packages for the project, hosted on NuGet.org are:
 
 If you want to create a 3rd Party Template, please tag it with `dotnet-adr`
 
+## Community Contributions
+
+- 2021-08-09 - [Christopher Laine](https://medium.com/@domingoladron) wrote a nice blog post about ADRs and dotnet adr: [Architectural Decision Records (ADR) with dotnet-adr](https://medium.com/it-dead-inside/architectural-decision-records-adr-with-dotnet-adr-9fa76104bcd7)
+
 ## Licenses
 
 This project is available under the Apache 2.0 open source license.
@@ -205,30 +248,6 @@ And we have over 50 Open Source projects of our own, spread across the following
 And the DevOps tooling we have created for managing all these projects is available on the [PowerShell Gallery](https://www.powershellgallery.com/profiles/endjin).
 
 For more information about our products and services, or for commercial support of this project, please [contact us](https://endjin.com/contact-us). 
-
-## Managing and maintaining .NET Global Tools
-
-`adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine. 
-
-To list all the global tools installed on your machine, open a command prompt and type:
-
-`dotnet tool list -g`
-
-To install the `adr` global tool use the following command:
-
-`dotnet tool install -g adr`
-
-To install a specific version, use:
-
-`dotnet tool install -g adr --version <version-number>`
-
-To update to the latest version of the tool, use:
-
-`dotnet tool update -g adr`
-
-To uninstall the tool, use:
-
-`dotnet tool uninstall -g adr`
 
 ## Acknowledgements
 
