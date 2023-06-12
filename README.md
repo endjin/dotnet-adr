@@ -21,8 +21,8 @@ Table of Contents:
     - [Tyree and Akerman Pattern](#tyree-and-akerman-pattern)
   - [Why create another ADR tool?](#why-create-another-adr-tool)
   - [Install dotnet adr](#install-dotnet-adr)
-  - [Configure your repo](#configure-your-repo)
   - [dotnet adr Commands](#dotnet-adr-commands)
+  - [Configure the default ADR location in your repo](#configure-the-default-adr-location-in-your-repo)
   - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
     - [Changing ADR Template Packages](#changing-adr-template-packages)
   - [Local System Details](#local-system-details)
@@ -38,9 +38,13 @@ Table of Contents:
 
 ## What are Architectural Decision Records?
 
+TBD
+
 ## Why we adopted ADRs
 
-Several years ago we worked on a very complex project which required R&D, technical spikes, benchmarking, load-testing, performance tuning cycles, and further benchmarking in order to find the optimal solution. This process worked incredibly well and we delivered orders of magnitude performance improvements over the existing solution. During the end-of-project retrospective we identified two sub-optimal outcomes; firstly we felt that while we had worked minor miracles in our technical solutions, the customer never seemed particularly impressed by the improvements. Secondly, the customer hired a new architect just as we finished delivering the solution, and as part of their onboarding process reviewed the solution and criticized almost every aspect with "I wouldn't have done it that way. At my last job we approached it like X and found it to be best". 
+Several years ago we worked on a very complex project which required R&D, technical spikes, benchmarking, load-testing, performance tuning cycles, and further benchmarking in order to find the optimal solution. This process worked incredibly well and we delivered orders of magnitude performance improvements over the existing solution. 
+
+During the end-of-project retrospective we identified two sub-optimal outcomes; firstly we felt that while we had worked minor miracles in our technical solutions, the customer never seemed particularly impressed by the improvements. Secondly, the customer hired a new architect just as we finished delivering the solution, and as part of their onboarding process reviewed the solution and criticized almost every aspect with "I wouldn't have done it that way. At my last job we approached it like X and found it to be best". 
 
 We realized that the two issues were related. For the first problem, we concluded that we had failed to follow the most basic instruction you're given at school; "show your workings". We had hidden all the hard work, all the complexity, all of the hypothesis-testing experiments, and just presented the results _Fait Accompli_. The second problem had the same root cause. Because we had not recorded all of our experiments in a systematic way, we had no evidence to show that the approach the architect considered "best" was actually the first approach we took, but when we benchmarked and load-tested the approach it couldn't handle the data throughput at the price-point required by the customer. "Best" is an entirely based on situational context. What's "best" in one situation is inappropriate in another.
 
@@ -98,10 +102,6 @@ To list all the global tools installed on your machine, open a command prompt an
 
 `dotnet tool list -g`
 
-## Configure your repo
-
-
-
 ## dotnet adr Commands
 
 Here is a detailed list of the available `adr` commands:
@@ -141,6 +141,20 @@ Here is a detailed list of the available `adr` commands:
 `adr environment` - Manipulate the dotnet-adr environment. Root command for environment operations. Will list available sub-commands.
 
 `adr environment reset` - Resets the `adr` environment back to its default settings.
+
+## Configure the default ADR location in your repo
+
+While `adr` is quite flexible in allowing you to specify were to create or update an ADR, either in the current directory, or by specifying a custom path using `adr new <TITLE> -p <PATH>`, sometime it's better to create a "pit of quality" and standardize the Architecture Knowledge Management (AKM) folder location for all users of the tool.
+
+To support this requirement you can create a file in the root of your repo called `adr.config.json` which must have the following format:
+
+```json
+{
+    "path": "./Docs/Adr"
+}
+```
+
+Where the value of `path` is relative to the root of the repo.
 
 ## ADR Templates and ADR Template Packages
 
