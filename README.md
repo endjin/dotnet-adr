@@ -18,7 +18,7 @@ Table of Contents:
     - [Markdown Architectural Decision Records (MADR)](#markdown-architectural-decision-records-madr)
     - [Nygard Pattern](#nygard-pattern)
     - [Planguage Pattern](#planguage-pattern)
-    - [Tyree \& Akerman Pattern](#tyree--akerman-pattern)
+    - [Tyree and Akerman Pattern](#tyree-and-akerman-pattern)
   - [Why create another ADR tool?](#why-create-another-adr-tool)
   - [Install dotnet adr](#install-dotnet-adr)
   - [Configure your repo](#configure-your-repo)
@@ -42,9 +42,11 @@ Table of Contents:
 
 Several years ago we worked on a very complex project which required R&D, technical spikes, benchmarking, load-testing, performance tuning cycles, and further benchmarking in order to find the optimal solution. This process worked incredibly well and we delivered orders of magnitude performance improvements over the existing solution. During the end-of-project retrospective we identified two sub-optimal outcomes; firstly we felt that while we had worked minor miracles in our technical solutions, the customer never seemed particularly impressed by the improvements. Secondly, the customer hired a new architect just as we finished delivering the solution, and as part of their onboarding process reviewed the solution and criticized almost every aspect with "I wouldn't have done it that way. At my last job we approached it like X and found it to be best". 
 
-We realized that the two issues were related. For the first problem, we concluded that we had failed to follow the most basic instruction you're given at school; "show your workings". We had hidden all the hard work, all the complexity, all of the hypothesis-testing experiments, and just presented the results _Fait Accompli_. The second problem had the same root cause. Because we had not recorded all of our experiments in a systematic way, we had no evidence to show that the approach the architect considered "best" was actually the first approach we took, but when we benchmarked and load-tested the approach it couldn't handle the data throughput at the price-point required by the customer. "Best" is an entirely contextual perspective. What's "best" in one situation is inappropriate in another.
+We realized that the two issues were related. For the first problem, we concluded that we had failed to follow the most basic instruction you're given at school; "show your workings". We had hidden all the hard work, all the complexity, all of the hypothesis-testing experiments, and just presented the results _Fait Accompli_. The second problem had the same root cause. Because we had not recorded all of our experiments in a systematic way, we had no evidence to show that the approach the architect considered "best" was actually the first approach we took, but when we benchmarked and load-tested the approach it couldn't handle the data throughput at the price-point required by the customer. "Best" is an entirely based on situational context. What's "best" in one situation is inappropriate in another.
 
-We embrace evidence-based-decision-making as part of our experimental approach, and wanted to find a process that would allow us to document this in a formalised way. We did some research and discovered Architectural Decision Records. They have now become a fundamental part of our software and data engineering processes.
+We embrace evidence-based-decision-making as part of our experimental approach, and wanted to find a process that would allow us to document this in a formalized way. We did some research and discovered Architectural Decision Records. They have now become a fundamental part of our software and data engineering processes.
+
+As a fully-remote organization, a secondary benefit from adopting ADRs has been how it allows us to enable distributed and asynchronous evidence gathering, discussions, decision making, and onboarding. This benefit manifests in a number of different ways; firstly, the process of drafting and evolving an ADR as a working group. Secondly, once the ADR reaches its "proposed status" it's very easy for senior decision makers to quickly grok the summary of the decision and provide input. Thirdly, any new contributor can get up to speed by using the collection of ADRs, AKA an Architecture Decision Log (ADL), to understand all the historical decisions that have been made, and most importantly what the situational context was at the point the decision was made.
 
 ## Which ADR templates are available out of the box?
 
@@ -63,12 +65,14 @@ A simple, low-friction "Agile" ADR approach.
 ### Planguage Pattern
 A Quality Assurance oriented approach.
 
-### Tyree & Akerman Pattern
+### Tyree and Akerman Pattern
 ADR approach by Jeff Tyree and Art Akerman, Capital One Financial
 
 ## Why create another ADR tool?
 
-One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. In the 5 years since we've adopted ADRs we've changed our default template a number of times. Thus, with `adr` I wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
+One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. 
+
+In the 5 years since we've adopted ADRs we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
 
 ## Install dotnet adr
 
