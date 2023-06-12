@@ -46,7 +46,7 @@ Several years ago we worked on a very complex project which required R&D, techni
 
 During the end-of-project retrospective we identified two sub-optimal outcomes; firstly we felt that while we had worked minor miracles in our technical solutions, the customer never seemed particularly impressed by the improvements. Secondly, the customer hired a new architect just as we finished delivering the solution, and as part of their onboarding process reviewed the solution and criticized almost every aspect with "I wouldn't have done it that way. At my last job we approached it like X and found it to be best". 
 
-We realized that the two issues were related. For the first problem, we concluded that we had failed to follow the most basic instruction you're given at school; "show your workings". We had hidden all the hard work, all the complexity, all of the hypothesis-testing experiments, and just presented the results _Fait Accompli_. The second problem had the same root cause. Because we had not recorded all of our experiments in a systematic way, we had no evidence to show that the approach the architect considered "best" was actually the first approach we took, but when we benchmarked and load-tested the approach it couldn't handle the data throughput at the price-point required by the customer. "Best" is an entirely based on situational context. What's "best" in one situation is inappropriate in another.
+We realized that the two issues were related. For the first problem, we concluded that we had failed to follow the most basic instruction you're given at school; "show your workings". We had hidden all the hard work, all the complexity, all of the hypothesis-testing experiments, and just presented the results _Fait Accompli_. The second problem had the same root cause. Because we had not recorded all of our experiments in a systematic way, we had no evidence to show that the approach the architect considered "best" was actually the first approach we took, but when we benchmarked and load-tested the approach it couldn't handle the data throughput at the price-point required by the customer. "Best" is entirely based on situational context. What's "best" in one situation is inappropriate in another.
 
 We embrace evidence-based-decision-making as part of our experimental approach, and wanted to find a process that would allow us to document this in a formalized way. We did some research and discovered Architectural Decision Records. They have now become a fundamental part of our software and data engineering processes.
 
@@ -55,22 +55,99 @@ As a fully-remote organization, a secondary benefit from adopting ADRs has been 
 ## Which ADR templates are available out of the box?
 
 ### Alexandrian Pattern
-ADR using the Alexandrian Pattern Language Approach.
+ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/wiki/Pattern_language) coined by Architect by Christopher Alexander et. al in 1977, which distils the decision record into the following headings:
+
+- Prologue (Summary)
+- Discussion (Context)
+- Solution (Decision)
+- Consequences (Results)
 
 ### Business Case Pattern
 Emphasizes creating a business case for a decision, including criteria, candidates, and costs.
+Joel Parker Henderson
+https://github.com/joelparkerhenderson/architecture_decision_record#adr-example-templates
+
+- Title
+- Status
+- Evaluation criteria
+- Candidates to consider
+- Research and analysis of each candidate
+  - Does/doesn't meet criteria and why
+  - Cost analysis
+  - SWOT analysis
+  - Opinions and feedback
+- Recommendation
 
 ### Markdown Architectural Decision Records (MADR)
 Architectural Decisions using Markdown and Architectural Decision Records
+Oliver Kopp
+https://adr.github.io/madr/
+
+- Title 
+- Context and Problem Statement
+- Decision Drivers
+- Considered Options
+- Decision Outcome
+  - Positive Consequences
+  - Negative Consequences
+- Pros and Cons of the Options
+  - [option 1]
+  - [option 2]
+  - [option 3]
+- Links
 
 ### Nygard Pattern
 A simple, low-friction "Agile" ADR approach.
+Michael Nygard
+http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
+
+- Title
+- Status
+- Context
+- Decision
+- Consequences
 
 ### Planguage Pattern
 A Quality Assurance oriented approach.
+John Terzakis
+http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effective%20Non-func.pdf
+
+- Title
+- Status
+- Tag
+- Gist
+- Requirement
+- Rationale
+- Priority
+- Stakeholders
+- Owner
+- Author
+- Revision
+- Date
+- Assumptions
+- Risks
+- Defined
 
 ### Tyree and Akerman Pattern
 ADR approach by Jeff Tyree and Art Akerman, Capital One Financial
+Jeff Tyree and Art Akerman
+https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf
+
+- Title
+- Status
+- Issue
+- Decision
+- Group
+- Assumptions
+- Constraints
+- Positions
+- Argument
+- Implications
+- Related decisions
+- Related requirements
+- Related artifacts
+- Related principles
+- Notes
 
 ## Why create another ADR tool?
 
