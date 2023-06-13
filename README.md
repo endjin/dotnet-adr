@@ -67,7 +67,7 @@ ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/w
 - Solution (Decision)
 - Consequences (Results)
 
-Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/], see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
+Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
 ### Business Case Pattern
 Emphasizes creating a business case for a decision, including criteria, candidates, and costs, [created by Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-for-business-case/index.md), which distils the decision record into the following headings:
@@ -83,7 +83,7 @@ Emphasizes creating a business case for a decision, including criteria, candidat
   - Opinions and feedback
 - Recommendation
 
-Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/], see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
+Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
 ### Markdown Architectural Decision Records (MADR)
 Architectural Decisions using Markdown and Architectural Decision Records, by [Oliver Kopp](https://adr.github.io/madr/), which distils the decision record into the following headings:
@@ -144,7 +144,7 @@ A Quality Assurance oriented approach by [John Terzakis](http://www.iaria.org/co
 - Risks
 - Defined
 
-Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/], see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
+Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
 ### Tyree and Akerman Pattern
 ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf), Capital One Financial, which distils the decision record into the following headings:
@@ -165,7 +165,7 @@ ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chun
 - Related principles
 - Notes
 
-Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/], see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
+Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
 ## Why create another ADR tool?
 
