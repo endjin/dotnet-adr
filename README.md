@@ -16,6 +16,7 @@ Table of Contents:
     - [Alexandrian Pattern](#alexandrian-pattern)
     - [Business Case Pattern](#business-case-pattern)
     - [Markdown Architectural Decision Records (MADR)](#markdown-architectural-decision-records-madr)
+    - [Merson Pattern](#merson-pattern)
     - [Nygard Pattern](#nygard-pattern)
     - [Planguage Pattern](#planguage-pattern)
     - [Tyree and Akerman Pattern](#tyree-and-akerman-pattern)
@@ -50,7 +51,7 @@ We realized that the two issues were related. For the first problem, we conclude
 
 We embrace evidence-based-decision-making as part of our experimental approach, and wanted to find a process that would allow us to document this in a formalized way. We did some research and discovered Architectural Decision Records. They have now become a fundamental part of our software and data engineering processes.
 
-As a fully-remote organization, a secondary benefit from adopting ADRs has been how it allows us to enable distributed and asynchronous evidence gathering, discussions, decision making, and onboarding. This benefit manifests in a number of different ways; firstly, the process of drafting and evolving an ADR as a working group. Secondly, once the ADR reaches its "proposed status" it's very easy for senior decision makers to quickly grok the summary of the decision and provide input. Thirdly, any new contributor can get up to speed by using the collection of ADRs, AKA an Architecture Decision Log (ADL), to understand all the historical decisions that have been made, and most importantly what the situational context was at the point the decision was made.
+As a fully-remote organization, a secondary benefit from adopting ADRs has been how it allows us to enable distributed and asynchronous evidence gathering, discussions, decision making, and onboarding. This benefit manifests in a number of different ways; firstly, the process of drafting and evolving an ADR as a working group. Secondly, once the ADR reaches its "proposed status" it's very easy for senior decision makers to quickly grok the summary of the decision and provide input. Thirdly, any new contributor can get up to speed by using the collection of ADRs, AKA an Architecture Decision Log (ADL), to understand all the historical decisions that have been made, and most importantly what the situational context was at the point the decisions were made.
 
 ## Which ADR templates are available out of the box?
 
@@ -65,7 +66,7 @@ ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/w
 ### Business Case Pattern
 Emphasizes creating a business case for a decision, including criteria, candidates, and costs.
 Joel Parker Henderson
-https://github.com/joelparkerhenderson/architecture_decision_record#adr-example-templates
+https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-for-business-case/index.md
 
 - Title
 - Status
@@ -95,6 +96,17 @@ https://adr.github.io/madr/
   - [option 2]
   - [option 3]
 - Links
+
+### Merson Pattern
+An adaptation of the [Nygard pattern](#nygard-pattern), which adds the rationale behind the decision.
+Paulo Merson
+https://github.com/pmerson/ADR-template
+
+- Title
+- Status
+- Decision
+- Rationale
+- Consequences
 
 ### Nygard Pattern
 A simple, low-friction "Agile" ADR approach.
