@@ -55,6 +55,10 @@ As a fully-remote organization, a secondary benefit from adopting ADRs has been 
 
 ## Which ADR templates are available out of the box?
 
+We have collected a number of popular ADR templates.
+
+> NOTE: the status of the Open Source License for some of the templates is unclear. See each template for more details.
+
 ### Alexandrian Pattern
 ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/wiki/Pattern_language) coined by Architect by Christopher Alexander et. al in 1977, which distils the decision record into the following headings:
 
@@ -63,9 +67,10 @@ ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/w
 - Solution (Decision)
 - Consequences (Results)
 
+Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/], see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
+
 ### Business Case Pattern
-Emphasizes creating a business case for a decision, including criteria, candidates, and costs, [created by 
-Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-for-business-case/index.md), which distils the decision record into the following headings:
+Emphasizes creating a business case for a decision, including criteria, candidates, and costs, [created by Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-for-business-case/index.md), which distils the decision record into the following headings:
 
 - Title
 - Status
@@ -77,6 +82,8 @@ Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decis
   - SWOT analysis
   - Opinions and feedback
 - Recommendation
+
+Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/], see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
 ### Markdown Architectural Decision Records (MADR)
 Architectural Decisions using Markdown and Architectural Decision Records, by [Oliver Kopp](https://adr.github.io/madr/), which distils the decision record into the following headings:
@@ -94,6 +101,8 @@ Architectural Decisions using Markdown and Architectural Decision Records, by [O
   - [option 3]
 - Links
 
+This work is dual-licensed under [MIT](https://opensource.org/licenses/MIT) and [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/). You can choose between one of them if you use this work.
+
 ### Merson Pattern
 An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https://github.com/pmerson/ADR-template) which adds the rationale behind the decision. It distils the decision record into the following headings:
 
@@ -103,6 +112,8 @@ An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https:
 - Rationale
 - Consequences
 
+[Available under the MIT License](https://github.com/pmerson/ADR-template/blob/master/LICENSE).
+
 ### Nygard Pattern
 A simple, low-friction "Agile" ADR approach by [Michael Nygard](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions), which distils the decision record into the following headings:
 
@@ -111,6 +122,8 @@ A simple, low-friction "Agile" ADR approach by [Michael Nygard](http://thinkrele
 - Context
 - Decision
 - Consequences
+
+[Available](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions) under [CC0 1.0 Universal (CC0 1.0) Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/).
 
 ### Planguage Pattern
 A Quality Assurance oriented approach by [John Terzakis](http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effective%20Non-func.pdf), which distils the decision record into the following headings:
@@ -131,6 +144,8 @@ A Quality Assurance oriented approach by [John Terzakis](http://www.iaria.org/co
 - Risks
 - Defined
 
+Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/], see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
+
 ### Tyree and Akerman Pattern
 ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf), Capital One Financial, which distils the decision record into the following headings:
 
@@ -150,11 +165,13 @@ ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chun
 - Related principles
 - Notes
 
+Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/], see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
+
 ## Why create another ADR tool?
 
 One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. 
 
-In the 5 years since we've adopted ADRs we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
+In the 5 years since we've adopted ADRs we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps or GitHub private package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
 
 ## Install dotnet adr
 
