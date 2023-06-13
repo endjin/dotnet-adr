@@ -29,6 +29,10 @@
       <PackagePath>content\madr</PackagePath>
       <Pack>true</Pack>
     </Content>
+    <Content Include="merson\template.md">
+      <PackagePath>content\merson</PackagePath>
+      <Pack>true</Pack>
+    </Content>
     <Content Include="nygard\template.md">
       <PackagePath>content\nygard</PackagePath>
       <Pack>true</Pack>
