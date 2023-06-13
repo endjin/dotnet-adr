@@ -64,9 +64,8 @@ ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/w
 - Consequences (Results)
 
 ### Business Case Pattern
-Emphasizes creating a business case for a decision, including criteria, candidates, and costs.
-Joel Parker Henderson
-https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-for-business-case/index.md
+Emphasizes creating a business case for a decision, including criteria, candidates, and costs, [created by 
+Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-for-business-case/index.md), which distils the decision record into the following headings:
 
 - Title
 - Status
@@ -80,9 +79,7 @@ https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/te
 - Recommendation
 
 ### Markdown Architectural Decision Records (MADR)
-Architectural Decisions using Markdown and Architectural Decision Records
-Oliver Kopp
-https://adr.github.io/madr/
+Architectural Decisions using Markdown and Architectural Decision Records, by [Oliver Kopp](https://adr.github.io/madr/), which distils the decision record into the following headings:
 
 - Title 
 - Context and Problem Statement
@@ -98,9 +95,7 @@ https://adr.github.io/madr/
 - Links
 
 ### Merson Pattern
-An adaptation of the [Nygard pattern](#nygard-pattern), which adds the rationale behind the decision.
-Paulo Merson
-https://github.com/pmerson/ADR-template
+An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https://github.com/pmerson/ADR-template) which adds the rationale behind the decision. It distils the decision record into the following headings:
 
 - Title
 - Status
@@ -109,9 +104,7 @@ https://github.com/pmerson/ADR-template
 - Consequences
 
 ### Nygard Pattern
-A simple, low-friction "Agile" ADR approach.
-Michael Nygard
-http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
+A simple, low-friction "Agile" ADR approach by [Michael Nygard](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions), which distils the decision record into the following headings:
 
 - Title
 - Status
@@ -120,9 +113,7 @@ http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
 - Consequences
 
 ### Planguage Pattern
-A Quality Assurance oriented approach.
-John Terzakis
-http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effective%20Non-func.pdf
+A Quality Assurance oriented approach by [John Terzakis](http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effective%20Non-func.pdf), which distils the decision record into the following headings:
 
 - Title
 - Status
@@ -141,9 +132,7 @@ http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effect
 - Defined
 
 ### Tyree and Akerman Pattern
-ADR approach by Jeff Tyree and Art Akerman, Capital One Financial
-Jeff Tyree and Art Akerman
-https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf
+ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf), Capital One Financial, which distils the decision record into the following headings:
 
 - Title
 - Status
