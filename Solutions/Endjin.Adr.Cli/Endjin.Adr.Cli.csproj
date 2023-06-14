@@ -25,6 +25,7 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <AssemblyName>adr</AssemblyName>
     <Copyright>Copyright (c) Endjin Limited 2023. All rights reserved.</Copyright>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>

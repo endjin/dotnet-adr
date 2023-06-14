@@ -14,6 +14,7 @@
     <PackageDescription>A collection of Architecture Decision Record Templates for the ADR .NET CLI tool.</PackageDescription>
     <PackageTags>dotnet-adr dotnet-adr-template architecture tools endjin</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
