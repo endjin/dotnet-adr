@@ -15,7 +15,7 @@ branches:
     tag: dependabot
     source-branches:
     - develop
-    - main
+    - master
     - release
     - feature
     - support
