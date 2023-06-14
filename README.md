@@ -40,7 +40,7 @@ Table of Contents:
 
 ## What are Architectural Decision Records?
 
-TBD
+Context drives intent, which manifests as code. This is the socio-technical contract of modern software development. If over time, code is the only remaining archeological artefact, we are simply left with *effect* without knowing the *cause*. Over the last decade we have found immense value in [Gherkin](https://specflow.org/learn/gherkin/) based [Executable Specifications](https://gojko.net/books/specification-by-example/) to describe the behaviour of a system; in fact the Gherkin ([Specflow](https://specflow.org/)) feature files have often outlived the original code and have been used to re-implement the system using a more modern language or framework.
 
 ## Why we adopted ADRs
 
