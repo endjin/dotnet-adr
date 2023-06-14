@@ -56,7 +56,7 @@ As a fully-remote organization, a secondary benefit from adopting ADRs has been 
 
 ## Example ADRs
 
-It's always hard to write a document from a blank template; this is why the default templates contain guidance in the form of headings and notes. To help you get started, here are examples of some publicly available ADRs from our Open Source projects:
+It's always hard to write a document starting from scratch; this is why the default ADR templates contain guidance in the form of headings and notes. Real-world examples are always much more helpful, so below is a list of some publicly available ADRs from our Open Source projects. If you explore the repos, you can find more examples:
 
 - [Updating Rx.NET Build for .NET 7.0 era Tooling](https://github.com/dotnet/reactive/blob/main/Rx.NET/Documentation/adr/0001-net7.0-era-tooling-update.md)
 - [Implementation of client-side Claims Evaluation](https://github.com/marain-dotnet/Marain.Claims/blob/main/Documentation/ADRs/0001-client-side-claims-evaluation.md)
@@ -112,7 +112,7 @@ Architectural Decisions using Markdown and Architectural Decision Records, by [O
   - [option 3]
 - Links
 
-This work is dual-licensed under [MIT](https://opensource.org/licenses/MIT) and [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/). You can choose between one of them if you use this work.
+[Available](https://adr.github.io/madr/) as dual-license under [MIT](https://opensource.org/licenses/MIT) and [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/). You can choose between one of them if you use this work.
 
 ### Merson Pattern
 An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https://github.com/pmerson/ADR-template) which adds the rationale behind the decision. It distils the decision record into the following headings:
@@ -123,7 +123,7 @@ An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https:
 - Rationale
 - Consequences
 
-[Available under the MIT License](https://github.com/pmerson/ADR-template/blob/master/LICENSE).
+[Available](https://github.com/pmerson/ADR-template) under the [MIT License](https://github.com/pmerson/ADR-template/blob/master/LICENSE).
 
 ### Nygard Pattern
 A simple, low-friction "Agile" ADR approach by [Michael Nygard](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions), which distils the decision record into the following headings:
