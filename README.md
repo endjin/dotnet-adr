@@ -12,6 +12,7 @@ Table of Contents:
 - [dotnet adr - Make Future You Thank Past You.](#dotnet-adr---make-future-you-thank-past-you)
   - [What are Architectural Decision Records?](#what-are-architectural-decision-records)
   - [Why we adopted ADRs](#why-we-adopted-adrs)
+  - [Example ADRs](#example-adrs)
   - [Which ADR templates are available out of the box?](#which-adr-templates-are-available-out-of-the-box)
     - [Alexandrian Pattern](#alexandrian-pattern)
     - [Business Case Pattern](#business-case-pattern)
@@ -52,6 +53,16 @@ We realized that the two issues were related. For the first problem, we conclude
 We embrace evidence-based-decision-making as part of our experimental approach, and wanted to find a process that would allow us to document this in a formalized way. We did some research and discovered Architectural Decision Records. They have now become a fundamental part of our software and data engineering processes.
 
 As a fully-remote organization, a secondary benefit from adopting ADRs has been how it allows us to enable distributed and asynchronous evidence gathering, discussions, decision making, and onboarding. This benefit manifests in a number of different ways; firstly, the process of drafting and evolving an ADR as a working group. Secondly, once the ADR reaches its "proposed status" it's very easy for senior decision makers to quickly grok the summary of the decision and provide input. Thirdly, any new contributor can get up to speed by using the collection of ADRs, AKA an Architecture Decision Log (ADL), to understand all the historical decisions that have been made, and most importantly what the situational context was at the point the decisions were made.
+
+## Example ADRs
+
+It's always hard to write a document from a blank template; this is why the default templates contain guidance in the form of headings and notes. To help you get started, here are examples of some publicly available ADRs from our Open Source projects:
+
+- [Updating Rx.NET Build for .NET 7.0 era Tooling](https://github.com/dotnet/reactive/blob/main/Rx.NET/Documentation/adr/0001-net7.0-era-tooling-update.md)
+- [Implementation of client-side Claims Evaluation](https://github.com/marain-dotnet/Marain.Claims/blob/main/Documentation/ADRs/0001-client-side-claims-evaluation.md)
+- [Corvus.Tenancy will not create storage containers automatically](https://github.com/corvus-dotnet/Corvus.Tenancy/blob/main/docs/adr/0003-no-automatic-storage-container-creation.md)
+- [Multitargeting .NET Standard 2.0 and 2.1](https://github.com/menes-dotnet/Menes/blob/main/docs/adr/0002-multitargeting-.net-standard-2.0-and-2.1.md)
+- [Integration of an Event Store for audit and "change feed" purposes](https://github.com/marain-dotnet/Marain.Workflow/blob/master/docs/adr/0001-integration-of-event-store.md)
 
 ## Which ADR templates are available out of the box?
 
