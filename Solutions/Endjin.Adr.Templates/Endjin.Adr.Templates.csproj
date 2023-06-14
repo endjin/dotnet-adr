@@ -17,6 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="NuGet.Readme.md" Pack="true" PackagePath="\readme.md"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="alexandrian\template.md">
       <PackagePath>content\alexandrian</PackagePath>
       <Pack>true</Pack>

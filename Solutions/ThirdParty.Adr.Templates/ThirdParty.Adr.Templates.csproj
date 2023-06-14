@@ -17,6 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="NuGet.Readme.md" Pack="true" PackagePath="\readme.md"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="my-custom-adr-template\template.md">
       <PackagePath>content\my-custom-adr-template</PackagePath>
       <Pack>true</Pack>
