@@ -163,10 +163,66 @@ task PostTest {}
 task PreTestReport {}
 task PostTestReport {}
 task PreAnalysis {}
-task PostAnalysis {}
+task PostAnalysis RunSBOMAnalysis
 task PrePackage {}
 task PostPackage {}
 task PrePublish {}
 task PostPublish {}
 task RunLast {}
 
+task RunSBOMAnalysis {
+
+    $AnalysisOutputContainerName = "data"
+    $AnalysisOutputStorageAccountName = "endsynapsedatalake"
+    # 1. Download JSON ruleset 
+    $uri = "https://{0}.blob.core.windows.net/{1}/{2}/{3}" -f $AnalysisOutputStorageAccountName,
+                        $AnalysisOutputContainerName,
+                        "openchain/license_rules",
+                        "license_rule_set.json"
+
+    $authUri = exec {& az storage blob generate-sas `
+                            --auth-mode login `
+                            --as-user `
+                            --https-only `
+                            --account-name $AnalysisOutputStorageAccountName `
+                            --blob-url $uri `
+                            --permissions re `
+                            --start (Get-Date).ToUniversalTime().ToString("yyyy-M-d'T'H:m'Z'") `
+                            --expiry (Get-Date).AddMinutes(10).ToUniversalTime().ToString("yyyy-M-d'T'H:m'Z'") `
+                            --full-uri `
+                            -o tsv}
+    Write-Host $authUri
+    Get-AzStorageBlobContent -absoluteuri $authUri -Force | fl 
+
+    # Find latest version released on GitHub
+    $latestVersion = exec { gh release list -R endjin/endjin-sbom-analyser --limit 1 } |
+                        ConvertFrom-Csv -Header title,type,"tag name",published -Delimiter `t |
+                        Select-Object -ExpandProperty "tag name"
+    
+    if (!$latestVersion) {
+        throw "Unable to determine the latest version of the Python tool"
+    }
+
+    Write-Host $latestVersion
+
+    $SBOMAnalyserDownloadPath = 'SBOMAnalyser'
+    if (!(Test-Path $SBOMAnalyserDownloadPath)) {
+        New-Item -ItemType Directory $SBOMAnalyserDownloadPath | Out-Null
+    }
+
+    Write-Host "Downloading latest release of SBOM Analyser, version" $latestVersion
+    exec { & gh release download -R "endjin/endjin-sbom-analyser" -p sbom_analyser-$($latestVersion)-py3-none-any.whl -D $SBOMAnalyserDownloadPath}
+
+    exec {
+        pip install poetry
+        pip install "SBOMAnalyser/sbom_analyser-1.0.1-py3-none-any.whl"
+        $sbomPath = Get-ChildItem -path '*sbom.json'
+        Write-Host $sbomPath
+        $jsonPath = Get-ChildItem -path 'openchain/license_rules/*.json'
+        Write-Host $jsonPath
+        generate_sbom_score $sbomPath $jsonPath
+    }
+
+    Remove-Item -Recurse 'openchain' -Force
+    Remove-Item -Recurse 'SBOMAnalyser' -Force
+}
