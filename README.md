@@ -40,7 +40,19 @@ Table of Contents:
 
 ## What are Architectural Decision Records?
 
-Context drives intent, which manifests as code. This is the socio-technical contract of modern software development. If over time, code is the only remaining archeological artefact, we are simply left with *effect* without knowing the *cause*. Over the last decade we have found immense value in [Gherkin](https://specflow.org/learn/gherkin/) based [Executable Specifications](https://gojko.net/books/specification-by-example/) to describe the behaviour of a system; in fact the Gherkin ([Specflow](https://specflow.org/)) feature files have often outlived the original code and have been used to re-implement the system using a more modern language or framework.
+Context drives intent, which manifests as code. This is the socio-technical contract of modern software development. If over time, code is the only remaining archeological artefact, we are simply left with *effect* without knowing the *cause*. 
+
+Over the last decade we have found immense value in [Gherkin](https://specflow.org/learn/gherkin/) based [Executable Specifications](https://gojko.net/books/specification-by-example/) to describe the behaviour (or intent) of a system; in fact the Gherkin ([Specflow](https://specflow.org/)) feature files have often outlived the original code and have been used to re-implement the system using a more modern language or framework.
+
+Now we have the code, and the intent (Gherkin Executable Specification), but we're still missing an artefact that captures the context. Architectural Decision Records (ADRs) fill this requirement exceedingly well. ADRs are simple text documents (our preferred format is Markdown) which Précis some or all of the following aspects of a decision: 
+
+- Context
+- Assumptions
+- Rationale
+- Decision
+- Consequences
+
+Brevity is the key to the power of ADRs; The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and  https://www.cnbc.com/2018/04/23/what-jeff-bezos-learned-from-requiring-6-page-memos-at-amazon.html http://lawsofsimplicity.com/
 
 ## Why we adopted ADRs
 
