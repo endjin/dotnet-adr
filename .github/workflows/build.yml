@@ -56,7 +56,7 @@ jobs:
       with:
         environmentVariablesJson: |
           {
-            GH_TOKEN : ${{ steps.generate_token.outputs.token }}
+            "GH_TOKEN" : "${{ steps.generate_token.outputs.token }}"
           }
         secretsJson: |
           {
