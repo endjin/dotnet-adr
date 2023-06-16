@@ -55,17 +55,16 @@ jobs:
       id: prepareEnvVarsAndSecrets
       with:
         environmentVariablesJson: |
-          {
-            "GH_TOKEN" : "${{ steps.generate_token.outputs.token }}"
-          }
+          {}
         secretsJson: |
           {
             "NUGET_API_KEY": "${{ secrets.GITHUB_TOKEN }}"
+            "CUSTOM_GITHUB_TOKEN" : "${{ steps.generate_token.outputs.token }}"
           }
 
   build:
     needs: prepareConfig
-    uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@main
+    uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@feature/custom-github-token
     with:
       netSdkVersion: '7.x'
       # workflow_dispatch inputs are always strings, the type property is just for the UI
