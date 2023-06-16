@@ -56,7 +56,12 @@ The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and much 
 
 Good code comments don't explain what the code does, they explain what the developer was thinking when they wrote the code, what assumptions they were making, and what they were trying to achieve. This allows anyone reviewing the code to spot any faults with logic, assumptions that proved to be incorrect, or requirements which have evolved. ADRs operate on the same principle. Anyone can review the ADRs and quickly grok the context, the assumptions, the rationale, the decision, and the consequences, without being bogged down in detail.
 
-With modern cloud native solutions, recording context takes on a nuanced significance; cloud services vary from IaaS to PaaS to SaaS, as a consumer you are not in control of the feature set, the scale characteristics, or the price point. When making an architectural decision you may be constrained by a missing feature, a financial budget, or a performance target. The speed of cloud innovation means that any of these constraints can change on a monthly basis. [Keeping track](https://azureweekly.info) of [feature announcements](https://powerbiweekly.info) and reevaluating the context of previously made decisions is a engineering practice you should adopt as part of the ADR process.   
+With modern cloud native solutions, recording context takes on a nuanced significance; cloud services vary from IaaS to PaaS to SaaS, as a consumer you are not in control of the feature set, the scale characteristics, or the price point. When making an architectural decision you may be constrained by a missing feature, a financial budget, or a performance target. The speed of cloud innovation means that any of these constraints can change on a monthly basis. [Keeping track](https://azureweekly.info) of [feature announcements](https://powerbiweekly.info) and re-evaluating the context of previously made decisions is a engineering practice you should adopt as part of the ADR process.  
+
+The principles of ADRs are straightforward, but the implementation can be simple or as complex as your team or organization requires. The out-of-the-box default template is the [Nygard Pattern](#nygard-pattern), but this tool and repo contains a number of alternative [templates](#which-adr-templates-are-available-out-of-the-box) you can choose from, or you can [create your own](#create-your-own-custom-adr-template-package).
+
+
+[examples](#example-adrs)
 
 ## Why we adopted ADRs
 
