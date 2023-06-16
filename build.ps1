@@ -171,7 +171,10 @@ task PostPublish {}
 task RunLast {}
 
 task RunSBOMAnalysis {
-
+    if (!(Get-Module Az.Storage -ListAvailable)){
+        Install-Module Az.Storage -Scope CurrentUser -Repository PSGallery -Force -Verbose
+    }
+    
     $AnalysisOutputContainerName = "data"
     $AnalysisOutputStorageAccountName = "endsynapsedatalake"
     # 1. Download JSON ruleset 
