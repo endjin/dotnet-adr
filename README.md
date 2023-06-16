@@ -52,7 +52,7 @@ Now we have the code, and the intent (Gherkin Executable Specification), but we'
 - Decision
 - Consequences
 
-Brevity is the key to the power of ADRs; The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and  https://www.cnbc.com/2018/04/23/what-jeff-bezos-learned-from-requiring-6-page-memos-at-amazon.html http://lawsofsimplicity.com/
+The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and much like Bezos' infamous [6-page memo format](https://www.cnbc.com/2018/04/23/what-jeff-bezos-learned-from-requiring-6-page-memos-at-amazon.html), brevity is the key to the power of ADRs.  
 
 ## Why we adopted ADRs
 
