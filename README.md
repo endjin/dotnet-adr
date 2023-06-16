@@ -60,6 +60,8 @@ With modern cloud native solutions, recording context takes on a nuanced signifi
 
 The principles of ADRs are straightforward, but the implementation can be simple or as complex as your team or organization requires. The out-of-the-box default template is the [Nygard Pattern](#nygard-pattern), but this tool and repo contains a number of alternative [templates](#which-adr-templates-are-available-out-of-the-box) you can choose from, or you can [create your own](#create-your-own-custom-adr-template-package). If you want to read some real ADRs, check out these [examples](#example-adrs) from our own OSS projects.
 
+We find ADRs to be most effective when they are co-located with the code, in the same repo. We've worked on projects where "all documentation lives in Wiki / Confluence / SharePoint" because not all stakeholders have access to source control repos, but we find this approach to be high friction for all parties involved. This tool, `adr`, is designed to encapsulate our recommended practices. 
+
 ## Why we adopted ADRs
 
 Several years ago we worked on a very complex project which required R&D, technical spikes, benchmarking, load-testing, performance tuning cycles, and further benchmarking in order to find the optimal solution. This process worked incredibly well and we delivered orders of magnitude performance improvements over the existing solution. 
