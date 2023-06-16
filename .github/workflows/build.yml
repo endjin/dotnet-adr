@@ -58,7 +58,7 @@ jobs:
           {}
         secretsJson: |
           {
-            "NUGET_API_KEY": "${{ secrets.GITHUB_TOKEN }}"
+            "NUGET_API_KEY": "${{ secrets.GITHUB_TOKEN }}",
             "CUSTOM_GITHUB_TOKEN" : "${{ steps.generate_token.outputs.token }}"
           }
 
