@@ -44,7 +44,7 @@ Context drives intent, which manifests as code. This is the socio-technical cont
 
 Over the last decade we have found immense value in [Gherkin](https://specflow.org/learn/gherkin/) based [Executable Specifications](https://gojko.net/books/specification-by-example/) to describe the behaviour (or intent) of a system; in fact the Gherkin ([Specflow](https://specflow.org/)) feature files have often outlived the original code and have been used to re-implement the system using a more modern language or framework.
 
-Now we have the code, and the intent (Gherkin Executable Specification), but we're still missing an artefact that captures the context. Architectural Decision Records (ADRs) fill this requirement exceedingly well. ADRs are simple text documents (our preferred format is Markdown) which Précis some or all of the following aspects of a decision: 
+Now we have the code, and the intent, but we're still missing an artefact that captures the context. Architectural Decision Records (ADRs) fill this requirement exceedingly well. ADRs are simple text documents (our preferred format is Markdown) which Précis some or all of the following aspects of a decision: 
 
 - Context
 - Assumptions
@@ -52,7 +52,9 @@ Now we have the code, and the intent (Gherkin Executable Specification), but we'
 - Decision
 - Consequences
 
-The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and much like Bezos' infamous [6-page memo format](https://www.cnbc.com/2018/04/23/what-jeff-bezos-learned-from-requiring-6-page-memos-at-amazon.html), brevity is the key to the power of ADRs.  
+The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and much like Bezos' infamous [6-page memo format](https://www.cnbc.com/2018/04/23/what-jeff-bezos-learned-from-requiring-6-page-memos-at-amazon.html), brevity is the key to the power of ADRs. Rather than a heavyweight functional specification, ADRs have much more in common with minutes from a meeting. The meeting may take hours, but reading the minutes, should take... minutes. 
+
+Good code comments don't explain what the code odes, they explain what the developer was thinking when they wrote the code, what assumptions they were making, and what they were trying to achieve. This allows anyone reviewing the code to spot any faults with logic, assumptions that proved to be incorrect, or requirements which have evolved. ADRs operate on the same principle.
 
 ## Why we adopted ADRs
 
