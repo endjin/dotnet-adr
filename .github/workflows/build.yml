@@ -62,3 +62,5 @@ jobs:
       skipCleanup: ${{ github.event.inputs.skipCleanup == 'true' }}
       publishPhaseEnv: ${{ needs.prepareConfig.outputs.RESOLVED_ENV_VARS }}
       publishPhaseSecrets: ${{ needs.prepareConfig.outputs.RESOLVED_SECRETS }}
+    secrets:
+      compilePhaseAzureCredentials: ${{ secrets.ENDJIN_PROD_ACR_READER_CREDENTIALS }}
