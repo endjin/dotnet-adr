@@ -153,9 +153,9 @@ switch ($env:GITHUB_REF) {
     # ensure the default filesystem-based feed path exists, when we don't have GITHUB_REF
     "" { New-Item -ItemType Directory $NuGetPublishSource -Force | Out-Null; continue }
     # tagged versions go to NuGet.org
-    ($_.StartsWith("refs/tags")) { $NuGetPublishSource = "https://api.nuget.org/v3/index.json" }
+    ($_.StartsWith("refs/tags/")) { $NuGetPublishSource = "https://api.nuget.org/v3/index.json" }
     # other versions use GitHub Packages
-    ($_.StartsWith("refs/heads")) { $NuGetPublishSource = "https://github.com/$($env:GITHUB_REPOSITORY)" }
+    ($_.StartsWith("refs/heads/")) { $NuGetPublishSource = "https://github.com/$($env:GITHUB_REPOSITORY)" }
 }
 
 # Synopsis: Build, Test and Package
