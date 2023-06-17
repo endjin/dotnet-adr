@@ -2,6 +2,7 @@
 Title: Business Case Pattern
 Description: Emphasizes creating a business case for a decision, including criteria, candidates, and costs.
 Authors: Joel Parker Henderson
+License: Unknown
 Effort: High
 More Info: https://github.com/joelparkerhenderson/architecture_decision_record#adr-example-templates
 Version: 1.0.0.0

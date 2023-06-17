@@ -2,6 +2,7 @@
 Title: Merson Pattern
 Description: An adaptation of the Nygard pattern, which adds the rationale behind the decision.
 Authors: Paulo Merson
+License: MIT
 Effort: Low
 More Info: https://github.com/pmerson/ADR-template
 Version: 1.0.0.0
