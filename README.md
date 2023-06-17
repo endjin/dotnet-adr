@@ -2,6 +2,11 @@
 
 A cross platform .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
+[![Build Status](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/badge.svg)](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/)
+[![#](https://img.shields.io/nuget/v/adr.svg)](https://www.nuget.org/packages/adr/) 
+[![IMM](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)
+[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/endjin/dotnet-adr/master/LICENSE)
+
 ## TLDR;
 
 Architectural Decision Records (ADRs) are simple Markdown documents used to record technical choices for a project by summarizing the context, the decision, and the consequences. dotnet `adr` is a tool and a bundle of the most common ADR templates you can use to create and maintain ADRs in your project. 
@@ -13,20 +18,12 @@ Install using:
 Install the default ADR templates using:
 
 `adr templates package set adr.templates`
+
 `adr templates install`
 
 Create a new ADR using:
 
 `adr new <TITLE>`
-
----
-
-[![Build Status](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/badge.svg)](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/)
-[![#](https://img.shields.io/nuget/v/adr.svg)](https://www.nuget.org/packages/adr/) 
-[![IMM](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)
-[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/endjin/dotnet-adr/master/LICENSE)
-
----
 
 Table of Contents:
 
