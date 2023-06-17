@@ -149,24 +149,24 @@ $ExcludeFilesFromCodeCoverage = ""
 # Set target NuGet feed based on whether we're building a tagged version or not
 # NOTE: Only applies when running in GitHub Actions (or when the GITHUB_REF environment variable has been manually setup)
 # NOTE: The logic below will be overridden by any custom value in the 'BUILDVAR_NuGetPublishSource' environment variables
-switch ($env:GITHUB_REF) {
-    "" {
-        # ensure the default filesystem-based feed path exists, when we don't have GITHUB_REF
-        New-Item -ItemType Directory $NuGetPublishSource -Force | Out-Null
-        Write-Host "Using default NuGet publish source: $NuGetPublishSource" -f cyan
-        continue
-    }
-    ($_.StartsWith("refs/tags/")) {
-        # tagged versions go to NuGet.org
-        $NuGetPublishSource = "https://api.nuget.org/v3/index.json"
-        Write-Host "Setting NuGet.org as publish source: $NuGetPublishSource" -f cyan
-    }
-    ($_.StartsWith("refs/heads/")) {
-        # other versions use GitHub Packages
-        $NuGetPublishSource = "https://github.com/$($env:GITHUB_REPOSITORY)"
-        Write-Host "Setting GitHub Packages as publish source: $NuGetPublishSource" -f cyan
-    }
-}
+# switch ($env:GITHUB_REF) {
+#     "" {
+#         # ensure the default filesystem-based feed path exists, when we don't have GITHUB_REF
+#         New-Item -ItemType Directory $NuGetPublishSource -Force | Out-Null
+#         Write-Host "Using default NuGet publish source: $NuGetPublishSource" -f cyan
+#         continue
+#     }
+#     ($_.StartsWith("refs/tags/")) {
+#         # tagged versions go to NuGet.org
+#         $NuGetPublishSource = "https://api.nuget.org/v3/index.json"
+#         Write-Host "Setting NuGet.org as publish source: $NuGetPublishSource" -f cyan
+#     }
+#     ($_.StartsWith("refs/heads/")) {
+#         # other versions use GitHub Packages
+#         $NuGetPublishSource = "https://github.com/$($env:GITHUB_REPOSITORY)"
+#         Write-Host "Setting GitHub Packages as publish source: $NuGetPublishSource" -f cyan
+#     }
+# }
 
 # Synopsis: Build, Test and Package
 task . FullBuild

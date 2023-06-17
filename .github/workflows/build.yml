@@ -46,7 +46,9 @@ jobs:
       id: prepareEnvVarsAndSecrets
       with:
         environmentVariablesJson: |
-          {}
+          {
+            "BUILDVAR_NuGetPublishSource": "${{ startsWith(github.ref, 'refs/tags/') && 'https://api.nuget.org/v3/index.json' || 'https://github.com/endjin/dotnet-adr' }}"
+          }
         secretsJson: |
           {
             "NUGET_API_KEY": "${{ startsWith(github.ref, 'refs/tags/') && secrets.ENDJIN_NUGET_APIKEY || secrets.GITHUB_TOKEN }}"
