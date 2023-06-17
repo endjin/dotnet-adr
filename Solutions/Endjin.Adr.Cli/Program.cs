@@ -91,9 +91,9 @@ public static class Program
                     package.AddCommand<TemplatesPackageUpdateCommand>("install").WithDescription("install the specified ADR template package");
                 });
             });
-            /*#if DEBUG
+            #if DEBUG
             config.PropagateExceptions();
-            #endif*/
+            #endif
             config.ValidateExamples();
         });
 

@@ -53,6 +53,7 @@ public class TemplatesListCommand : AsyncCommand<TemplatesListCommand.Settings>
                     AnsiConsole.MarkupLine($"[aqua]Id:[/] {template.Id}");
                     AnsiConsole.MarkupLine($"[aqua]Description:[/] {template.Description}");
                     AnsiConsole.MarkupLine($"[aqua]Authors:[/] {template.Authors}");
+                    AnsiConsole.MarkupLine($"[aqua]License:[/] {template.License}");
                     AnsiConsole.MarkupLine($"[aqua]Effort:[/] {template.Effort}");
                     AnsiConsole.MarkupLine($"[aqua]More Info:[/] {template.MoreInfo}");
                     AnsiConsole.MarkupLine($"[aqua]Last Modified:[/] {template.LastModified.ToString(CultureInfo.InvariantCulture)}");
@@ -68,6 +69,7 @@ public class TemplatesListCommand : AsyncCommand<TemplatesListCommand.Settings>
                 table.AddColumn("Title");
                 table.AddColumn("Description");
                 table.AddColumn("Authors");
+                table.AddColumn("License");
                 table.AddColumn("Effort");
                 table.AddColumn("More Info");
                 table.AddColumn("Last Modified");
@@ -80,6 +82,7 @@ public class TemplatesListCommand : AsyncCommand<TemplatesListCommand.Settings>
                         template.Title,
                         template.Description,
                         template.Authors,
+                        template.License,
                         template.Effort,
                         template.MoreInfo,
                         template.LastModified.ToString(CultureInfo.InvariantCulture),
