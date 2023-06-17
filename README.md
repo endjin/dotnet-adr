@@ -67,6 +67,7 @@ Now we have the code, and the intent, but we're still missing an artefact that c
 
 - Context
 - Assumptions
+- Options
 - Rationale
 - Decision
 - Consequences
@@ -75,7 +76,7 @@ The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and much 
 
 Good code comments don't explain what the code does, they explain what the developer was thinking when they wrote the code, what assumptions they were making, and what they were trying to achieve. This allows anyone reviewing the code to spot any faults with logic, assumptions that proved to be incorrect, or requirements which have evolved. ADRs operate on the same principle. Anyone can review the ADRs and quickly grok the context, the assumptions, the rationale, the decision, and the consequences, without being bogged down in detail.
 
-With modern cloud native solutions, recording context takes on a nuanced significance; cloud services vary from IaaS to PaaS to SaaS, as a consumer you are not in control of the feature set, the scale characteristics, or the price point. When making an architectural decision you may be constrained by a missing feature, a financial budget, or a performance target. The speed of cloud innovation means that any of these constraints can change on a monthly basis. [Keeping track](https://azureweekly.info) of [feature announcements](https://powerbiweekly.info) and re-evaluating the context of previously made decisions is a engineering practice you should adopt as part of the ADR process.  
+With modern cloud native solutions, recording context takes on a nuanced significance; cloud services vary from IaaS to PaaS to SaaS, as a consumer you are not in control of the feature set, the scale characteristics, or the price point. When making an architectural decision you may be constrained by a missing feature, a financial budget, or a performance target. The speed of cloud innovation means that any of these constraints can change on a monthly basis. [Keeping track](https://azureweekly.info) of [feature announcements](https://powerbiweekly.info) and re-evaluating the context of previously made decisions is an engineering practice you should adopt as part of the ADR process.  
 
 The principles of ADRs are straightforward, but the implementation can be simple or as complex as your team or organization requires. The out-of-the-box default template is the [Nygard Pattern](#nygard-pattern), but this tool and repo contains a number of alternative [templates](#which-adr-templates-are-available-out-of-the-box) you can choose from, or you can [create your own](#create-your-own-custom-adr-template-package). If you want to read some real ADRs, check out these [examples](#example-adrs) from our own OSS projects.
 
@@ -133,11 +134,11 @@ Here is a detailed list of the available `adr` commands:
 
 `adr new <TITLE>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package.
 
-`adr new <TITLE> -i <RECORD NUMBER>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have its status updated to reflect this change.
+`adr new <TITLE> -i <RECORD NUMBER>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have its status updated to reflect to point to this newly created ADR.
 
 `adr new <TITLE> -p <PATH>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package, for the Architecture Knowledge Management (AKM) folder located at the specified path.
 
-`adr new <TITLE> -i <RECORD NUMBER> -p <PATH>` - Creates a new Architectural Decision Record, for the Architecture Knowledge Management (AKM) folder located at the specified path, superseding the specified ADR record, which will have its status updated to reflect this change.
+`adr new <TITLE> -i <RECORD NUMBER> -p <PATH>` - Creates a new Architectural Decision Record, for the Architecture Knowledge Management (AKM) folder located at the specified path, superseding the specified ADR record, which will have its status updated to reflect to point to this newly created ADR.
 
 `adr templates` - Manipulate ADR Templates & ADR Template Packages. Root command for template operations. Will list available sub-commands.
 
@@ -198,7 +199,7 @@ We have collected a number of popular ADR templates.
 > NOTE: the status of the Open Source License for some of the templates is unclear. See each template for more details.
 
 #### Alexandrian Pattern
-ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/wiki/Pattern_language) coined by Architect by Christopher Alexander et. al in 1977, which distils the decision record into the following headings:
+ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/wiki/Pattern_language) coined by Architect Christopher Alexander et. al in 1977, which distils the decision record into the following headings:
 
 - Prologue (Summary)
 - Discussion (Context)
