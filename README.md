@@ -294,7 +294,7 @@ A Quality Assurance oriented approach by [John Terzakis](http://www.iaria.org/co
 
 Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
-Set as the default template using `adr templates default set  planguage`
+Set as the default template using `adr templates default set planguage`
 
 #### Tyree and Akerman Pattern
 ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf), Capital One Financial, which distils the decision record into the following headings:
