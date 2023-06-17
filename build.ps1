@@ -146,6 +146,18 @@ $SolutionToBuild = (Resolve-Path (Join-Path $here ".\Solutions\Endjin.Adr.sln"))
 #
 $ExcludeFilesFromCodeCoverage = ""
 
+# Set target NuGet feed based on whether we're building a tagged version or not
+# NOTE: Only applies when running in GitHub Actions (or when the GITHUB_REF environment variable has been manually setup)
+# NOTE: The logic below will be overridden by any custom value in the 'BUILDVAR_NuGetPublishSource' environment variables
+switch ($env:GITHUB_REF) {
+    # ensure the default filesystem-based feed path exists, when we don't have GITHUB_REF
+    "" { New-Item -ItemType Directory $NuGetPublishSource -Force | Out-Null; continue }
+    # tagged versions go to NuGet.org
+    ($_.StartsWith("refs/tags")) { $NuGetPublishSource = "https://api.nuget.org/v3/index.json" }
+    # other versions use GitHub Packages
+    ($_.StartsWith("refs/heads")) { $NuGetPublishSource = "https://github.com/$($env:GITHUB_REPOSITORY)" }
+}
+
 # Synopsis: Build, Test and Package
 task . FullBuild
 
