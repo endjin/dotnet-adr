@@ -189,13 +189,13 @@ task PostAnalysis {}
 task PrePackage {}
 task PostPackage {}
 task PrePublish {
-    # Write-Build White "NuGetPublishSource: $NuGetPublishSource"
-    # Write-Build White "Token: '$($env:NUGET_API_TOKEN)'"
+    Write-Build White "NuGetPublishSource: $NuGetPublishSource"
+    Write-Build White "Token: '$($env:NUGET_API_KEY)'"
     # if ($NuGetPublishSource -icontains "nuget.pkg.github.com") {
     #     exec {
     #         & dotnet nuget add source `
     #                 --username USERNAME `
-    #                 --password $env:NUGET_API_TOKEN `
+    #                 --password $env:NUGET_API_KEY `
     #                 --store-password-in-clear-text `
     #                 --name github `
     #                 $NuGetPublishSource
