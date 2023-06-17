@@ -2,14 +2,36 @@
 
 A cross platform .NET Global Tool for adopting and using Architectural Decision Records (ADR).
 
+## TLDR;
+
+Architectural Decision Records (ADRs) are simple Markdown documents used to record technical choices for a project by summarizing the context, the decision, and the consequences. dotnet `adr` is a tool and a bundle of the most common ADR templates you can use to create and maintain ADRs in your project. 
+
+Install using:
+
+`dotnet tool install -g adr`
+
+Install the default ADR templates using:
+
+`adr templates package set adr.templates`
+`adr templates install`
+
+Create a new ADR using:
+
+`adr new <TITLE>`
+
+---
+
 [![Build Status](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/badge.svg)](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/)
 [![#](https://img.shields.io/nuget/v/adr.svg)](https://www.nuget.org/packages/adr/) 
 [![IMM](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/total?cache=false)
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/endjin/dotnet-adr/master/LICENSE)
 
+---
+
 Table of Contents:
 
 - [dotnet adr - Make Future You Thank Past You.](#dotnet-adr---make-future-you-thank-past-you)
+  - [TLDR;](#tldr)
   - [What are Architectural Decision Records?](#what-are-architectural-decision-records)
   - [Why we adopted ADRs](#why-we-adopted-adrs)
   - [Example ADRs](#example-adrs)
@@ -202,7 +224,7 @@ Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architectu
 
 One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. 
 
-Since we adopted ADRs in 2018 we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps or GitHub private package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
+Since we adopted ADRs in 2018, we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps or GitHub private package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
 
 ## Install dotnet adr
 
@@ -260,7 +282,7 @@ Here is a detailed list of the available `adr` commands:
 
 `adr templates update` - Updates to the latest version of the currently set ADR Templates Package.
 
-`adr templates package set <PACKAGE ID>` - Sets the default NuGet ADR Template Package.
+`adr templates package set <PACKAGE ID>` - Sets the default NuGet ADR Template Package. Use `adr.templates`.
 
 `adr templates package show` - Displays the default NuGet ADR Template Package.
 
