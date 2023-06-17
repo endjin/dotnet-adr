@@ -1,6 +1,6 @@
 # dotnet adr - Make Future You Thank Past You.
 
-A cross platform .NET Global Tool for adopting and using Architectural Decision Records (ADR).
+A cross platform .NET Global Tool for creating and managing Architectural Decision Records (ADR).
 
 [![Build Status](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/badge.svg)](https://github.com/endjin/dotnet-adr/actions/workflows/build.yml/)
 [![#](https://img.shields.io/nuget/v/adr.svg)](https://www.nuget.org/packages/adr/) 
@@ -27,15 +27,14 @@ Create a new ADR using:
 
 ## Table of Contents:
 
-- [dotnet adr - Make Future You Thank Past You.](#dotnet-adr---make-future-you-thank-past-you)
-  - [TLDR;](#tldr)
-  - [Table of Contents:](#table-of-contents)
-  - [What are Architectural Decision Records?](#what-are-architectural-decision-records)
-  - [Why we adopted ADRs](#why-we-adopted-adrs)
-  - [Why create another ADR tool?](#why-create-another-adr-tool)
-  - [Install dotnet adr](#install-dotnet-adr)
-  - [dotnet adr Commands](#dotnet-adr-commands)
+- [What are Architectural Decision Records?](#what-are-architectural-decision-records)
+- [Why we adopted ADRs](#why-we-adopted-adrs)
+- [Why create another ADR tool?](#why-create-another-adr-tool)
+- [Getting Started](#getting-started)
+  - [Installing dotnet adr](#installing-dotnet-adr)
+  - [Using dotnet adr](#using-dotnet-adr)
   - [Configure the default ADR location in your repo](#configure-the-default-adr-location-in-your-repo)
+- [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
   - [Example ADRs](#example-adrs)
   - [Which ADR templates are available out of the box?](#which-adr-templates-are-available-out-of-the-box)
     - [Alexandrian Pattern](#alexandrian-pattern)
@@ -45,18 +44,18 @@ Create a new ADR using:
     - [Nygard Pattern](#nygard-pattern)
     - [Planguage Pattern](#planguage-pattern)
     - [Tyree and Akerman Pattern](#tyree-and-akerman-pattern)
-  - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
+  - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages-1)
   - [Create your own custom ADR Template Package](#create-your-own-custom-adr-template-package)
-  - [Local System Details](#local-system-details)
-  - [DevOps](#devops)
-  - [Packages](#packages)
-  - [Community Contributions](#community-contributions)
-  - [Licenses](#licenses)
-  - [Project Sponsor](#project-sponsor)
-  - [Acknowledgements](#acknowledgements)
-  - [Code of conduct](#code-of-conduct)
-  - [IP Maturity Model (IMM)](#ip-maturity-model-imm)
-  - [IP Maturity Model Scores](#ip-maturity-model-scores)
+- [Local System Details](#local-system-details)
+- [DevOps](#devops)
+- [Packages](#packages)
+- [Community Contributions](#community-contributions)
+- [Licenses](#licenses)
+- [Project Sponsor](#project-sponsor)
+- [Acknowledgements](#acknowledgements)
+- [Code of conduct](#code-of-conduct)
+- [IP Maturity Model (IMM)](#ip-maturity-model-imm)
+- [IP Maturity Model Scores](#ip-maturity-model-scores)
 
 ## What are Architectural Decision Records?
 
@@ -100,7 +99,9 @@ One of the reasons for "re-inventing the wheel" with `adr` when there are so man
 
 Since we adopted ADRs in 2018, we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps or GitHub private package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
 
-## Install dotnet adr
+## Getting Started
+
+### Installing dotnet adr
 
 `adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine. 
 
@@ -124,7 +125,7 @@ To list all the global tools installed on your machine, open a command prompt an
 
 `dotnet tool list -g`
 
-## dotnet adr Commands
+### Using dotnet adr
 
 Here is a detailed list of the available `adr` commands:
 
@@ -164,7 +165,7 @@ Here is a detailed list of the available `adr` commands:
 
 `adr environment reset` - Resets the `adr` environment back to its default settings.
 
-## Configure the default ADR location in your repo
+### Configure the default ADR location in your repo
 
 While `adr` is quite flexible in allowing you to specify were to create or update an ADR, either in the current directory, or by specifying a custom path using `adr new <TITLE> -p <PATH>`, sometime it's better to create a "pit of quality" and standardize the Architecture Knowledge Management (AKM) folder location for all users of the tool.
 
@@ -178,7 +179,9 @@ To support this requirement you can create a file in the root of your repo calle
 
 Where the value of `path` is relative to the root of the repo.
 
-## Example ADRs
+## ADR Templates and ADR Template Packages
+
+### Example ADRs
 
 It's always hard to write a document starting from scratch; this is why the default ADR templates contain guidance in the form of headings and notes. Real-world examples are always much more helpful, so below is a list of some publicly available ADRs from our [Open Source projects](https://endjin.com/what-we-do/open-source/). If you explore the repos, you can find more examples:
 
@@ -188,13 +191,13 @@ It's always hard to write a document starting from scratch; this is why the defa
 - [Multitargeting .NET Standard 2.0 and 2.1](https://github.com/menes-dotnet/Menes/blob/main/docs/adr/0002-multitargeting-.net-standard-2.0-and-2.1.md)
 - [Integration of an Event Store for audit and "change feed" purposes](https://github.com/marain-dotnet/Marain.Workflow/blob/master/docs/adr/0001-integration-of-event-store.md)
 
-## Which ADR templates are available out of the box?
+### Which ADR templates are available out of the box?
 
 We have collected a number of popular ADR templates.
 
 > NOTE: the status of the Open Source License for some of the templates is unclear. See each template for more details.
 
-### Alexandrian Pattern
+#### Alexandrian Pattern
 ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/wiki/Pattern_language) coined by Architect by Christopher Alexander et. al in 1977, which distils the decision record into the following headings:
 
 - Prologue (Summary)
@@ -204,7 +207,7 @@ ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/w
 
 Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
-### Business Case Pattern
+#### Business Case Pattern
 Emphasizes creating a business case for a decision, including criteria, candidates, and costs, [created by Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-for-business-case/index.md), which distils the decision record into the following headings:
 
 - Title
@@ -220,7 +223,7 @@ Emphasizes creating a business case for a decision, including criteria, candidat
 
 Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
-### Markdown Architectural Decision Records (MADR)
+#### Markdown Architectural Decision Records (MADR)
 Architectural Decisions using Markdown and Architectural Decision Records, by [Oliver Kopp](https://adr.github.io/madr/), which distils the decision record into the following headings:
 
 - Title 
@@ -238,7 +241,7 @@ Architectural Decisions using Markdown and Architectural Decision Records, by [O
 
 [Available](https://adr.github.io/madr/) as dual-license under [MIT](https://opensource.org/licenses/MIT) and [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/). You can choose between one of them if you use this work.
 
-### Merson Pattern
+#### Merson Pattern
 An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https://github.com/pmerson/ADR-template) which adds the rationale behind the decision. It distils the decision record into the following headings:
 
 - Title
@@ -249,7 +252,7 @@ An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https:
 
 [Available](https://github.com/pmerson/ADR-template) under the [MIT License](https://github.com/pmerson/ADR-template/blob/master/LICENSE).
 
-### Nygard Pattern
+#### Nygard Pattern
 A simple, low-friction "Agile" ADR approach by [Michael Nygard](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions), which distils the decision record into the following headings:
 
 - Title
@@ -260,7 +263,7 @@ A simple, low-friction "Agile" ADR approach by [Michael Nygard](http://thinkrele
 
 [Available](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions) under [CC0 1.0 Universal (CC0 1.0) Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/).
 
-### Planguage Pattern
+#### Planguage Pattern
 A Quality Assurance oriented approach by [John Terzakis](http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effective%20Non-func.pdf), which distils the decision record into the following headings:
 
 - Title
@@ -281,7 +284,7 @@ A Quality Assurance oriented approach by [John Terzakis](http://www.iaria.org/co
 
 Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
-### Tyree and Akerman Pattern
+#### Tyree and Akerman Pattern
 ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf), Capital One Financial, which distils the decision record into the following headings:
 
 - Title
@@ -302,13 +305,13 @@ ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chun
 
 Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
 
-## ADR Templates and ADR Template Packages
+### ADR Templates and ADR Template Packages
 
 ADR Templates are simply markdown files which contain headings and guidance for the end users. The only hard requirement is that they contains `# Title` and `## Status` headings as `adr` uses Regular Expressions to find and replace these values to power the `adr new <TITLE>` and `adr new -s <RECORD NUMBER> <TITLE>` commands.
 
 The default ADR Templates are contained in the `Endjin.Adr.Templates` project, which contains NuGet configuration elements in `Endjin.Adr.Templates.csproj` to create a NuGet "content" package, which is available via nuget.org as `adr.templates`.
 
-## Create your own custom ADR Template Package
+### Create your own custom ADR Template Package
 
 While we use [MADR](#markdown-architectural-decision-records-madr) as the default template, because it has a nice balance of simplicity and power, it doesn't mean that it's the best template for you, your team, and your organization. First check-out [the different templates](#which-adr-templates-are-available-out-of-the-box) which are available out of the box. If none of these are suitable then it's easy to make your own!
 
