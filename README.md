@@ -25,12 +25,17 @@ Create a new ADR using:
 
 `adr new <TITLE>`
 
-Table of Contents:
+## Table of Contents:
 
 - [dotnet adr - Make Future You Thank Past You.](#dotnet-adr---make-future-you-thank-past-you)
   - [TLDR;](#tldr)
+  - [Table of Contents:](#table-of-contents)
   - [What are Architectural Decision Records?](#what-are-architectural-decision-records)
   - [Why we adopted ADRs](#why-we-adopted-adrs)
+  - [Why create another ADR tool?](#why-create-another-adr-tool)
+  - [Install dotnet adr](#install-dotnet-adr)
+  - [dotnet adr Commands](#dotnet-adr-commands)
+  - [Configure the default ADR location in your repo](#configure-the-default-adr-location-in-your-repo)
   - [Example ADRs](#example-adrs)
   - [Which ADR templates are available out of the box?](#which-adr-templates-are-available-out-of-the-box)
     - [Alexandrian Pattern](#alexandrian-pattern)
@@ -40,10 +45,6 @@ Table of Contents:
     - [Nygard Pattern](#nygard-pattern)
     - [Planguage Pattern](#planguage-pattern)
     - [Tyree and Akerman Pattern](#tyree-and-akerman-pattern)
-  - [Why create another ADR tool?](#why-create-another-adr-tool)
-  - [Install dotnet adr](#install-dotnet-adr)
-  - [dotnet adr Commands](#dotnet-adr-commands)
-  - [Configure the default ADR location in your repo](#configure-the-default-adr-location-in-your-repo)
   - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
   - [Create your own custom ADR Template Package](#create-your-own-custom-adr-template-package)
   - [Local System Details](#local-system-details)
@@ -63,7 +64,7 @@ Context drives intent, which manifests as code. This is the socio-technical cont
 
 Over the last decade we have found immense value in [Gherkin](https://specflow.org/learn/gherkin/) based [Executable Specifications](https://gojko.net/books/specification-by-example/) to describe the behaviour (or intent) of a system; in fact the Gherkin ([Specflow](https://specflow.org/)) feature files have often outlived the original code and have been used to re-implement the system using a more modern language or framework.
 
-Now we have the code, and the intent, but we're still missing an artefact that captures the context. Architectural Decision Records (ADRs) fill this requirement exceedingly well. ADRs are simple text documents (our preferred format is Markdown) which Précis some or all of the following aspects of a decision: 
+Now we have the code, and the intent, but we're still missing an artefact that captures the context. Architectural Decision Records (ADRs) fill this requirement exceedingly well. ADRs are simple text documents (our preferred format is Markdown) which [précis](https://www.merriam-webster.com/dictionary/pr%C3%A9cis) some or all of the following aspects of a decision: 
 
 - Context
 - Assumptions
@@ -92,6 +93,90 @@ We realized that the two issues were related. For the first problem, we conclude
 We embrace evidence-based-decision-making as part of our experimental approach, and wanted to find a process that would allow us to document this in a formalized way. We did some research and discovered Architectural Decision Records. They have now become a fundamental part of our software and data engineering processes.
 
 As a fully-remote organization, a secondary benefit from adopting ADRs has been how it allows us to enable distributed and asynchronous evidence gathering, discussions, decision making, and onboarding. This benefit manifests in a number of different ways; firstly, the process of drafting and evolving an ADR as a working group. Secondly, once the ADR reaches its "proposed status" it's very easy for senior decision makers to quickly grok the summary of the decision and provide input. Thirdly, any new contributor can get up to speed by using the collection of ADRs, AKA an Architecture Decision Log (ADL), to understand all the historical decisions that have been made, and most importantly what the situational context was at the point the decisions were made.
+
+## Why create another ADR tool?
+
+One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. 
+
+Since we adopted ADRs in 2018, we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps or GitHub private package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
+
+## Install dotnet adr
+
+`adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine. 
+
+To install the `adr` global tool use the following command:
+
+`dotnet tool install -g adr`
+
+To install a specific version, use:
+
+`dotnet tool install -g adr --version <version-number>`
+
+To update to the latest version of the tool, use:
+
+`dotnet tool update -g adr`
+
+To uninstall the tool, use:
+
+`dotnet tool uninstall -g adr`
+
+To list all the global tools installed on your machine, open a command prompt and type:
+
+`dotnet tool list -g`
+
+## dotnet adr Commands
+
+Here is a detailed list of the available `adr` commands:
+
+`adr init <PATH>` - Initializes a new Architecture Knowledge Management (AKM) folder. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
+
+`adr new <TITLE>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package.
+
+`adr new <TITLE> -i <RECORD NUMBER>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have its status updated to reflect this change.
+
+`adr new <TITLE> -p <PATH>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package, for the Architecture Knowledge Management (AKM) folder located at the specified path.
+
+`adr new <TITLE> -i <RECORD NUMBER> -p <PATH>` - Creates a new Architectural Decision Record, for the Architecture Knowledge Management (AKM) folder located at the specified path, superseding the specified ADR record, which will have its status updated to reflect this change.
+
+`adr templates` - Manipulate ADR Templates & ADR Template Packages. Root command for template operations. Will list available sub-commands.
+
+`adr templates default show` - Displays the detailed metadata of the current default ADR Template.
+
+`adr templates default show --id-only` - Displays the id of the current default ADR Template.
+
+`adr templates default set <TEMPLATE ID>` - Sets the default ADR Template. The `<TEMPLATE ID>` can be obtained from `adr templates default show`
+
+`adr templates list` - Displays a table containing the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
+
+`adr templates list --ids-only` - Displays the ids of all ADR Templates contained in the current default ADR Template Package.
+
+`adr templates list --format-list` - Displays a list of the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
+
+`adr templates install` - Installs the latest version of the currently set ADR Templates Package.
+
+`adr templates update` - Updates to the latest version of the currently set ADR Templates Package.
+
+`adr templates package set <PACKAGE ID>` - Sets the default NuGet ADR Template Package. Use `adr.templates`.
+
+`adr templates package show` - Displays the default NuGet ADR Template Package.
+
+`adr environment` - Manipulate the dotnet-adr environment. Root command for environment operations. Will list available sub-commands.
+
+`adr environment reset` - Resets the `adr` environment back to its default settings.
+
+## Configure the default ADR location in your repo
+
+While `adr` is quite flexible in allowing you to specify were to create or update an ADR, either in the current directory, or by specifying a custom path using `adr new <TITLE> -p <PATH>`, sometime it's better to create a "pit of quality" and standardize the Architecture Knowledge Management (AKM) folder location for all users of the tool.
+
+To support this requirement you can create a file in the root of your repo called `adr.config.json` which must have the following format:
+
+```json
+{
+    "path": "./Docs/Adr"
+}
+```
+
+Where the value of `path` is relative to the root of the repo.
 
 ## Example ADRs
 
@@ -216,90 +301,6 @@ ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chun
 - Notes
 
 Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/), see this [issue about licensing](https://github.com/joelparkerhenderson/architecture-decision-record/issues/30).
-
-## Why create another ADR tool?
-
-One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. 
-
-Since we adopted ADRs in 2018, we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps or GitHub private package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
-
-## Install dotnet adr
-
-`adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine. 
-
-To install the `adr` global tool use the following command:
-
-`dotnet tool install -g adr`
-
-To install a specific version, use:
-
-`dotnet tool install -g adr --version <version-number>`
-
-To update to the latest version of the tool, use:
-
-`dotnet tool update -g adr`
-
-To uninstall the tool, use:
-
-`dotnet tool uninstall -g adr`
-
-To list all the global tools installed on your machine, open a command prompt and type:
-
-`dotnet tool list -g`
-
-## dotnet adr Commands
-
-Here is a detailed list of the available `adr` commands:
-
-`adr init <PATH>` - Initializes a new Architecture Knowledge Management (AKM) folder. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
-
-`adr new <TITLE>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package.
-
-`adr new <TITLE> -i <RECORD NUMBER>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have its status updated to reflect this change.
-
-`adr new <TITLE> -p <PATH>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package, for the Architecture Knowledge Management (AKM) folder located at the specified path.
-
-`adr new <TITLE> -i <RECORD NUMBER> -p <PATH>` - Creates a new Architectural Decision Record, for the Architecture Knowledge Management (AKM) folder located at the specified path, superseding the specified ADR record, which will have its status updated to reflect this change.
-
-`adr templates` - Manipulate ADR Templates & ADR Template Packages. Root command for template operations. Will list available sub-commands.
-
-`adr templates default show` - Displays the detailed metadata of the current default ADR Template.
-
-`adr templates default show --id-only` - Displays the id of the current default ADR Template.
-
-`adr templates default set <TEMPLATE ID>` - Sets the default ADR Template. The `<TEMPLATE ID>` can be obtained from `adr templates default show`
-
-`adr templates list` - Displays a table containing the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
-
-`adr templates list --ids-only` - Displays the ids of all ADR Templates contained in the current default ADR Template Package.
-
-`adr templates list --format-list` - Displays a list of the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
-
-`adr templates install` - Installs the latest version of the currently set ADR Templates Package.
-
-`adr templates update` - Updates to the latest version of the currently set ADR Templates Package.
-
-`adr templates package set <PACKAGE ID>` - Sets the default NuGet ADR Template Package. Use `adr.templates`.
-
-`adr templates package show` - Displays the default NuGet ADR Template Package.
-
-`adr environment` - Manipulate the dotnet-adr environment. Root command for environment operations. Will list available sub-commands.
-
-`adr environment reset` - Resets the `adr` environment back to its default settings.
-
-## Configure the default ADR location in your repo
-
-While `adr` is quite flexible in allowing you to specify were to create or update an ADR, either in the current directory, or by specifying a custom path using `adr new <TITLE> -p <PATH>`, sometime it's better to create a "pit of quality" and standardize the Architecture Knowledge Management (AKM) folder location for all users of the tool.
-
-To support this requirement you can create a file in the root of your repo called `adr.config.json` which must have the following format:
-
-```json
-{
-    "path": "./Docs/Adr"
-}
-```
-
-Where the value of `path` is relative to the root of the repo.
 
 ## ADR Templates and ADR Template Packages
 
