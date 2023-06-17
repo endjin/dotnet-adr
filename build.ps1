@@ -189,21 +189,21 @@ task PostAnalysis {}
 task PrePackage {}
 task PostPackage {}
 task PrePublish {
-    Write-Build White "NuGetPublishSource: $NuGetPublishSource"
-    Write-Build White "Token: '$($env:NUGET_API_TOKEN)'"
-    if ($NuGetPublishSource -icontains "nuget.pkg.github.com") {
-        exec {
-            & dotnet nuget add source `
-                    --username USERNAME `
-                    --password $env:NUGET_API_TOKEN `
-                    --store-password-in-clear-text `
-                    --name github `
-                    $NuGetPublishSource
-        }
-        # ensure the later publish command references the above registration, rather than the URL
-        $script:NuGetPublishSource = "github"
-        Write-Build White "NuGetPublishSource: $NuGetPublishSource"
-    }
+    # Write-Build White "NuGetPublishSource: $NuGetPublishSource"
+    # Write-Build White "Token: '$($env:NUGET_API_TOKEN)'"
+    # if ($NuGetPublishSource -icontains "nuget.pkg.github.com") {
+    #     exec {
+    #         & dotnet nuget add source `
+    #                 --username USERNAME `
+    #                 --password $env:NUGET_API_TOKEN `
+    #                 --store-password-in-clear-text `
+    #                 --name github `
+    #                 $NuGetPublishSource
+    #     }
+    #     # ensure the later publish command references the above registration, rather than the URL
+    #     $script:NuGetPublishSource = "github"
+    #     Write-Build White "NuGetPublishSource: $NuGetPublishSource"
+    # }
 }
 task PostPublish {}
 task RunLast {}
