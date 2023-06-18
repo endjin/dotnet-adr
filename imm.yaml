@@ -1,13 +1,13 @@
 - Name: Shared Engineering Standards
   Id: 74e29f9b-6dca-4161-8fdd-b468a1eb185d
   Measures:
-  - Score: 0
-    Description: None
+  - Score: 1
+    Description: Configured
 - Name: Coding Standards
   Id: f6f6490f-9493-4dc3-a674-15584fa951d8
   Measures:
-  - Score: 0
-    Description: None
+  - Score: 1
+    Description: Enforced via tooling
 - Name: Executable Specifications
   Id: bb49fb94-6ab5-40c3-a6da-dfd2e9bc4b00
   Measures:
@@ -16,8 +16,8 @@
 - Name: Code Coverage
   Id: 0449cadc-0078-4094-b019-520d75cc6cbb
   Measures:
-  - Score: 1
-    Description: 26-50
+  - Score: 0
+    Description: 0-25
 - Name: Benchmarks
   Id: 64ed80dc-d354-45a9-9a56-c32437306afa
   Measures:
@@ -31,8 +31,9 @@
 - Name: Design & Implementation Documentation
   Id: f026d5a2-ce1a-4e04-af15-5a35792b164b
   Measures:
-  - Score: 0
-    Description: None
+  - Score: 3
+    Age: <P1M
+    Description: '< 1 month'
 - Name: How-to Documentation
   Id: 145f2e3d-bb05-4ced-989b-7fb218fc6705
   Measures:
@@ -43,7 +44,6 @@
   Measures:
   - Score: 0
     Description: None
-  - 
 - Name: Framework Version
   Id: 6c0402b3-f0e3-4bd7-83fe-04bb6dca7924
   Measures:
@@ -71,8 +71,8 @@
 - Name: Production Use
   Id: 87ee2c3e-b17a-4939-b969-2c9c034d05d7
   Measures:
-  - Score: 0
-    Description: None
+  - Score: 3
+    Description: 'In production use by multiple customers'
 - Name: Insights
   Id: 71a02488-2dc9-4d25-94fa-8c2346169f8b
   Measures:
@@ -81,13 +81,17 @@
 - Name: Packaging
   Id: 547fd9f5-9caf-449f-82d9-4fba9e7ce13a
   Measures:
-  - Score: 0
-    Description: None
+  - Score: 1
+    Description: Packaged
+  - Score: 1
+    Description: Versioned
+  - Score: 1
+    Description: Discoverable
 - Name: Deployment
   Id: edea4593-d2dd-485b-bc1b-aaaf18f098f9
   Measures:
-  - Score: 0
-    Description: None
+  - Score: 1
+    Description: Templated
 - Name: OpenChain
   Id: 66efac1a-662c-40cf-b4ec-8b34c29e9fd7
   Measures:

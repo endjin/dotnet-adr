@@ -10,15 +10,17 @@ namespace Endjin.Adr.Cli.Templates;
 [DebuggerDisplay("{Title} - {Version}")]
 public class TemplatePackageDetail
 {
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
-    public string Authors { get; set; }
+    public string Authors { get; set; } = string.Empty;
 
-    public string Effort { get; set; }
+    public string License { get; set; } = string.Empty;
 
-    public string MoreInfo { get; set; }
+    public string Effort { get; set; } = string.Empty;
+
+    public string MoreInfo { get; set; } = string.Empty;
 
     public Version Version { get; set; }
 
@@ -26,7 +28,7 @@ public class TemplatePackageDetail
 
     public bool IsDefault { get; set; }
 
-    public string FullPath { get; set; }
+    public string FullPath { get; set; } = string.Empty;
 
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 }

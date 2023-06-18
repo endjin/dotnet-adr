@@ -18,17 +18,6 @@
     <ToolCommandName>adr</ToolCommandName>
   </PropertyGroup>
 
-  <!-- Enable these settings for an optimised single .exe -->
-  <!--
-  <PropertyGroup>
-    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
-    <PublishSingleFile>true</PublishSingleFile>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishReadyToRun>true</PublishReadyToRun>
-    <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
-  </PropertyGroup>
-  -->
-
   <PropertyGroup>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageDescription>A .NET Global Tool for adopting and using Architectural Decision Records (ADR).</PackageDescription>
@@ -36,7 +25,12 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <AssemblyName>adr</AssemblyName>
     <Copyright>Copyright (c) Endjin Limited 2023. All rights reserved.</Copyright>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="NuGet.Readme.md" Pack="true" PackagePath="\readme.md"/>
+  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
@@ -52,16 +46,12 @@
     <PackageReference Include="Markdig" Version="0.31.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="NDepend.Path" Version="2.0.0" />
-    <PackageReference Include="NuGet.Common" Version="6.6.0" />
-    <PackageReference Include="NuGet.Packaging.Core" Version="6.6.0" />
-    <PackageReference Include="NuGet.Resolver" Version="6.6.0" />
+    <PackageReference Include="NuGet.Common" Version="6.6.1" />
+    <PackageReference Include="NuGet.Packaging.Core" Version="6.6.1" />
+    <PackageReference Include="NuGet.Resolver" Version="6.6.1" />
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
     <PackageReference Include="Spectre.Console.Cli" Version="0.47.0" />
     <PackageReference Include="YamlDotNet" Version="13.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Abstractions\" />
   </ItemGroup>
 
   <ItemGroup>

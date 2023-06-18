@@ -2,6 +2,7 @@
 Title: Nygard Pattern
 Description: A simple, low-friction "Agile" ADR approach.
 Authors: Michael Nygard
+License: CC0 1.0 Universal
 Effort: Low
 More Info: http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
 Version: 1.0.0.0

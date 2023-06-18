@@ -91,6 +91,11 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                         details.Description = description;
                     }
 
+                    if (frontMatter.TryGetValue("License", out dynamic license))
+                    {
+                        details.License = license;
+                    }
+
                     if (frontMatter.TryGetValue("Effort", out dynamic effort))
                     {
                         details.Effort = effort;
@@ -132,46 +137,6 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
                     throw new AggregateException(new InvalidOperationException($"Error parsing {details.FullPath}"), exception);
                 }
             }
-
-/*                if (metadata != null && metadata.Children.TryGetValue("Authors", out string authors))
-                {
-                    details.Authors = authors;
-                }
-
-                if (metadata != null && metadata.Children.TryGetValue("Description", out string description))
-                {
-                    details.Description = description;
-                }
-
-                if (metadata != null && metadata.Children.TryGetValue("Effort", out string effort))
-                {
-                    details.Effort = effort;
-                }
-
-                if (metadata != null && metadata.Children.TryGetValue("Default", out string @default))
-                {
-                    details.IsDefault = bool.Parse(@default);
-                }
-
-                if (metadata != null && metadata.Children.TryGetValue("Last Modified", out string lastModified))
-                {
-                    details.LastModified = DateTime.Parse(lastModified, CultureInfo.InvariantCulture);
-                }
-
-                if (metadata.Children.TryGetValue("More Info", out string moreInfo))
-                {
-                    details.MoreInfo = moreInfo;
-                }
-
-                if (metadata.Children.TryGetValue("Title", out string title))
-                {
-                    details.Title = title;
-                }
-
-                if (metadata.Children.TryGetValue("Version", out string version))
-                {
-                    details.Version = Version.Parse(version);
-                }*/
 
             packageDetails.Add(details);
         }
@@ -242,7 +207,7 @@ public class NuGetTemplatePackageManager : ITemplatePackageManager
 
                 DownloadResourceResult downloadResult = await downloadResource.GetDownloadResourceResultAsync(
                         packageToInstall,
-                        new(cacheContext),
+                        new PackageDownloadContext(cacheContext),
                         SettingsUtility.GetGlobalPackagesFolder(settings),
                         NullLogger.Instance,
                         CancellationToken.None).ConfigureAwait(false);

@@ -2,6 +2,7 @@
 Title: Alexandrian Pattern
 Description: ADR using the Alexandrian Pattern Language Approach.
 Authors: Christopher Alexander et. al
+License: Unknown
 Effort: Medium
 More Info: https://en.wikipedia.org/wiki/Pattern_language 
 Version: 1.0.0.0

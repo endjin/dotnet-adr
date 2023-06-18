@@ -2,6 +2,7 @@
 Title: Markdown Architectural Decision Records (MADR)
 Description: Architectural Decisions using Markdown and Architectural Decision Records
 Authors: Oliver Kopp
+License: MIT or CC0 1.0 Universal
 Effort: High
 More Info: https://adr.github.io/madr/
 Version: 1.0.0.0

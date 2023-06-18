@@ -14,7 +14,12 @@
     <PackageDescription>An example demonstrating how a 3rd Party could create a dotnet-adr template package.</PackageDescription>
     <PackageTags>dotnet-adr dotnet-adr-template architecture tools endjin</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="NuGet.Readme.md" Pack="true" PackagePath="\readme.md"/>
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="my-custom-adr-template\template.md">
