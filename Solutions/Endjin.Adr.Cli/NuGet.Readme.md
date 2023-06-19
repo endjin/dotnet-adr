@@ -1,6 +1,6 @@
 # dotnet adr - Make Future You Thank Past You.
 
-A cross platform .NET Global Tool for creating and managing Architectural Decision Records (ADR).
+A cross platform .NET Global Tool for [creating and managing Architectural Decision Records (ADR)](https://github.com/endjin/dotnet-adr/).
 
 ## TLDR;
 
@@ -22,4 +22,4 @@ Create a new ADR using:
 
 ## More Information
 
-An extensive readme is availalbe in the [GitHub repository](https://github.com/endjin/dotnet-adr/).
+An extensive readme is available in the [GitHub repository](https://github.com/endjin/dotnet-adr/).
