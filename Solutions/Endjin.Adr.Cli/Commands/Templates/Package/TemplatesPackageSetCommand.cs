@@ -34,13 +34,13 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
         {
             AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
 
-            return await this.ExecuteInnerAsync(context, settings).ConfigureAwait(false);
+            return this.ExecuteInner(context, settings);
         }
         catch (NullReferenceException)
         {
             AnsiConsole.MarkupLine("[aqua]Initializing[/] required settings.");
             await this.appEnvironmentManager.SetFirstRunDesiredStateAsync().ConfigureAwait(false);
-            await this.ExecuteInnerAsync(context, settings).ConfigureAwait(false);
+            this.ExecuteInner(context, settings);
         }
 
         return ReturnCodes.Ok;
@@ -56,11 +56,11 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
         return base.Validate(context, settings);
     }
 
-    private Task<int> ExecuteInnerAsync([NotNull] CommandContext context, [NotNull] Settings settings)
+    private int ExecuteInner([NotNull] CommandContext context, [NotNull] Settings settings)
     {
         if (string.IsNullOrEmpty(settings.PackageId))
         {
-            return Task.FromResult(ReturnCodes.Error);
+            return ReturnCodes.Error;
         }
 
         TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
@@ -71,7 +71,7 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
 
         AnsiConsole.MarkupLine($"Setting [aqua]{templateSettings.DefaultTemplatePackage}[/] as the default NuGet ADR Template package.");
 
-        return Task.FromResult(ReturnCodes.Ok);
+        return ReturnCodes.Ok;
     }
 
     public class Settings : CommandSettings
