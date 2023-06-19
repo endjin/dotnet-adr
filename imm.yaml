@@ -33,7 +33,7 @@
   Measures:
   - Score: 3
     Age: <P1M
-    Description: '< 1 month'
+    Description: < 1 month
 - Name: How-to Documentation
   Id: 145f2e3d-bb05-4ced-989b-7fb218fc6705
   Measures:
@@ -72,7 +72,7 @@
   Id: 87ee2c3e-b17a-4939-b969-2c9c034d05d7
   Measures:
   - Score: 3
-    Description: 'In production use by multiple customers'
+    Description: In production use by multiple customers
 - Name: Insights
   Id: 71a02488-2dc9-4d25-94fa-8c2346169f8b
   Measures:

@@ -539,3 +539,6 @@ The [IP Maturity Model](https://github.com/endjin/Endjin.Ip.Maturity.Matrix) is 
 [![Deployment](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/rule/edea4593-d2dd-485b-bc1b-aaaf18f098f9?cache=false)](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/rule/edea4593-d2dd-485b-bc1b-aaaf18f098f9?cache=false)
 
 [![OpenChain](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)](https://imm.endjin.com/api/imm/github/endjin/dotnet-adr/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)
+
+[![OpenChain](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/dotnet-adr/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/endjin/dotnet-adr/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)
+
