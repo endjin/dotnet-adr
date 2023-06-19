@@ -19,7 +19,7 @@ Install the default ADR templates using:
 
 `adr templates package set adr.templates`
 
-`adr templates install`
+`adr templates package install`
 
 Create a new ADR using:
 
@@ -154,9 +154,9 @@ Here is a detailed list of the available `adr` commands:
 
 `adr templates list --format-list` - Displays a list of the detailed metadata of all ADR Templates contained in the current default ADR Template Package.
 
-`adr templates install` - Installs the latest version of the currently set ADR Templates Package.
+`adr templates package install` - Installs the latest version of the currently set ADR Templates Package.
 
-`adr templates update` - Updates to the latest version of the currently set ADR Templates Package.
+`adr templates package update` - Updates to the latest version of the currently set ADR Templates Package.
 
 `adr templates package set <PACKAGE ID>` - Sets the default NuGet ADR Template Package. Use `adr.templates`.
 

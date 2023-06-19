@@ -14,7 +14,7 @@ Install the default ADR templates using:
 
 `adr templates package set adr.templates`
 
-`adr templates install`
+`adr templates package install`
 
 Create a new ADR using:
 
