@@ -2,6 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using Endjin.Adr.Cli.Abstractions;
 using Endjin.Adr.Cli.Configuration;
 using Endjin.Adr.Cli.Configuration.Contracts;
-
+using Endjin.Adr.Cli.Templates;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
@@ -17,31 +18,32 @@ namespace Endjin.Adr.Cli.Commands.Templates.Package;
 
 public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetCommand.Settings>
 {
+    private readonly IAppEnvironmentManager appEnvironmentManager;
     private readonly ITemplateSettingsManager templateSettingsManager;
 
-    public TemplatesPackageSetCommand(ITemplateSettingsManager templateSettingsManager)
+    public TemplatesPackageSetCommand(ITemplateSettingsManager templateSettingsManager, IAppEnvironmentManager appEnvironmentManager)
     {
         this.templateSettingsManager = templateSettingsManager;
+        this.appEnvironmentManager = appEnvironmentManager;
     }
 
     /// <inheritdoc/>
-    public override Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
+    public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
-        AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
-
-        if (string.IsNullOrEmpty(settings.PackageId))
+        try
         {
-            return Task.FromResult(ReturnCodes.Error);
+            AnsiConsole.Write(new FigletText("dotnet-adr").Color(Color.Green));
+
+            return await this.ExecuteInnerAsync(context, settings).ConfigureAwait(false);
+        }
+        catch (NullReferenceException)
+        {
+            AnsiConsole.MarkupLine("[aqua]Initializing[/] required settings.");
+            await this.appEnvironmentManager.SetFirstRunDesiredStateAsync().ConfigureAwait(false);
+            await this.ExecuteInnerAsync(context, settings).ConfigureAwait(false);
         }
 
-        TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
-        templateSettings.DefaultTemplatePackage = settings.PackageId;
-
-        this.templateSettingsManager.SaveSettings(templateSettings, nameof(TemplateSettings));
-
-        AnsiConsole.MarkupLine($"""Setting [aqua]"{templateSettings.DefaultTemplatePackage}"[/] as the default NuGet ADR Template package.""");
-
-        return Task.FromResult(ReturnCodes.Ok);
+        return ReturnCodes.Ok;
     }
 
     public override ValidationResult Validate(CommandContext context, Settings settings)
@@ -52,6 +54,24 @@ public class TemplatesPackageSetCommand : AsyncCommand<TemplatesPackageSetComman
         }
 
         return base.Validate(context, settings);
+    }
+
+    private Task<int> ExecuteInnerAsync([NotNull] CommandContext context, [NotNull] Settings settings)
+    {
+        if (string.IsNullOrEmpty(settings.PackageId))
+        {
+            return Task.FromResult(ReturnCodes.Error);
+        }
+
+        TemplateSettings templateSettings = this.templateSettingsManager.LoadSettings(nameof(TemplateSettings));
+
+        templateSettings.DefaultTemplatePackage = settings.PackageId;
+
+        this.templateSettingsManager.SaveSettings(templateSettings, nameof(TemplateSettings));
+
+        AnsiConsole.MarkupLine($"Setting [aqua]{templateSettings.DefaultTemplatePackage}[/] as the default NuGet ADR Template package.");
+
+        return Task.FromResult(ReturnCodes.Ok);
     }
 
     public class Settings : CommandSettings
