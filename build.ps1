@@ -146,7 +146,6 @@ $SolutionToBuild = (Resolve-Path (Join-Path $here ".\Solutions\Endjin.Adr.sln"))
 #
 $ExcludeFilesFromCodeCoverage = ""
 
-
 # Synopsis: Build, Test and Package
 task . FullBuild
 
