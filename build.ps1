@@ -146,27 +146,6 @@ $SolutionToBuild = (Resolve-Path (Join-Path $here ".\Solutions\Endjin.Adr.sln"))
 #
 $ExcludeFilesFromCodeCoverage = ""
 
-# Set target NuGet feed based on whether we're building a tagged version or not
-# NOTE: Only applies when running in GitHub Actions (or when the GITHUB_REF environment variable has been manually setup)
-# NOTE: The logic below will be overridden by any custom value in the 'BUILDVAR_NuGetPublishSource' environment variables
-# switch ($env:GITHUB_REF) {
-#     "" {
-#         # ensure the default filesystem-based feed path exists, when we don't have GITHUB_REF
-#         New-Item -ItemType Directory $NuGetPublishSource -Force | Out-Null
-#         Write-Host "Using default NuGet publish source: $NuGetPublishSource" -f cyan
-#         continue
-#     }
-#     ($_.StartsWith("refs/tags/")) {
-#         # tagged versions go to NuGet.org
-#         $NuGetPublishSource = "https://api.nuget.org/v3/index.json"
-#         Write-Host "Setting NuGet.org as publish source: $NuGetPublishSource" -f cyan
-#     }
-#     ($_.StartsWith("refs/heads/")) {
-#         # other versions use GitHub Packages
-#         $NuGetPublishSource = "https://github.com/$($env:GITHUB_REPOSITORY)"
-#         Write-Host "Setting GitHub Packages as publish source: $NuGetPublishSource" -f cyan
-#     }
-# }
 
 # Synopsis: Build, Test and Package
 task . FullBuild
@@ -188,23 +167,7 @@ task PreAnalysis {}
 task PostAnalysis {}
 task PrePackage {}
 task PostPackage {}
-task PrePublish {
-    Write-Build White "NuGetPublishSource: $NuGetPublishSource"
-    Write-Build White "Token: '$($env:NUGET_API_KEY)'"
-    # if ($NuGetPublishSource -icontains "nuget.pkg.github.com") {
-    #     exec {
-    #         & dotnet nuget add source `
-    #                 --username USERNAME `
-    #                 --password $env:NUGET_API_KEY `
-    #                 --store-password-in-clear-text `
-    #                 --name github `
-    #                 $NuGetPublishSource
-    #     }
-    #     # ensure the later publish command references the above registration, rather than the URL
-    #     $script:NuGetPublishSource = "github"
-    #     Write-Build White "NuGetPublishSource: $NuGetPublishSource"
-    # }
-}
+task PrePublish {}
 task PostPublish {}
 task RunLast {}
 
