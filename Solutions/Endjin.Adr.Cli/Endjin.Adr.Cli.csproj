@@ -36,7 +36,6 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <AssemblyName>adr</AssemblyName>
     <Copyright>Copyright (c) Endjin Limited 2023. All rights reserved.</Copyright>
-    <RepositoryUrl>https://github.com/endjin/dotnet-adr</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
