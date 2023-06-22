@@ -80,7 +80,7 @@ To see the currently set default package, use:
 
 To see the id of the currently set default template, use:
 
-`adr templates default show`
+`adr templates show`
 
 To revert to the "official" ADT Template Package you can either, reset the environment:
 
