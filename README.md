@@ -130,8 +130,6 @@ To list all the global tools installed on your machine, open a command prompt an
 
 Here is a detailed list of the available `adr` commands:
 
-`adr init <PATH>` - Initializes a new Architecture Knowledge Management (AKM) folder. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
-
 `adr new <TITLE>` - Creates a new Architectural Decision Record, from the current default ADR Template, from the current ADR Template package.
 
 `adr new <TITLE> -i <RECORD NUMBER>` - Creates a new Architectural Decision Record, superseding the specified ADR record, which will have its status updated to reflect to point to this newly created ADR.
@@ -163,6 +161,8 @@ Here is a detailed list of the available `adr` commands:
 `adr templates package show` - Displays the default NuGet ADR Template Package.
 
 `adr environment` - Manipulate the dotnet-adr environment. Root command for environment operations. Will list available sub-commands.
+
+`adr environment init <PATH>` - Initializes a new Architecture Knowledge Management (AKM) folder. If `<PATH>` is omitted, it will create `docs\adr` in the current directory.
 
 `adr environment reset` - Resets the `adr` environment back to its default settings.
 
