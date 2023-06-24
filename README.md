@@ -446,6 +446,7 @@ If you want to [Create your own custom ADR Template Package](#create-your-own-cu
 
 ## Community Contributions
 
+- 2023-06-23 - [Rodrigo Juarez](https://twitter.com/rodrigojuarez) provides an overview of ADRs for .NET Developers and shows you how to get started with `adr`: [What Are Architecture Design Records (ADR), and How Can You Get Started as a .NET Developer?](https://trailheadtechnology.com/what-are-architecture-design-records-adr-and-how-can-you-get-started-as-a-net-developer/)
 - 2021-08-09 - [Christopher Laine](https://medium.com/@domingoladron) wrote a nice blog post about ADRs and dotnet adr: [Architectural Decision Records (ADR) with dotnet-adr](https://medium.com/it-dead-inside/architectural-decision-records-adr-with-dotnet-adr-9fa76104bcd7)
 
 ## Licenses
