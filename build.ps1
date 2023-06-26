@@ -214,17 +214,26 @@ task RunSBOMAnalysis {
         New-Item -ItemType Directory $SBOMAnalyserDownloadPath | Out-Null
     }
 
+    $DownloadFileName = "sbom_analyser-$($latestVersion)-py3-none-any.whl"
     Write-Host "Downloading latest release of SBOM Analyser, version" $latestVersion
-    exec { & gh release download -R "endjin/endjin-sbom-analyser" -p sbom_analyser-$($latestVersion)-py3-none-any.whl -D $SBOMAnalyserDownloadPath}
+    exec { & gh release download -R "endjin/endjin-sbom-analyser" -p $DownloadFileName -D $SBOMAnalyserDownloadPath}
 
     exec {
         pip install poetry
-        pip install "SBOMAnalyser/sbom_analyser-1.0.1-py3-none-any.whl"
+        pip install (Join-Path $SBOMAnalyserDownloadPath $DownloadFileName)
         $sbomPath = Get-ChildItem -path '*sbom.json'
         Write-Host $sbomPath
         $jsonPath = Get-ChildItem -path 'openchain/license_rules/*.json'
         Write-Host $jsonPath
         generate_sbom_score $sbomPath $jsonPath
+    }
+
+    $summarisedContent = Get-Content 'summarised_scores.csv' | ConvertFrom-Csv
+    if ($summarisedContent.Rejected -gt 0){
+        throw "There are $($summarisedContent.Rejected) rejected components in this build, please review the 'rejected_components.csv' and make appropriate changes"
+    }
+    if ($summarisedContent.Unknown -gt 0){
+        Write-Warning "There are $($summarisedContent.Unknown) unknown components in this build, please review the 'unknown_components.csv' and make appropriate changes"
     }
 
     Remove-Item -Recurse 'openchain' -Force
