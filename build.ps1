@@ -198,6 +198,7 @@ task RunSBOMAnalysis {
     Get-AzStorageBlobContent -absoluteuri $authUri -Force | fl 
 
     # Find latest version released on GitHub
+    $env:GH_TOKEN = $env:CUSTOM_GITHUB_TOKEN
     $latestVersion = exec { gh release list -R endjin/endjin-sbom-analyser --limit 1 } |
                         ConvertFrom-Csv -Header title,type,"tag name",published -Delimiter `t |
                         Select-Object -ExpandProperty "tag name"
