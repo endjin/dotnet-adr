@@ -60,7 +60,7 @@ jobs:
           }
         secretsJson: |
           {
-            "NUGET_API_KEY": "${{ startsWith(github.ref, 'refs/tags/') && secrets.ENDJIN_NUGET_APIKEY || secrets.ENDJIN_GITHUB_PUBLISHER_PAT }}"
+            "NUGET_API_KEY": "${{ startsWith(github.ref, 'refs/tags/') && secrets.ENDJIN_NUGET_APIKEY || secrets.ENDJIN_GITHUB_PUBLISHER_PAT }}",
             "CUSTOM_GITHUB_TOKEN" : "${{ steps.generate_token.outputs.token }}"
           }
 
