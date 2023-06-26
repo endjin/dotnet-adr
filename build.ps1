@@ -229,8 +229,22 @@ task RunSBOMAnalysis {
     }
 
     $summarisedContent = Get-Content 'summarised_scores.csv' | ConvertFrom-Csv
+    $rejectedComponents = Get-Content 'rejected_components.csv' 
+
+    function Write-Components {
+
+        param (
+            $fileName
+        )
+
+        $content = Import-Csv $fileName | Select-Object -Property name, license 
+
+        return $content
+
+    }
+
     if ($summarisedContent.Rejected -gt 0){
-        throw "There are $($summarisedContent.Rejected) rejected components in this build, please review the 'rejected_components.csv' and make appropriate changes"
+        throw "There are $($summarisedContent.Rejected) rejected components in this build, please review the 'rejected_components.csv' and make appropriate changes `n$(Write-Components -fileName 'rejected_components.csv')"
     }
     if ($summarisedContent.Unknown -gt 0){
         Write-Warning "There are $($summarisedContent.Unknown) unknown components in this build, please review the 'unknown_components.csv' and make appropriate changes"
