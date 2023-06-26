@@ -244,7 +244,8 @@ task RunSBOMAnalysis {
     }
 
     if ($summarisedContent.Rejected -gt 0){
-        throw "There are $($summarisedContent.Rejected) rejected components in this build, please review the 'rejected_components.csv' and make appropriate changes `n$(Write-Components -fileName 'rejected_components.csv')"
+        $rejectedComponents = Write-Components -fileName 'rejected_components.csv'
+        throw "There are $($summarisedContent.Rejected) rejected components in this build, please review the 'rejected_components.csv' and make appropriate changes `n$($rejectedComponents)"
     }
     if ($summarisedContent.Unknown -gt 0){
         Write-Warning "There are $($summarisedContent.Unknown) unknown components in this build, please review the 'unknown_components.csv' and make appropriate changes"
