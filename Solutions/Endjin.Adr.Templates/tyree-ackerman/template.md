@@ -2,6 +2,7 @@
 Title: Tyree & Akerman Pattern
 Description: ADR approach by Jeff Tyree and Art Akerman, Capital One Financial
 Authors: Jeff Tyree and Art Akerman
+License: Unknown
 Effort: High
 More Info: https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf
 Version: 1.0.0.0

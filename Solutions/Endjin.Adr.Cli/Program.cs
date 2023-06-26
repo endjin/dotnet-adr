@@ -46,7 +46,9 @@ public static class Program
             config.AddExample("templates", "package", "install");
 
             config.AddExample("new", "\"Integration of an Event Store\"");
-            config.AddExample("new", "-i", "1", "\"Integration of an Event Store\"");
+            config.AddExample("new", "\"Integration of an Event Store\"", "-i", "1");
+            config.AddExample("new", "\"Integration of an Event Store\"", "-p", @"c:\repo\my-project\docs\adr");
+            config.AddExample("new", "\"Integration of an Event Store\"", "-i", "1", "-p", @"c:\repo\my-project\docs\adr");
 
             config.AddExample("templates", "package", "set", "thirdparty.adr.templates");
 
@@ -56,6 +58,7 @@ public static class Program
 
             config.AddExample("templates", "package", "set");
             config.AddExample("templates", "package", "show");
+            config.AddExample("templates", "package", "install");
             config.AddExample("templates", "package", "update");
 
             config.AddExample("environment", "init");
@@ -89,9 +92,9 @@ public static class Program
                     package.AddCommand<TemplatesPackageUpdateCommand>("install").WithDescription("install the specified ADR template package");
                 });
             });
-            /*#if DEBUG
+            #if DEBUG
             config.PropagateExceptions();
-            #endif*/
+            #endif
             config.ValidateExamples();
         });
 

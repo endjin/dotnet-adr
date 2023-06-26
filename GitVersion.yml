@@ -15,10 +15,10 @@ branches:
     tag: dependabot
     source-branches:
     - develop
-    - main
+    - master
     - release
     - feature
     - support
     - hotfix
-next-version: "0.1"
+next-version: "1.0"
 
