@@ -234,29 +234,34 @@ task RunSBOMAnalysis {
 
         param (
             $fileName,
-            $summarisedContent,
+            $sum,
             $type
         )
 
         $components = Import-Csv $fileName | Select-Object -Property name, license
         $componentsHashtable = @{}
         $components | ForEach-Object {
-            $componentsHashtable[$_.Name] = $_.License
+            if($_.License -eq ""){
+                $componentsHashtable[$_.Name] = "Unspecified"
+            }
+            else{
+                $componentsHashtable[$_.Name] = $_.License
+            }
         }
         $componentsString = ""
         foreach ($row in $componentsHashtable.GetEnumerator()){
             $componentsString += "$($row.Name) : $($row.Value)`n"
         }
 
-        $content = "There are $($summarisedContent) $($type) components in this build, please review the $($fileName) and make appropriate changes `n$($componentsString)"
+        $content = "There are $($sum) $($type) components in this build, please review the $($fileName) and make appropriate changes `n$($componentsString)"
         return $content
 
     }
     if ($summarisedContent.Unknown -gt 0){ 
-        Write-Warning (Write-Components 'unknown_components.csv' -summarisedContent $summarisedContent.Unknown 'unknown')
+        Write-Warning (Write-Components -fileName 'unknown_components.csv' -summarisedContent $summarisedContent.Unknown -type 'unknown')
     }
     if ($summarisedContent.Rejected -gt 0){
-        throw Write-Components 'rejected_components.csv' $summarisedContent.Rejected 'rejected'
+        throw Write-Components -fileName 'rejected_components.csv' -summarisedContent $summarisedContent.Rejected -summarisedContent 'rejected'
     }
     
 
