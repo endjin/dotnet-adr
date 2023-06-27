@@ -258,8 +258,9 @@ task RunSBOMAnalysis {
         $rejectedComponents = Write-Components -fileName 'rejected_components.csv'
         throw Write-Components 'rejected_components.csv' $summarisedContent 'rejected'
     }
-    if ($summarisedContent.Unknown -gt 0){
-        Write-Warning "There are $($summarisedContent.Unknown) unknown components in this build, please review the 'unknown_components.csv' and make appropriate changes"
+    if ($summarisedContent.Unknown -gt 0){ 
+        $rejectedComponents = Write-Components -fileName 'unknown_components.csv'
+        throw Write-Components 'unknown_components.csv' $summarisedContent 'unknown'
     }
 
     Remove-Item -Recurse 'openchain' -Force
