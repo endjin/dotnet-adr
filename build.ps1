@@ -248,19 +248,17 @@ task RunSBOMAnalysis {
             $componentsString += "$($row.Name) : $($row.Value)`n"
         }
 
-        $content = "There are $($summarisedContent) $($type) components in this build, please review the 'rejected_components.csv' and make appropriate changes `n$($componentsString)"
+        $content = "There are $($summarisedContent) $($type) components in this build, please review the $($fileName) and make appropriate changes `n$($componentsString)"
         return $content
 
     }
-
-    if ($summarisedContent.Rejected -gt 0){
-        $rejectedComponents = Write-Components -fileName 'rejected_components.csv'
-        throw Write-Components 'rejected_components.csv' $summarisedContent.Rejected 'rejected'
-    }
     if ($summarisedContent.Unknown -gt 0){ 
-        $rejectedComponents = Write-Components -fileName 'unknown_components.csv'
         Write-Warning (Write-Components 'unknown_components.csv' -summarisedContent $summarisedContent.Unknown 'unknown')
     }
+    if ($summarisedContent.Rejected -gt 0){
+        throw Write-Components 'rejected_components.csv' $summarisedContent.Rejected 'rejected'
+    }
+    
 
     Remove-Item -Recurse 'openchain' -Force
     Remove-Item -Recurse 'SBOMAnalyser' -Force
