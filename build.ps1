@@ -258,10 +258,10 @@ task RunSBOMAnalysis {
 
     }
     if ($summarisedContent.Unknown -gt 0){ 
-        Write-Warning (Write-Components -fileName 'unknown_components.csv' -summarisedContent $summarisedContent.Unknown -type 'unknown')
+        Write-Warning (Write-Components -fileName 'unknown_components.csv' -sum $summarisedContent.Unknown -type 'unknown')
     }
     if ($summarisedContent.Rejected -gt 0){
-        throw Write-Components -fileName 'rejected_components.csv' -summarisedContent $summarisedContent.Rejected -summarisedContent 'rejected'
+        throw Write-Components -fileName 'rejected_components.csv' -sum $summarisedContent.Rejected -type 'rejected'
     }
     
 
