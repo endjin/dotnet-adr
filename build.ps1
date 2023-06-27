@@ -238,8 +238,11 @@ task RunSBOMAnalysis {
             $summarisedContent
         )
 
+        $components = Import-Csv $fileName | Select-Object -Property name, license
+        $components = $components | ForEach-Object {"$_`n"}
+
         $content = "There are $($summarisedContent.Rejected) rejected components in this build, please review the 'rejected_components.csv' and make appropriate changes `n"
-        $content = $content + (Import-Csv $fileName | Select-Object -Property name, license | Out-String) 
+        $content = $content + ($components | Out-String)
 
         return $content
 
