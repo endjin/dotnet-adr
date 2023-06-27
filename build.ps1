@@ -239,10 +239,16 @@ task RunSBOMAnalysis {
         )
 
         $components = Import-Csv $fileName | Select-Object -Property name, license
-        $components = $components | ForEach-Object {"$_`n"}
+        $componentsHashtable = $components | ForEach-Object {
+            $h[$_.Name] = $_.License
+        }
+        $componentsString = ""
+        foreach ($h in $componentsHashtable.GetEnumerator()){
+            $componentsString += "$($h.Name) : $($h.License)`n"
+        }
 
         $content = "There are $($summarisedContent.Rejected) rejected components in this build, please review the 'rejected_components.csv' and make appropriate changes `n"
-        $content = $content + ($components | Out-String)
+        $content = $content + $componentString
 
         return $content
 
