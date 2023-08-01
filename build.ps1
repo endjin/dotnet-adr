@@ -170,101 +170,95 @@ task PrePublish {}
 task PostPublish {}
 task RunLast {}
 
-task RunSBOMAnalysis {
-    if (!(Get-Module Az.Storage -ListAvailable)){
-        Install-Module Az.Storage -Scope CurrentUser -Repository PSGallery -Force -Verbose
-    }
+# task RunSBOMAnalysis -If { $SolutionToBuild } RunCovenantTool,{
+#     if (!(Get-Module Az.Storage -ListAvailable)){
+#         Install-Module Az.Storage -Scope CurrentUser -Repository PSGallery -Force -Verbose
+#     }
     
-    $AnalysisOutputContainerName = "data"
-    $AnalysisOutputStorageAccountName = "endsynapsedatalake"
-    # 1. Download JSON ruleset 
-    $uri = "https://{0}.blob.core.windows.net/{1}/{2}/{3}" -f $AnalysisOutputStorageAccountName,
-                        $AnalysisOutputContainerName,
-                        "openchain/license_rules",
-                        "license_rule_set.json"
+#     $AnalysisOutputContainerName = "data"
+#     $AnalysisOutputStorageAccountName = "endsynapsedatalake"
+#     # 1. Download JSON ruleset 
+#     $uri = "https://{0}.blob.core.windows.net/{1}/{2}" -f $AnalysisOutputStorageAccountName,
+#                         $AnalysisOutputContainerName,
+#                         "openchain/license_rules"
 
-    $authUri = exec {& az storage blob generate-sas `
-                            --auth-mode login `
-                            --as-user `
-                            --https-only `
-                            --account-name $AnalysisOutputStorageAccountName `
-                            --blob-url $uri `
-                            --permissions re `
-                            --start (Get-Date).ToUniversalTime().ToString("yyyy-M-d'T'H:m'Z'") `
-                            --expiry (Get-Date).AddMinutes(10).ToUniversalTime().ToString("yyyy-M-d'T'H:m'Z'") `
-                            --full-uri `
-                            -o tsv}
-    Write-Host $authUri
-    Get-AzStorageBlobContent -absoluteuri $authUri -Force | fl 
+#     $authUri = exec {& az storage blob generate-sas `
+#                             --auth-mode login `
+#                             --as-user `
+#                             --https-only `
+#                             --account-name $AnalysisOutputStorageAccountName `
+#                             --blob-url $uri `
+#                             --permissions re `
+#                             --start (Get-Date).ToUniversalTime().ToString("yyyy-M-d'T'H:m'Z'") `
+#                             --expiry (Get-Date).AddMinutes(10).ToUniversalTime().ToString("yyyy-M-d'T'H:m'Z'") `
+#                             --full-uri `
+#                             -o tsv}
+#     Write-Host $authUri
 
-    # Find latest version released on GitHub
-    $env:GH_TOKEN = $env:CUSTOM_GITHUB_TOKEN
-    $latestVersion = exec { gh release list -R endjin/endjin-sbom-analyser --limit 1 } |
-                        ConvertFrom-Csv -Header title,type,"tag name",published -Delimiter `t |
-                        Select-Object -ExpandProperty "tag name"
+#     $blobs = Get-AzureStorageBlob -Container $AnalysisOutputContainerName -Context $destination_path
+
+#     $analysisFilesLocation = '.analysis'
+#     New-Item -ItemType Directory $analysisFilesLocation | Out-Null
+#     Get-AzStorageBlobContent -Destination "$($analysisFilesLocation)/" -absoluteuri $authUri -Force | fl 
+
+#     # Find latest version released on GitHub
+#     $env:GH_TOKEN = $env:CUSTOM_GITHUB_TOKEN
+#     $latestVersion = exec { gh release list -R endjin/endjin-sbom-analyser --limit 1 } |
+#                         ConvertFrom-Csv -Header title,type,"tag name",published -Delimiter `t |
+#                         Select-Object -ExpandProperty "tag name"
     
-    if (!$latestVersion) {
-        throw "Unable to determine the latest version of the Python tool"
-    }
+#     if (!$latestVersion) {
+#         throw "Unable to determine the latest version of the Python tool"
+#     }
+#     Write-Host $latestVersion
 
-    Write-Host $latestVersion
+#     $DownloadFileName = "sbom_analyser-$($latestVersion)-py3-none-any.whl"
+#     Write-Host "Downloading latest release of SBOM Analyser, version" $latestVersion
+#     exec { & gh release download -R "endjin/endjin-sbom-analyser" -p $DownloadFileName -D $analysisFilesLocation}
 
-    $SBOMAnalyserDownloadPath = 'SBOMAnalyser'
-    if (!(Test-Path $SBOMAnalyserDownloadPath)) {
-        New-Item -ItemType Directory $SBOMAnalyserDownloadPath | Out-Null
-    }
+#     exec {
+#         pip install poetry
+#         pip install (Join-Path $analysisFilesLocation $DownloadFileName)
+#         $sbomPath = $covenantJsonOutputFile
+#         Write-Host $sbomPath
+#         $jsonPath = Get-ChildItem -path "$($analysisFilesLocation)/openchain/license_rules/*.json"
+#         Write-Host $jsonPath
+#         generate_sbom_score $sbomPath $jsonPath
+#     }
 
-    $DownloadFileName = "sbom_analyser-$($latestVersion)-py3-none-any.whl"
-    Write-Host "Downloading latest release of SBOM Analyser, version" $latestVersion
-    exec { & gh release download -R "endjin/endjin-sbom-analyser" -p $DownloadFileName -D $SBOMAnalyserDownloadPath}
+#     $summarisedContent = Get-Content 'sbom_analysis_summarised_scores.csv' | ConvertFrom-Csv
 
-    exec {
-        pip install poetry
-        pip install (Join-Path $SBOMAnalyserDownloadPath $DownloadFileName)
-        $sbomPath = Get-ChildItem -path '*sbom.json'
-        Write-Host $sbomPath
-        $jsonPath = Get-ChildItem -path 'openchain/license_rules/*.json'
-        Write-Host $jsonPath
-        generate_sbom_score $sbomPath $jsonPath
-    }
+#     function Write-Components {
 
-    $summarisedContent = Get-Content 'summarised_scores.csv' | ConvertFrom-Csv
+#         param (
+#             $fileName,
+#             $sum,
+#             $type
+#         )
 
-    function Write-Components {
+#         $components = Import-Csv $fileName | Select-Object -Property name, license
+#         $componentsHashtable = @{}
+#         $components | ForEach-Object {
+#             if($_.License -eq ""){
+#                 $componentsHashtable[$_.Name] = "Unspecified"
+#             }
+#             else{
+#                 $componentsHashtable[$_.Name] = $_.License
+#             }
+#         }
+#         $componentsString = ""
+#         foreach ($row in $componentsHashtable.GetEnumerator()){
+#             $componentsString += "$($row.Name) : $($row.Value)`n"
+#         }
 
-        param (
-            $fileName,
-            $sum,
-            $type
-        )
+#         $content = "There are $($sum) $($type) components in this build, please review the $($fileName) and make appropriate changes `n$($componentsString)"
+#         return $content
 
-        $components = Import-Csv $fileName | Select-Object -Property name, license
-        $componentsHashtable = @{}
-        $components | ForEach-Object {
-            if($_.License -eq ""){
-                $componentsHashtable[$_.Name] = "Unspecified"
-            }
-            else{
-                $componentsHashtable[$_.Name] = $_.License
-            }
-        }
-        $componentsString = ""
-        foreach ($row in $componentsHashtable.GetEnumerator()){
-            $componentsString += "$($row.Name) : $($row.Value)`n"
-        }
-
-        $content = "There are $($sum) $($type) components in this build, please review the $($fileName) and make appropriate changes `n$($componentsString)"
-        return $content
-
-    }
-    if ($summarisedContent.Unknown -gt 0){ 
-        Write-Warning (Write-Components -fileName 'unknown_components.csv' -sum $summarisedContent.Unknown -type 'unknown')
-    }
-    if ($summarisedContent.Rejected -gt 0){
-        throw Write-Components -fileName 'rejected_components.csv' -sum $summarisedContent.Rejected -type 'rejected'
-    }
-    
-
-    Remove-Item -Recurse 'openchain' -Force
-    Remove-Item -Recurse 'SBOMAnalyser' -Force
-}
+#     }
+#     if ($summarisedContent.Unknown -gt 0){ 
+#         Write-Warning (Write-Components -fileName 'sbom_analysis_unknown_components.csv' -sum $summarisedContent.Unknown -type 'unknown')
+#     }
+#     if ($summarisedContent.Rejected -gt 0){
+#         throw Write-Components -fileName 'sbom_analysis_rejected_components.csv' -sum $summarisedContent.Rejected -type 'rejected'
+#     }
+# }

@@ -1,0 +1,12 @@
+,repo_name,Name,License,CopyrightNotice
+11,Endjin.Adr,NuGet.Common,Apache-2.0,Â© Microsoft Corporation. All rights reserved.
+12,Endjin.Adr,NuGet.Configuration,Apache-2.0,Â© Microsoft Corporation. All rights reserved.
+13,Endjin.Adr,NuGet.Frameworks,Apache-2.0,Â© Microsoft Corporation. All rights reserved.
+14,Endjin.Adr,NuGet.Packaging,Apache-2.0,Â© Microsoft Corporation. All rights reserved.
+15,Endjin.Adr,NuGet.Packaging.Core,Apache-2.0,Â© Microsoft Corporation. All rights reserved.
+16,Endjin.Adr,NuGet.Protocol,Apache-2.0,Â© Microsoft Corporation. All rights reserved.
+17,Endjin.Adr,NuGet.Resolver,Apache-2.0,Â© Microsoft Corporation. All rights reserved.
+18,Endjin.Adr,NuGet.Versioning,Apache-2.0,Â© Microsoft Corporation. All rights reserved.
+30,Endjin.Adr,Castle.Core,Apache-2.0,Copyright (c) 2004-2022 Castle Project - http://www.castleproject.org/
+31,Endjin.Adr,Corvus.Testing.SpecFlow,Apache-2.0,Copyright (c) Endjin Limited 2022. All rights reserved.
+32,Endjin.Adr,Corvus.Testing.SpecFlow.NUnit,Apache-2.0,Copyright (c) Endjin Limited 2022. All rights reserved.

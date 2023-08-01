@@ -1,0 +1,17 @@
+,repo_name,Name,License,CopyrightNotice
+0,Endjin.Adr,adr,,
+1,Endjin.Adr,Endjin.RecommendedPractices,,
+2,Endjin.Adr,Endjin.RecommendedPractices.GitHub,,
+28,Endjin.Adr,Endjin.Adr.Cli.Specs,,
+29,Endjin.Adr,BoDi,,"Copyright (C) 2010-2019, Gaspar Nagy (http://gasparnagy.com)"
+36,Endjin.Adr,Microsoft.DotNet.InternalAbstractions,,
+37,Endjin.Adr,Microsoft.DotNet.PlatformAbstractions,,
+39,Endjin.Adr,Microsoft.Extensions.DependencyModel,,
+48,Endjin.Adr,Moq,,
+53,Endjin.Adr,NUnit.Extension.NUnitProjectLoader,,Copyright (c) 2016 Charlie Poole
+54,Endjin.Adr,NUnit.Extension.NUnitV2Driver,,Copyright (c) 2014-2019 Charlie Poole
+55,Endjin.Adr,NUnit.Extension.NUnitV2ResultWriter,,Copyright (c) 2016 Charlie Poole
+56,Endjin.Adr,NUnit.Extension.TeamCityEventListener,,Copyright (c) 2017 Charlie Poole
+57,Endjin.Adr,NUnit.Extension.VSProjectLoader,,Copyright (c) 2018 Charlie Poole
+147,Endjin.Adr,adr.templates,,
+148,Endjin.Adr,thirdparty.adr.templates,,
