@@ -76,3 +76,4 @@ jobs:
       publishPhaseEnv: ${{ needs.prepareConfig.outputs.RESOLVED_ENV_VARS }}
     secrets:
       compilePhaseAzureCredentials: ${{ secrets.ENDJIN_PROD_ACR_READER_CREDENTIALS }}
+      githubReaderPat: ${{ secrets.ENDJIN_GITHUB_READER_PAT }}
