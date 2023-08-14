@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       RESOLVED_ENV_VARS: ${{ steps.prepareEnvVarsAndSecrets.outputs.environmentVariablesJsonBase64 }}
-      RESOLVED_SECRETS: ${{ steps.prepareEnvVarsAndSecrets.outputs.secretsJsonBase64 }}
+      RESOLVED_SECRETS: ${{ steps.prepareEnvVarsAndSecrets.outputs.secretsYamlBase64 }}
     steps:
     # Declare any environment variables and/or secrets that need to be available inside the build process
     - uses: endjin/Endjin.RecommendedPractices.GitHubActions/actions/prepare-env-vars-and-secrets@feature/refactor-custom-secrets
