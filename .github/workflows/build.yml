@@ -42,7 +42,7 @@ jobs:
       RESOLVED_SECRETS: ${{ steps.prepareEnvVarsAndSecrets.outputs.secretsYamlBase64 }}
     steps:
     # Declare any environment variables and/or secrets that need to be available inside the build process
-    - uses: endjin/Endjin.RecommendedPractices.GitHubActions/actions/prepare-env-vars-and-secrets@feature/refactor-custom-secrets
+    - uses: endjin/Endjin.RecommendedPractices.GitHubActions/actions/prepare-env-vars-and-secrets@main
       id: prepareEnvVarsAndSecrets
       with:
         environmentVariablesYaml: |
@@ -52,7 +52,7 @@ jobs:
 
   build:
     needs: prepareConfig
-    uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@feature/refactor-custom-secrets
+    uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@main
     with:
       netSdkVersion: '7.x'
       # workflow_dispatch inputs are always strings, the type property is just for the UI
