@@ -2,13 +2,13 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-using NDepend.Path;
+using Spectre.IO;
 
 namespace Endjin.Adr.Cli.Configuration.Contracts;
 
 public interface IAppEnvironmentConfiguration
 {
-    IAbsoluteDirectoryPath AppPath { get; }
+    DirectoryPath AppPath { get; }
 
-    IAbsoluteDirectoryPath ConfigurationPath { get; }
+    DirectoryPath ConfigurationPath { get; }
 }

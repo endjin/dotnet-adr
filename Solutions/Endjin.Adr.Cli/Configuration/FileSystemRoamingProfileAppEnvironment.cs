@@ -10,10 +10,11 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Endjin.Adr.Cli.Configuration.Contracts;
-
-using NDepend.Path;
-
+using Endjin.Adr.Cli.Extensions;
 using Spectre.Console;
+using Spectre.IO;
+using Environment = System.Environment;
+using Path = System.IO.Path;
 
 namespace Endjin.Adr.Cli.Configuration;
 
@@ -32,22 +33,22 @@ public class FileSystemRoamingProfileAppEnvironment : IAppEnvironment
     </packageSources>
 </configuration>";
 
-    public IAbsoluteDirectoryPath AppPath
+    public DirectoryPath AppPath
     {
-        get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppOrgName, AppName).ToAbsoluteDirectoryPath(); }
+        get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppOrgName, AppName); }
     }
 
-    public IAbsoluteDirectoryPath TemplatesPath
+    public DirectoryPath TemplatesPath
     {
-        get { return Path.Combine(this.AppPath.ToString(), TemplatesDirectoryName).ToAbsoluteDirectoryPath(); }
+        get { return Path.Combine(this.AppPath.ToString(), TemplatesDirectoryName); }
     }
 
-    public IAbsoluteDirectoryPath PluginPath
+    public DirectoryPath PluginPath
     {
-        get { return Path.Combine(this.AppPath.ToString(), PluginsDirectoryName).ToAbsoluteDirectoryPath(); }
+        get { return Path.Combine(this.AppPath.ToString(), PluginsDirectoryName); }
     }
 
-    public IEnumerable<IAbsoluteDirectoryPath> PluginPaths
+    public IEnumerable<DirectoryPath> PluginPaths
     {
         get
         {
@@ -66,18 +67,18 @@ public class FileSystemRoamingProfileAppEnvironment : IAppEnvironment
 
                 foreach (string dir in dirs)
                 {
-                    yield return dir.ToAbsoluteDirectoryPath();
+                    yield return dir;
                 }
             }
             else
             {
-                foreach (IAbsoluteDirectoryPath path in this.PluginPath.ChildrenDirectoriesPath)
+                foreach (DirectoryPath path in this.PluginPath.ChildrenDirectoriesPath())
                 {
-                    IEnumerable<IAbsoluteDirectoryPath> leafPaths = Directory
+                    IEnumerable<DirectoryPath> leafPaths = Directory
                             .EnumerateDirectories(path.ToString(), "*.*", SearchOption.AllDirectories)
-                            .Where(f => !Directory.EnumerateDirectories(f, "*.*", SearchOption.TopDirectoryOnly).Any()).Select(x => x.ToAbsoluteDirectoryPath());
+                            .Where(f => !Directory.EnumerateDirectories(f, "*.*", SearchOption.TopDirectoryOnly).Any()).Select(x => new DirectoryPath(x));
 
-                    foreach (IAbsoluteDirectoryPath leafPath in leafPaths)
+                    foreach (DirectoryPath leafPath in leafPaths)
                     {
                         yield return leafPath;
                     }
@@ -86,14 +87,14 @@ public class FileSystemRoamingProfileAppEnvironment : IAppEnvironment
         }
     }
 
-    public IAbsoluteDirectoryPath ConfigurationPath
+    public DirectoryPath ConfigurationPath
     {
-        get { return Path.Combine(this.AppPath.ToString(), ConfigurationDirectorName).ToAbsoluteDirectoryPath(); }
+        get { return Path.Combine(this.AppPath.ToString(), ConfigurationDirectorName); }
     }
 
-    public IAbsoluteFilePath NuGetConfigFilePath
+    public FilePath NuGetConfigFilePath
     {
-        get { return Path.Combine(this.ConfigurationPath.ToString(), NuGetFileName).ToAbsoluteFilePath(); }
+        get { return Path.Combine(this.ConfigurationPath.ToString(), NuGetFileName); }
     }
 
     public void Clean()
