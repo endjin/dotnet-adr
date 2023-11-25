@@ -110,7 +110,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
             await File.WriteAllTextAsync(Path.Combine(targetPath, adr.SafeFileName()), adr.Content).ConfigureAwait(false);
 
-            AnsiConsole.MarkupLine($"""Created ADR Record: [aqua]"{settings.Title}"[/]""");
+            AnsiConsole.MarkupLine($"""Created ADR Record: [aqua]"{settings.Title}"[/] in [yellow]{targetPath}[/]""");
         }
         catch (InvalidOperationException)
         {
