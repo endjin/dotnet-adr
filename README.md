@@ -232,6 +232,7 @@ Set as the default template using `adr templates set business-case`
 Architectural Decisions using Markdown and Architectural Decision Records, by [Oliver Kopp](https://adr.github.io/madr/), which distils the decision record into the following headings:
 
 - Title 
+- Status
 - Context and Problem Statement
 - Decision Drivers
 - Considered Options
@@ -360,7 +361,7 @@ Last Modified: YYYY-MM-DD HH:MM
 
   <PropertyGroup>
     <AssemblyName>thirdparty.adr.templates</AssemblyName>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     <!-- https://learn.microsoft.com/en-us/dotnet/core/tutorials/creating-app-with-plugin-support -->

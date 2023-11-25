@@ -11,9 +11,12 @@ Default: True
 ---
 # Title 
 
-# [short title of solved problem and solution]
+## Status
 
 * Status: [proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)] <!-- optional -->
+
+## [short title of solved problem and solution]
+
 * Deciders: [list everyone involved in the decision] <!-- optional -->
 * Date: [YYYY-MM-DD when the decision was last updated] <!-- optional -->
 
