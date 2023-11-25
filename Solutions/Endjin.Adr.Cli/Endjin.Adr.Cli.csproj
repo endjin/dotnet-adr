@@ -35,11 +35,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
     <OutputPath></OutputPath>
-    <NoWarn>1701;1702; CS1591;SA1600;SA1124</NoWarn>
+    <NoWarn>1701;1702; CS1591;SA1600;SA1601;SA1124</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702; CS1591;SA1600;SA1124</NoWarn>
+    <NoWarn>1701;1702; CS1591;SA1600;SA1601;SA1124</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

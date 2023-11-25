@@ -22,7 +22,7 @@ using Spectre.Console.Cli;
 
 namespace Endjin.Adr.Cli.Commands.New;
 
-public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
+public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 {
     private readonly ITemplateSettingsManager templateSettingsManager;
     private readonly IAppEnvironmentManager appEnvironmentManager;
@@ -98,7 +98,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
                 if (supersede is not null)
                 {
-                    Regex supersedeRegEx = new(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
+                    Regex supersedeRegEx = SupersedeRegex();
 
                     string updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSuperseded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
 
@@ -133,7 +133,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         TemplatePackageDetail template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
         string templateContents = File.ReadAllText(template.FullPath);
 
-        Regex yamlHeaderRegExp = new(@"((?:^-{3})(?:.*\n)*(?:^-{3})\n# Title)", RegexOptions.Multiline);
+        Regex yamlHeaderRegExp = YamlHeaderRegex();
 
         return yamlHeaderRegExp.Replace(templateContents, $"# {title}");
     }
@@ -146,7 +146,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         }
 
         List<Adr> documents = new();
-        Regex fileNameRegExp = new(@"(\d{4}.*\.md)");
+        Regex fileNameRegExp = FileNameRegex();
 
         foreach (string file in Directory.EnumerateFiles(targetPath, "*.md").Where(path => fileNameRegExp.IsMatch(path)))
         {
@@ -163,6 +163,15 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
         return documents;
     }
+
+    [GeneratedRegex(@"(\d{4}.*\.md)")]
+    private static partial Regex FileNameRegex();
+
+    [GeneratedRegex(@"((?:^-{3})(?:.*\n)*(?:^-{3})\n# Title)", RegexOptions.Multiline)]
+    private static partial Regex YamlHeaderRegex();
+
+    [GeneratedRegex(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline)]
+    private static partial Regex SupersedeRegex();
 
     public class Settings : CommandSettings
     {
