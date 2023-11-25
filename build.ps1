@@ -77,10 +77,7 @@ param (
     [string] $BuildModulePackageVersion = $BuildModuleVersion,
 
     [Parameter()]
-    [bool] $BuildModulePackageAllowPreRelease = $false,
-
-    [Parameter()]
-    [version] $InvokeBuildModuleVersion = "5.10.1"
+    [version] $InvokeBuildModuleVersion = "5.10.3"
 )
 
 $ErrorActionPreference = $ErrorActionPreference ? $ErrorActionPreference : 'Stop'
@@ -111,7 +108,7 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
 if (!($BuildModulePath)) {
     if (!(Get-Module -ListAvailable Endjin.RecommendedPractices.Build | ? { $_.Version -eq $BuildModuleVersion })) {
         Write-Information "Installing 'Endjin.RecommendedPractices.Build' module..."
-        Install-Module Endjin.RecommendedPractices.Build -RequiredVersion $BuildModulePackageVersion -Scope CurrentUser -Force -Repository PSGallery -AllowPrerelease:$BuildModulePackageAllowPreRelease
+        Install-Module Endjin.RecommendedPractices.Build -RequiredVersion $BuildModulePackageVersion -Scope CurrentUser -Force -Repository PSGallery -AllowPrerelease:$($BuildModulePackageVersion -match "-")
     }
     $BuildModulePath = "Endjin.RecommendedPractices.Build"
 }
