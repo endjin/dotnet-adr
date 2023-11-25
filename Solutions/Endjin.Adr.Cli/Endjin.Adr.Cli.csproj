@@ -48,8 +48,8 @@
     <PackageReference Include="NuGet.Common" Version="6.8.0" />
     <PackageReference Include="NuGet.Packaging.Core" Version="6.8.0" />
     <PackageReference Include="NuGet.Resolver" Version="6.8.0" />
-    <PackageReference Include="Spectre.Console" Version="0.47.0" />
-    <PackageReference Include="Spectre.Console.Cli" Version="0.47.0" />
+    <PackageReference Include="Spectre.Console" Version="0.48.0" />
+    <PackageReference Include="Spectre.Console.Cli" Version="0.48.0" />
     <PackageReference Include="Spectre.IO" Version="0.14.0" />
     <PackageReference Include="YamlDotNet" Version="13.7.1" />
   </ItemGroup>
@@ -59,7 +59,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Spectre.Console.Analyzer" Version="0.47.0">
+    <PackageReference Include="Spectre.Console.Analyzer" Version="0.48.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
