@@ -139,7 +139,9 @@ public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
         Regex yamlHeaderRegExp = YamlHeaderRegex();
 
-        return yamlHeaderRegExp.Replace(templateContents, $"# {title}");
+        return yamlHeaderRegExp
+            .Replace(templateContents, $"# {title}")
+            .Replace("{DATE}", DateTime.Now.ToShortDateString());
     }
 
     private static async Task<List<Adr>> GetAllAdrFilesFromCurrentDirectoryAsync(string targetPath)
