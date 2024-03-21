@@ -7,4 +7,6 @@ namespace Endjin.Adr.Cli.Configuration;
 public class AdrConfig
 {
     public string Path { get; set; }
+
+    public string TemplatePath { get; set; }
 }

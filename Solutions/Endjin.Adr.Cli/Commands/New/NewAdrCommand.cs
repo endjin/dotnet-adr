@@ -42,6 +42,7 @@ public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         try
         {
             string targetPath = string.Empty;
+            string templatePath = null;
 
             // If the user hasn't specified the path to create the ADR
             if (!string.IsNullOrEmpty(settings.Path))
@@ -74,6 +75,8 @@ public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
                     {
                         rootConfigurationFileInfo.Directory.Create();
                     }
+
+                    templatePath = config.TemplatePath;
                 }
 
                 if (string.IsNullOrEmpty(targetPath))
@@ -86,7 +89,7 @@ public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
             Adr adr = new()
             {
-                Content = CreateNewDefaultTemplate(settings.Title, this.templateSettingsManager),
+                Content = CreateNewDefaultTemplate(settings.Title, this.templateSettingsManager, templatePath),
                 RecordNumber = documents.Count == 0 ? 1 : documents.OrderBy(x => x.RecordNumber).Last().RecordNumber + 1,
                 Title = settings.Title,
             };
@@ -121,7 +124,7 @@ public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         return ReturnCodes.Ok;
     }
 
-    private static string CreateNewDefaultTemplate(string title, ITemplateSettingsManager templateSettingsManager)
+    private static string CreateNewDefaultTemplate(string title, ITemplateSettingsManager templateSettingsManager, string templatePath)
     {
         TemplateSettings templateSettings = templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
@@ -130,8 +133,9 @@ public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
             throw new InvalidOperationException("Couldn't load the template settings. Environment may not be initialised");
         }
 
-        TemplatePackageDetail template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
-        string templateContents = File.ReadAllText(template.FullPath);
+        TemplatePackageDetail defaultTemplate = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
+
+        string templateContents = File.ReadAllText(templatePath ?? defaultTemplate.FullPath);
 
         Regex yamlHeaderRegExp = YamlHeaderRegex();
 

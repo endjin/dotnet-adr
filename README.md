@@ -415,6 +415,15 @@ Then:
 
 `adr templates install`
 
+#### Store template file locally
+Optionally, store the template file file inside the repository, and specify the TemplatePath in the `adr.config.json` file.
+
+```json
+{
+    "templatePath": "./Docs/adr-template.md"
+}
+```
+
 ## Local System Details
 
 `adr` stores various configuration files and packages in an application profile folder created in:
