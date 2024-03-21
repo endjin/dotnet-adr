@@ -401,3 +401,4 @@ FodyWeavers.xsd
 *.sbom*
 _codeCoverage/
 _packages/
+.analysis/
