@@ -25,45 +25,49 @@ Create a new ADR using:
 
 `adr new <TITLE>`
 
-## Table of Contents:
+## Table of Contents
 
-- [What are Architectural Decision Records?](#what-are-architectural-decision-records)
-- [Why we adopted ADRs](#why-we-adopted-adrs)
-- [Why create another ADR tool?](#why-create-another-adr-tool)
-- [Getting Started](#getting-started)
-  - [Installing dotnet adr](#installing-dotnet-adr)
-  - [Using dotnet adr](#using-dotnet-adr)
-  - [Configure the default ADR location in your repo](#configure-the-default-adr-location-in-your-repo)
-- [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
-  - [Example ADRs](#example-adrs)
-  - [Which ADR templates are available out of the box?](#which-adr-templates-are-available-out-of-the-box)
-    - [Alexandrian Pattern](#alexandrian-pattern)
-    - [Business Case Pattern](#business-case-pattern)
-    - [Markdown Architectural Decision Records (MADR)](#markdown-architectural-decision-records-madr)
-    - [Merson Pattern](#merson-pattern)
-    - [Nygard Pattern](#nygard-pattern)
-    - [Planguage Pattern](#planguage-pattern)
-    - [Tyree and Akerman Pattern](#tyree-and-akerman-pattern)
-  - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages-1)
-  - [Create your own custom ADR Template Package](#create-your-own-custom-adr-template-package)
-- [Local System Details](#local-system-details)
-- [DevOps](#devops)
-- [Packages](#packages)
-- [Community Contributions](#community-contributions)
-- [Licenses](#licenses)
-- [Project Sponsor](#project-sponsor)
-- [Acknowledgements](#acknowledgements)
-- [Code of conduct](#code-of-conduct)
-- [IP Maturity Model (IMM)](#ip-maturity-model-imm)
-- [IP Maturity Model Scores](#ip-maturity-model-scores)
+- [dotnet adr - Make Future You Thank Past You.](#dotnet-adr---make-future-you-thank-past-you)
+  - [TLDR;](#tldr)
+  - [Table of Contents](#table-of-contents)
+  - [What are Architectural Decision Records?](#what-are-architectural-decision-records)
+  - [Why we adopted ADRs](#why-we-adopted-adrs)
+  - [Why create another ADR tool?](#why-create-another-adr-tool)
+  - [Getting Started](#getting-started)
+    - [Installing dotnet adr](#installing-dotnet-adr)
+    - [Using dotnet adr](#using-dotnet-adr)
+    - [Configure the default ADR location in your repo](#configure-the-default-adr-location-in-your-repo)
+  - [ADR Templates and ADR Template Packages](#adr-templates-and-adr-template-packages)
+    - [Example ADRs](#example-adrs)
+    - [Which ADR templates are available out of the box?](#which-adr-templates-are-available-out-of-the-box)
+      - [Alexandrian Pattern](#alexandrian-pattern)
+      - [Business Case Pattern](#business-case-pattern)
+      - [Markdown Architectural Decision Records (MADR)](#markdown-architectural-decision-records-madr)
+      - [Merson Pattern](#merson-pattern)
+      - [Nygard Pattern](#nygard-pattern)
+      - [Planguage Pattern](#planguage-pattern)
+      - [Tyree and Akerman Pattern](#tyree-and-akerman-pattern)
+    - [Custom ADR Templates and ADR Template Packages](#custom-adr-templates-and-adr-template-packages)
+    - [Create your own custom ADR Template Package](#create-your-own-custom-adr-template-package)
+      - [Store template file locally](#store-template-file-locally)
+  - [Local System Details](#local-system-details)
+  - [DevOps](#devops)
+  - [Packages](#packages)
+  - [Community Contributions](#community-contributions)
+  - [Licenses](#licenses)
+  - [Project Sponsor](#project-sponsor)
+  - [Acknowledgements](#acknowledgements)
+  - [Code of conduct](#code-of-conduct)
+  - [IP Maturity Model (IMM)](#ip-maturity-model-imm)
+  - [IP Maturity Model Scores](#ip-maturity-model-scores)
 
 ## What are Architectural Decision Records?
 
-Context drives intent, which manifests as code. This is the socio-technical contract of modern software development. If over time, code is the only remaining archeological artefact, we are simply left with *effect* without knowing the *cause*. 
+Context drives intent, which manifests as code. This is the socio-technical contract of modern software development. If over time, code is the only remaining archeological artefact, we are simply left with *effect* without knowing the *cause*.
 
 Over the last decade we have found immense value in [Gherkin](https://specflow.org/learn/gherkin/) based [Executable Specifications](https://gojko.net/books/specification-by-example/) to describe the behaviour (or intent) of a system; in fact the Gherkin ([Specflow](https://specflow.org/)) feature files have often outlived the original code and have been used to re-implement the system using a more modern language or framework.
 
-Now we have the code, and the intent, but we're still missing an artefact that captures the context. Architectural Decision Records (ADRs) fill this requirement exceedingly well. ADRs are simple text documents (our preferred format is Markdown) which [précis](https://www.merriam-webster.com/dictionary/pr%C3%A9cis) some or all of the following aspects of a decision: 
+Now we have the code, and the intent, but we're still missing an artefact that captures the context. Architectural Decision Records (ADRs) fill this requirement exceedingly well. ADRs are simple text documents (our preferred format is Markdown) which [précis](https://www.merriam-webster.com/dictionary/pr%C3%A9cis) some or all of the following aspects of a decision:
 
 - Context
 - Assumptions
@@ -72,7 +76,7 @@ Now we have the code, and the intent, but we're still missing an artefact that c
 - Decision
 - Consequences
 
-The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and much like Bezos' infamous [6-page memo format](https://www.cnbc.com/2018/04/23/what-jeff-bezos-learned-from-requiring-6-page-memos-at-amazon.html), brevity is the key to the power of ADRs. Rather than a heavyweight functional specification, ADRs have much more in common with minutes from a meeting. The meeting may take hours, but reading the minutes, should take... minutes. 
+The 1st [Law of Simplicity](http://lawsofsimplicity.com/) is "Reduce", and much like Bezos' infamous [6-page memo format](https://www.cnbc.com/2018/04/23/what-jeff-bezos-learned-from-requiring-6-page-memos-at-amazon.html), brevity is the key to the power of ADRs. Rather than a heavyweight functional specification, ADRs have much more in common with minutes from a meeting. The meeting may take hours, but reading the minutes, should take... minutes.
 
 Good code comments don't explain what the code does, they explain what the developer was thinking when they wrote the code, what assumptions they were making, and what they were trying to achieve. This allows anyone reviewing the code to spot any faults with logic, assumptions that proved to be incorrect, or requirements which have evolved. ADRs operate on the same principle. Anyone can review the ADRs and quickly grok the context, the assumptions, the rationale, the decision, and the consequences, without being bogged down in detail.
 
@@ -84,11 +88,11 @@ We find ADRs to be most effective when they are co-located with the code, in the
 
 ## Why we adopted ADRs
 
-Several years ago we worked on a very complex project which required R&D, technical spikes, benchmarking, load-testing, performance tuning cycles, and further benchmarking in order to find the optimal solution. This process worked incredibly well and we delivered orders of magnitude performance improvements over the existing solution. 
+Several years ago we worked on a very complex project which required R&D, technical spikes, benchmarking, load-testing, performance tuning cycles, and further benchmarking in order to find the optimal solution. This process worked incredibly well and we delivered orders of magnitude performance improvements over the existing solution.
 
-During the end-of-project retrospective we identified two sub-optimal outcomes; firstly we felt that while we had worked minor miracles in our technical solutions, the customer never seemed particularly impressed by the improvements. Secondly, the customer hired a new architect just as we finished delivering the solution, and as part of their onboarding process reviewed the solution and criticized almost every aspect with "I wouldn't have done it that way. At my last job we approached it like X and found it to be best". 
+During the end-of-project retrospective we identified two sub-optimal outcomes; firstly we felt that while we had worked minor miracles in our technical solutions, the customer never seemed particularly impressed by the improvements. Secondly, the customer hired a new architect just as we finished delivering the solution, and as part of their onboarding process reviewed the solution and criticized almost every aspect with "I wouldn't have done it that way. At my last job we approached it like X and found it to be best".
 
-We realized that the two issues were related. For the first problem, we concluded that we had failed to follow the most basic instruction you're given at school; "show your workings". We had hidden all the hard work, all the complexity, all of the hypothesis-testing experiments, and just presented the results _Fait Accompli_. The second problem had the same root cause. Because we had not recorded all of our experiments in a systematic way, we had no evidence to show that the approach the architect considered "best" was actually the first approach we took, but when we benchmarked and load-tested the approach it couldn't handle the data throughput at the price-point required by the customer. "Best" is entirely based on situational context. What's "best" in one situation is inappropriate in another.
+We realized that the two issues were related. For the first problem, we concluded that we had failed to follow the most basic instruction you're given at school; "show your workings". We had hidden all the hard work, all the complexity, all of the hypothesis-testing experiments, and just presented the results *Fait Accompli*. The second problem had the same root cause. Because we had not recorded all of our experiments in a systematic way, we had no evidence to show that the approach the architect considered "best" was actually the first approach we took, but when we benchmarked and load-tested the approach it couldn't handle the data throughput at the price-point required by the customer. "Best" is entirely based on situational context. What's "best" in one situation is inappropriate in another.
 
 We embrace evidence-based-decision-making as part of our experimental approach, and wanted to find a process that would allow us to document this in a formalized way. We did some research and discovered Architectural Decision Records. They have now become a fundamental part of our software and data engineering processes.
 
@@ -96,7 +100,7 @@ As a fully-remote organization, a secondary benefit from adopting ADRs has been 
 
 ## Why create another ADR tool?
 
-One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling. 
+One of the reasons for "re-inventing the wheel" with `adr` when there are so many ADR tools already in existence, is that almost all of those existing tools are opinionated to the point of embedding the ADR templates into the tooling.
 
 Since we adopted ADRs in 2018, we've changed our default template a number of times. Thus, with `adr` we wanted to decouple the tool from the templates, and make use of NuGet content packages as a mechanism to enable the ecosystem to build / use / share their own templates internally (using Azure DevOps or GitHub private package feeds), or publicly using [nuget.org](https://www.nuget.org/packages?q=Tags%3A%22dotnet-adr%22).
 
@@ -104,7 +108,7 @@ Since we adopted ADRs in 2018, we've changed our default template a number of ti
 
 ### Installing dotnet adr
 
-`adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine. 
+`adr` is a [.NET global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools), which means once installed, it's available on the PATH of your machine.
 
 To install the `adr` global tool use the following command:
 
@@ -199,6 +203,7 @@ We have collected a number of popular ADR templates.
 > NOTE: the status of the Open Source License for some of the templates is unclear. See each template for more details.
 
 #### Alexandrian Pattern
+
 ADR using the Alexandrian [Pattern Language Approach](https://en.wikipedia.org/wiki/Pattern_language) coined by Architect Christopher Alexander et. al in 1977, which distils the decision record into the following headings:
 
 - Prologue (Summary)
@@ -211,6 +216,7 @@ Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architectu
 Set as the default template using `adr templates set alexandrian`
 
 #### Business Case Pattern
+
 Emphasizes creating a business case for a decision, including criteria, candidates, and costs, [created by Joel Parker Henderson](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/templates/decision-record-template-for-business-case/index.md), which distils the decision record into the following headings:
 
 - Title
@@ -229,9 +235,10 @@ Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architectu
 Set as the default template using `adr templates set business-case`
 
 #### Markdown Architectural Decision Records (MADR)
+
 Architectural Decisions using Markdown and Architectural Decision Records, by [Oliver Kopp](https://adr.github.io/madr/), which distils the decision record into the following headings:
 
-- Title 
+- Title
 - Status
 - Context and Problem Statement
 - Decision Drivers
@@ -250,6 +257,7 @@ Architectural Decisions using Markdown and Architectural Decision Records, by [O
 Set as the default template using `adr templates set madr`
 
 #### Merson Pattern
+
 An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https://github.com/pmerson/ADR-template) which adds the rationale behind the decision. It distils the decision record into the following headings:
 
 - Title
@@ -263,6 +271,7 @@ An adaptation of the [Nygard pattern](#nygard-pattern), by [Paulo Merson](https:
 Set as the default template using `adr templates set merson`
 
 #### Nygard Pattern
+
 A simple, low-friction "Agile" ADR approach by [Michael Nygard](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions), which distils the decision record into the following headings:
 
 - Title
@@ -276,6 +285,7 @@ A simple, low-friction "Agile" ADR approach by [Michael Nygard](http://thinkrele
 Set as the default template using `adr templates set nygard`
 
 #### Planguage Pattern
+
 A Quality Assurance oriented approach by [John Terzakis](http://www.iaria.org/conferences2012/filesICCGI12/Tutorial%20Specifying%20Effective%20Non-func.pdf), which distils the decision record into the following headings:
 
 - Title
@@ -299,6 +309,7 @@ Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architectu
 Set as the default template using `adr templates set planguage`
 
 #### Tyree and Akerman Pattern
+
 ADR approach by [Jeff Tyree and Art Akerman](https://personal.utdallas.edu/~chung/SA/zz-Impreso-architecture_decisions-tyree-05.pdf), Capital One Financial, which distils the decision record into the following headings:
 
 - Title
@@ -321,7 +332,7 @@ Source [Joel Parker Henderson](https://github.com/joelparkerhenderson/architectu
 
 Set as the default template using `adr templates set tyree-ackerman`
 
-### ADR Templates and ADR Template Packages
+### Custom ADR Templates and ADR Template Packages
 
 ADR Templates are simply markdown files which contain headings and guidance for the end users. The only hard requirement is that they contains `# Title` and `## Status` headings as `adr` uses Regular Expressions to find and replace these values to power the `adr new <TITLE>` and `adr new -s <RECORD NUMBER> <TITLE>` commands.
 
@@ -395,9 +406,9 @@ Next, to download the latest version of 'thirdparty.adr.templates` use the comma
 
 `adr templates install`
 
-To see the currently set default package, use: 
+To see the currently set default package, use:
 
-`adr templates package show` 
+`adr templates package show`
 
 To see the id of the currently set default template, use:
 
@@ -416,6 +427,7 @@ Then:
 `adr templates install`
 
 #### Store template file locally
+
 Optionally, store the template file file inside the repository, and specify the TemplatePath in the `adr.config.json` file.
 
 ```json
@@ -456,6 +468,7 @@ If you want to [Create your own custom ADR Template Package](#create-your-own-cu
 
 ## Community Contributions
 
+- 2023-07-19 - [James Broome](https://twitter.com/jamesbroome_) provides an [overview of ADRs](https://endjin.com/blog/2023/07/architecture-decision-records) and some examples.
 - 2023-06-23 - [Rodrigo Juarez](https://twitter.com/rodrigojuarez) provides an overview of ADRs for .NET Developers and shows you how to get started with `adr`: [What Are Architecture Design Records (ADR), and How Can You Get Started as a .NET Developer?](https://trailheadtechnology.com/what-are-architecture-design-records-adr-and-how-can-you-get-started-as-a-net-developer/)
 - 2021-08-09 - [Christopher Laine](https://medium.com/@domingoladron) wrote a nice blog post about ADRs and dotnet adr: [Architectural Decision Records (ADR) with dotnet-adr](https://medium.com/it-dead-inside/architectural-decision-records-adr-with-dotnet-adr-9fa76104bcd7)
 
@@ -473,10 +486,10 @@ This project is sponsored by [endjin](https://endjin.com), a UK based Technology
 
 > We help small teams achieve big things.
 
-We produce two free weekly newsletters: 
+We produce two free weekly newsletters:
 
- - [Azure Weekly](https://azureweekly.info) for all things about the Microsoft Azure Platform
- - [Power BI Weekly](https://powerbiweekly.info) for all things Power BI, Microsoft Fabric, and Azure Synapse Analytics
+- [Azure Weekly](https://azureweekly.info) for all things about the Microsoft Azure Platform
+- [Power BI Weekly](https://powerbiweekly.info) for all things Power BI, Microsoft Fabric, and Azure Synapse Analytics
 
 Keep up with everything that's going on at endjin via our [blog](https://endjin.com/blog), follow us on [Twitter](https://twitter.com/endjin), [YouTube](https://www.youtube.com/c/endjin) or [LinkedIn](https://www.linkedin.com/company/endjin).
 
@@ -507,7 +520,7 @@ For more information about our products and services, or for commercial support 
 
 ## Code of conduct
 
-This project has adopted a code of conduct adapted from the [Contributor Covenant](http://contributor-covenant.org/) to clarify expected behavior in our community. This code of conduct has been [adopted by many other projects](http://contributor-covenant.org/adopters/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [&#104;&#101;&#108;&#108;&#111;&#064;&#101;&#110;&#100;&#106;&#105;&#110;&#046;&#099;&#111;&#109;](&#109;&#097;&#105;&#108;&#116;&#111;:&#104;&#101;&#108;&#108;&#111;&#064;&#101;&#110;&#100;&#106;&#105;&#110;&#046;&#099;&#111;&#109;) with any additional questions or comments.
+This project has adopted a code of conduct adapted from the [Contributor Covenant](http://contributor-covenant.org/) to clarify expected behaviour in our community. This code of conduct has been [adopted by many other projects](http://contributor-covenant.org/adopters/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [&#104;&#101;&#108;&#108;&#111;&#064;&#101;&#110;&#100;&#106;&#105;&#110;&#046;&#099;&#111;&#109;](&#109;&#097;&#105;&#108;&#116;&#111;:&#104;&#101;&#108;&#108;&#111;&#064;&#101;&#110;&#100;&#106;&#105;&#110;&#046;&#099;&#111;&#109;) with any additional questions or comments.
 
 ## IP Maturity Model (IMM)
 
