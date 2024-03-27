@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="2.0.1" />
+    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
