@@ -1,4 +1,4 @@
-# dotnet adr - Make Future You Thank Past You.
+# dotnet adr - Make Future You Thank Past You
 
 A cross platform .NET Global Tool for creating and managing Architectural Decision Records (ADR).
 
@@ -27,7 +27,7 @@ Create a new ADR using:
 
 ## Table of Contents
 
-- [dotnet adr - Make Future You Thank Past You.](#dotnet-adr---make-future-you-thank-past-you)
+- [dotnet adr - Make Future You Thank Past You](#dotnet-adr---make-future-you-thank-past-you)
   - [TLDR;](#tldr)
   - [Table of Contents](#table-of-contents)
   - [What are Architectural Decision Records?](#what-are-architectural-decision-records)
