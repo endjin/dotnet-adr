@@ -22,7 +22,7 @@ using Spectre.Console.Cli;
 
 namespace Endjin.Adr.Cli.Commands.New;
 
-public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
+public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 {
     private readonly ITemplateSettingsManager templateSettingsManager;
     private readonly IAppEnvironmentManager appEnvironmentManager;
@@ -42,6 +42,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         try
         {
             string targetPath = string.Empty;
+            string templatePath = null;
 
             // If the user hasn't specified the path to create the ADR
             if (!string.IsNullOrEmpty(settings.Path))
@@ -74,6 +75,8 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
                     {
                         rootConfigurationFileInfo.Directory.Create();
                     }
+
+                    templatePath = config.TemplatePath;
                 }
 
                 if (string.IsNullOrEmpty(targetPath))
@@ -86,7 +89,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
             Adr adr = new()
             {
-                Content = CreateNewDefaultTemplate(settings.Title, this.templateSettingsManager),
+                Content = CreateNewDefaultTemplate(settings.Title, this.templateSettingsManager, templatePath),
                 RecordNumber = documents.Count == 0 ? 1 : documents.OrderBy(x => x.RecordNumber).Last().RecordNumber + 1,
                 Title = settings.Title,
             };
@@ -98,7 +101,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
                 if (supersede is not null)
                 {
-                    Regex supersedeRegEx = new(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline);
+                    Regex supersedeRegEx = SupersedeRegex();
 
                     string updatedContent = supersedeRegEx.Replace(supersede.Content, $"\nSuperseded by ADR {adr.RecordNumber:D4} - {adr.Title}\n");
 
@@ -110,7 +113,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
             await File.WriteAllTextAsync(Path.Combine(targetPath, adr.SafeFileName()), adr.Content).ConfigureAwait(false);
 
-            AnsiConsole.MarkupLine($"""Created ADR Record: [aqua]"{settings.Title}"[/]""");
+            AnsiConsole.MarkupLine($"""Created ADR Record: [aqua]"{settings.Title}"[/] in [yellow]{targetPath}[/]""");
         }
         catch (InvalidOperationException)
         {
@@ -121,7 +124,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         return ReturnCodes.Ok;
     }
 
-    private static string CreateNewDefaultTemplate(string title, ITemplateSettingsManager templateSettingsManager)
+    private static string CreateNewDefaultTemplate(string title, ITemplateSettingsManager templateSettingsManager, string templatePath)
     {
         TemplateSettings templateSettings = templateSettingsManager.LoadSettings(nameof(TemplateSettings));
 
@@ -130,12 +133,15 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
             throw new InvalidOperationException("Couldn't load the template settings. Environment may not be initialised");
         }
 
-        TemplatePackageDetail template = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
-        string templateContents = File.ReadAllText(template.FullPath);
+        TemplatePackageDetail defaultTemplate = templateSettings.MetaData.Details.Find(x => x.FullPath == templateSettings.DefaultTemplate);
 
-        Regex yamlHeaderRegExp = new(@"((?:^-{3})(?:.*\n)*(?:^-{3})\n# Title)", RegexOptions.Multiline);
+        string templateContents = File.ReadAllText(templatePath ?? defaultTemplate.FullPath);
 
-        return yamlHeaderRegExp.Replace(templateContents, $"# {title}");
+        Regex yamlHeaderRegExp = YamlHeaderRegex();
+
+        return yamlHeaderRegExp
+            .Replace(templateContents, $"# {title}")
+            .Replace("{DATE}", DateTime.Now.ToShortDateString());
     }
 
     private static async Task<List<Adr>> GetAllAdrFilesFromCurrentDirectoryAsync(string targetPath)
@@ -146,7 +152,7 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
         }
 
         List<Adr> documents = new();
-        Regex fileNameRegExp = new(@"(\d{4}.*\.md)");
+        Regex fileNameRegExp = FileNameRegex();
 
         foreach (string file in Directory.EnumerateFiles(targetPath, "*.md").Where(path => fileNameRegExp.IsMatch(path)))
         {
@@ -163,6 +169,15 @@ public class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
         return documents;
     }
+
+    [GeneratedRegex(@"(\d{4}.*\.md)")]
+    private static partial Regex FileNameRegex();
+
+    [GeneratedRegex(@"((?:^-{3})(?:.*\n)*(?:^-{3})\n# Title)", RegexOptions.Multiline)]
+    private static partial Regex YamlHeaderRegex();
+
+    [GeneratedRegex(@"(?<=## Status.*\n)((?:.|\n)+?)(?=\n##)", RegexOptions.Multiline)]
+    private static partial Regex SupersedeRegex();
 
     public class Settings : CommandSettings
     {

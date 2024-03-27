@@ -71,10 +71,13 @@ param (
     [string] $BuildModulePath,
 
     [Parameter()]
-    [version] $BuildModuleVersion = "1.3.5",
+    [version] $BuildModuleVersion = "1.5.5",
 
     [Parameter()]
-    [version] $InvokeBuildModuleVersion = "5.7.1"
+    [string] $BuildModulePackageVersion = $BuildModuleVersion,
+
+    [Parameter()]
+    [version] $InvokeBuildModuleVersion = "5.10.3"
 )
 
 $ErrorActionPreference = $ErrorActionPreference ? $ErrorActionPreference : 'Stop'
@@ -105,7 +108,7 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
 if (!($BuildModulePath)) {
     if (!(Get-Module -ListAvailable Endjin.RecommendedPractices.Build | ? { $_.Version -eq $BuildModuleVersion })) {
         Write-Information "Installing 'Endjin.RecommendedPractices.Build' module..."
-        Install-Module Endjin.RecommendedPractices.Build -RequiredVersion $BuildModuleVersion -Scope CurrentUser -Force -Repository PSGallery
+        Install-Module Endjin.RecommendedPractices.Build -RequiredVersion $BuildModulePackageVersion -Scope CurrentUser -Force -Repository PSGallery -AllowPrerelease:$($BuildModulePackageVersion -match "-")
     }
     $BuildModulePath = "Endjin.RecommendedPractices.Build"
 }
@@ -126,7 +129,7 @@ $SkipInit = $false
 $SkipVersion = $false
 $SkipBuild = $false
 $CleanBuild = $Clean
-$SkipTest = $true
+$SkipTest = $false
 $SkipTestReport = $false
 $SkipAnalysis = $false
 $SkipPackage = $false
@@ -169,4 +172,3 @@ task PostPackage {}
 task PrePublish {}
 task PostPublish {}
 task RunLast {}
-

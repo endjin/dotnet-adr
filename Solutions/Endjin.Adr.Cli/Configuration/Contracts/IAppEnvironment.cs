@@ -4,20 +4,19 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using NDepend.Path;
+using Spectre.IO;
 
 namespace Endjin.Adr.Cli.Configuration.Contracts;
 
 public interface IAppEnvironment : IAppEnvironmentConfiguration
 {
-    IAbsoluteFilePath NuGetConfigFilePath { get; }
+    FilePath NuGetConfigFilePath { get; }
 
-    IAbsoluteDirectoryPath TemplatesPath { get; }
+    DirectoryPath TemplatesPath { get; }
 
-    IAbsoluteDirectoryPath PluginPath { get; }
+    DirectoryPath PluginPath { get; }
 
-    IEnumerable<IAbsoluteDirectoryPath> PluginPaths { get; }
+    IEnumerable<DirectoryPath> PluginPaths { get; }
 
     void Clean();
 
