@@ -1,3 +1,4 @@
+#requires -Version 7.4
 <#
 .SYNOPSIS
     Runs a .NET flavoured build process.
@@ -71,13 +72,13 @@ param (
     [string] $BuildModulePath,
 
     [Parameter()]
-    [version] $BuildModuleVersion = "1.5.6",
+    [string] $BuildModuleVersion = "1.5.6",
 
     [Parameter()]
-    [string] $BuildModulePackageVersion = $BuildModuleVersion,
+    [switch] $BuildModulePreReleaseVersion,
 
     [Parameter()]
-    [version] $InvokeBuildModuleVersion = "5.10.3"
+    [string] $InvokeBuildModuleVersion = "5.10.3"
 )
 
 $ErrorActionPreference = $ErrorActionPreference ? $ErrorActionPreference : 'Stop'
@@ -86,13 +87,10 @@ $InformationPreference = 'Continue'
 $here = Split-Path -Parent $PSCommandPath
 
 #region InvokeBuild setup
-if (!(Get-Module -ListAvailable InvokeBuild)) {
-    Install-Module InvokeBuild -RequiredVersion $InvokeBuildModuleVersion -Scope CurrentUser -Force -Repository PSGallery
-}
-Import-Module InvokeBuild
 # This handles calling the build engine when this file is run like a normal PowerShell script
 # (i.e. avoids the need to have another script to setup the InvokeBuild environment and issue the 'Invoke-Build' command )
 if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
+    Install-PSResource InvokeBuild -Version $InvokeBuildModuleVersion -Scope CurrentUser -TrustRepository -Verbose | Out-Null
     try {
         Invoke-Build $Tasks $MyInvocation.MyCommand.Path @PSBoundParameters
     }
@@ -106,10 +104,7 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
 
 #region Import shared tasks and initialise build framework
 if (!($BuildModulePath)) {
-    if (!(Get-Module -ListAvailable Endjin.RecommendedPractices.Build | ? { $_.Version -eq $BuildModuleVersion })) {
-        Write-Information "Installing 'Endjin.RecommendedPractices.Build' module..."
-        Install-Module Endjin.RecommendedPractices.Build -RequiredVersion $BuildModulePackageVersion -Scope CurrentUser -Force -Repository PSGallery -AllowPrerelease:$($BuildModulePackageVersion -match "-")
-    }
+    Install-PSResource Endjin.RecommendedPractices.Build -Version $BuildModuleVersion -Prerelease:$BuildModulePreReleaseVersion -Scope CurrentUser -TrustRepository -Verbose | Out-Null
     $BuildModulePath = "Endjin.RecommendedPractices.Build"
 }
 else {
