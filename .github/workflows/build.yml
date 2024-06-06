@@ -61,6 +61,7 @@ jobs:
       forcePublish: ${{ github.event.inputs.forcePublish == 'true' }}
       skipCleanup: ${{ github.event.inputs.skipCleanup == 'true' }}
       publishPhaseEnv: ${{ needs.prepareConfig.outputs.RESOLVED_ENV_VARS }}
+      runsOn: windows-latest
     secrets:
       compilePhaseAzureCredentials: ${{ secrets.ENDJIN_PROD_ACR_READER_CREDENTIALS }}
       compilePhaseSecrets: ${{ needs.prepareConfig.outputs.RESOLVED_SECRETS }}
