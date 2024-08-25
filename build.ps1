@@ -165,7 +165,12 @@ task PreTest {}
 task PostTest {}
 task PreTestReport {}
 task PostTestReport {}
-task PreAnalysis {}
+task PreAnalysis {
+    Write-Host "Current loaded modules:"
+    Get-Module | Format-Table | Out-String | Write-Host
+    Write-Host "Looking for existing 'Start-CopyAzureStorageBlob' command..."
+    Get-Command Start-CopyAzureStorageBlob | Format-Table | Out-String | Write-Host
+}
 task PostAnalysis {}
 task PrePackage {}
 task PostPackage {}
