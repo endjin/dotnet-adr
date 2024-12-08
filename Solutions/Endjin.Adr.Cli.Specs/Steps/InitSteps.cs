@@ -1,8 +1,9 @@
-﻿namespace Corvus.Configuration.Specs.Steps;
+﻿using Reqnroll;
 using Endjin.Adr.Cli;
 using NUnit.Framework;
 using System.Threading.Tasks;
-using TechTalk.SpecFlow;
+
+namespace Corvus.Configuration.Specs.Steps;
 
 [Binding]
 public class InitSteps
@@ -23,7 +24,7 @@ public class InitSteps
     [When("I execute the adr cli")]
     public async Task WhenIExecuteTheAdrCli()
     {
-        string[] args = new string[] { "environment", "init",  this.scenarioContext.Get<string>("Directory") };
+        string[] args = ["environment", "init",  this.scenarioContext.Get<string>("Directory")];
 
         int result = await Program.Main(args).ConfigureAwait(false);
 
