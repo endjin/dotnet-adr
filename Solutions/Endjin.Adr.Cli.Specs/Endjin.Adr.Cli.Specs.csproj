@@ -12,17 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="2.0.1" />
+    <PackageReference Include="Corvus.Testing.ReqnRoll.NUnit" Version="4.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Endjin.Adr.Cli\Endjin.Adr.Cli.csproj" />
-  </ItemGroup>
- 
-  <ItemGroup>
-    <None Update="specflow.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
