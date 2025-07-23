@@ -141,7 +141,8 @@ public partial class NewAdrCommand : AsyncCommand<NewAdrCommand.Settings>
 
         return yamlHeaderRegExp
             .Replace(templateContents, $"# {title}")
-            .Replace("{DATE}", DateTime.Now.ToShortDateString());
+            .Replace("{DATE}", DateTime.Now.ToShortDateString())
+            .Replace("{TITLE}", title);
     }
 
     private static async Task<List<Adr>> GetAllAdrFilesFromCurrentDirectoryAsync(string targetPath)
